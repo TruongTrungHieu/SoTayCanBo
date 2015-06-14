@@ -1,0 +1,15 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="it.neokree.materialnavigationdrawer"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+<application></application>
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="21"
+        tools:overrideLibrary="com.balysv.materialripple">
+    </uses-sdk>
+
+</manifest>
