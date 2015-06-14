@@ -17,6 +17,10 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int accountStyle=0x7f0100c3;
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -444,6 +448,15 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int customNavigationLayout=0x7f010060;
+        /**  true -> attivo, false -> disattivato 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int defaultSectionLoaded=0x7f0100c5;
         /**  Whether this spinner should mark child views as enabled/disabled when
              the spinner itself is enabled/disabled. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -512,6 +525,24 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int drawerArrowStyle=0x7f0100a1;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int drawerColor=0x7f0100c0;
+        /**  supporto del ripple nelle versioni precedenti di android 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int drawerType=0x7f0100bc;
         /**  ListPopupWindow compatibility 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -661,6 +692,14 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int layout=0x7f010079;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int learningPattern=0x7f0100c4;
         /**  Drawable used as a background for selected list items. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -762,6 +801,117 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int middleBarArrowSize=0x7f01009e;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleAlpha=0x7f0100ac;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleBackground=0x7f0100b0;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleColor=0x7f0100a9;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleDelayClick=0x7f0100b1;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleDimension=0x7f0100aa;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleDuration=0x7f0100ad;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleFadeDuration=0x7f0100ae;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleHover=0x7f0100af;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleInAdapter=0x7f0100b3;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleOverlay=0x7f0100ab;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_ripplePersistent=0x7f0100b2;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleRoundedCorners=0x7f0100b4;
+        /**  utente singolo (senza pulsante di cambio) 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int multipaneSupport=0x7f0100bf;
         /**  Text to set as the content description for the navigation button
              located at the start of the toolbar. 
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
@@ -910,6 +1060,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int queryHint=0x7f01007b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int rippleBackport=0x7f0100bb;
         /**  Search icon 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -920,6 +1078,65 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int searchViewStyle=0x7f01003f;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int sectionBackgroundColor=0x7f0100ba;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int sectionBackgroundColorPressed=0x7f0100b8;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int sectionBackgroundColorSelected=0x7f0100b9;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int sectionColorIcon=0x7f0100b5;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int sectionColorNotification=0x7f0100b7;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int sectionColorText=0x7f0100b6;
+        /**  Colore del drawer 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int sectionStyle=0x7f0100c1;
         /**  A style that may be applied to buttons or other selectable items
              that should react to pressed and focus states, but that do not
              have a clear visual border along the edges. 
@@ -979,6 +1196,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int showText=0x7f0100a8;
+        /**  La toolbar non cambia mai di colore 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int singleAccount=0x7f0100be;
         /**  Whether bars should rotate or not during transition 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
@@ -1029,6 +1255,19 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int state_above_anchor=0x7f010097;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int subheaderStyle=0x7f0100c2;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int subheaderTitleColor=0x7f0100c7;
         /**  Background for the section containing the action (e.g. voice search) 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -1043,6 +1282,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int subtitle=0x7f010057;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int subtitleColor=0x7f0100c9;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -1170,6 +1418,15 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int title=0x7f010000;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int titleColor=0x7f0100c8;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -1229,6 +1486,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int titleTextStyle=0x7f010058;
+        /**  la prima section ad essere caricata 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int toolbarElevation=0x7f0100c6;
         /**  Default Toolar NavigationButtonStyle 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -1255,6 +1521,15 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int track=0x7f0100a2;
+        /**  Tipologia del drawer 
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uniqueToolbarColor=0x7f0100bd;
         /**  Voice button icon 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -1376,23 +1651,24 @@ containing a value of this type.
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f050003;
     }
     public static final class color {
-        public static final int abc_background_cache_hint_selector_material_dark=0x7f060031;
-        public static final int abc_background_cache_hint_selector_material_light=0x7f060032;
+        public static final int abc_background_cache_hint_selector_material_dark=0x7f060036;
+        public static final int abc_background_cache_hint_selector_material_light=0x7f060037;
         public static final int abc_input_method_navigation_guard=0x7f060003;
-        public static final int abc_primary_text_disable_only_material_dark=0x7f060033;
-        public static final int abc_primary_text_disable_only_material_light=0x7f060034;
-        public static final int abc_primary_text_material_dark=0x7f060035;
-        public static final int abc_primary_text_material_light=0x7f060036;
-        public static final int abc_search_url_text=0x7f060037;
+        public static final int abc_primary_text_disable_only_material_dark=0x7f060038;
+        public static final int abc_primary_text_disable_only_material_light=0x7f060039;
+        public static final int abc_primary_text_material_dark=0x7f06003a;
+        public static final int abc_primary_text_material_light=0x7f06003b;
+        public static final int abc_search_url_text=0x7f06003c;
         public static final int abc_search_url_text_normal=0x7f060000;
         public static final int abc_search_url_text_pressed=0x7f060002;
         public static final int abc_search_url_text_selected=0x7f060001;
-        public static final int abc_secondary_text_material_dark=0x7f060038;
-        public static final int abc_secondary_text_material_light=0x7f060039;
+        public static final int abc_secondary_text_material_dark=0x7f06003d;
+        public static final int abc_secondary_text_material_light=0x7f06003e;
         public static final int accent_material_dark=0x7f06000f;
         public static final int accent_material_light=0x7f06000e;
         public static final int background_floating_material_dark=0x7f060006;
         public static final int background_floating_material_light=0x7f060007;
+        public static final int background_grey=0x7f060034;
         public static final int background_material_dark=0x7f060004;
         public static final int background_material_light=0x7f060005;
         /**  White 50% 
@@ -1407,6 +1683,8 @@ containing a value of this type.
         public static final int bright_foreground_material_light=0x7f060015;
         public static final int button_material_dark=0x7f060010;
         public static final int button_material_light=0x7f060011;
+        public static final int colorDarkPrimary=0x7f060033;
+        public static final int colorPrimary=0x7f060032;
         public static final int dim_foreground_disabled_material_dark=0x7f06001c;
         public static final int dim_foreground_disabled_material_light=0x7f06001d;
         public static final int dim_foreground_material_dark=0x7f06001a;
@@ -1446,6 +1724,8 @@ containing a value of this type.
         public static final int secondary_text_disabled_material_light=0x7f060029;
         public static final int switch_thumb_normal_material_dark=0x7f060012;
         public static final int switch_thumb_normal_material_light=0x7f060013;
+        public static final int transparent=0x7f060031;
+        public static final int white=0x7f060035;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1543,8 +1823,8 @@ containing a value of this type.
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f07002b;
-        public static final int activity_vertical_margin=0x7f07002c;
+        public static final int activity_horizontal_margin=0x7f070031;
+        public static final int activity_vertical_margin=0x7f070032;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -1579,6 +1859,14 @@ containing a value of this type.
         public static final int dialog_fixed_width_minor=0x7f07000d;
         public static final int disabled_alpha_material_dark=0x7f070001;
         public static final int disabled_alpha_material_light=0x7f070000;
+        /**  match_parent = -1dp / wrap_content = -2dp 
+         */
+        public static final int drawerWidth=0x7f07002e;
+        public static final int photoMarginTop=0x7f07002d;
+        public static final int statusMargin=0x7f07002b;
+        public static final int traslucentPhotoMarginTop=0x7f070030;
+        public static final int traslucentStatusMargin=0x7f07002f;
+        public static final int userSpace=0x7f07002c;
     }
     public static final class drawable {
         public static final int abc_ab_share_pack_holo_dark=0x7f020000;
@@ -1632,7 +1920,22 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_launcher=0x7f020033;
+        public static final int account_ava=0x7f020033;
+        public static final int account_bg=0x7f020034;
+        public static final int bg_main=0x7f020035;
+        public static final int black_gradient=0x7f020036;
+        public static final int button_bolder=0x7f020037;
+        public static final int fab_ic_add=0x7f020038;
+        public static final int fab_shape=0x7f020039;
+        public static final int ic_account_circle_black_48dp=0x7f02003a;
+        public static final int ic_arrow_drop_down_white_24dp=0x7f02003b;
+        public static final int ic_arrow_drop_up_white_24dp=0x7f02003c;
+        public static final int ic_launcher=0x7f02003d;
+        public static final int ic_wallet_travel_black_48dp=0x7f02003e;
+        public static final int layout_border=0x7f02003f;
+        public static final int logo_hou=0x7f020040;
+        public static final int menu_sotay_material=0x7f020041;
+        public static final int splash=0x7f020042;
     }
     public static final class id {
         public static final int action_bar=0x7f090031;
@@ -1648,28 +1951,41 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f09002e;
         public static final int action_mode_bar_stub=0x7f09002d;
         public static final int action_mode_close_button=0x7f090020;
-        public static final int action_settings=0x7f09003f;
+        public static final int action_settings=0x7f09005d;
         public static final int activity_chooser_view_content=0x7f090021;
         public static final int always=0x7f090014;
         public static final int beginning=0x7f09001b;
+        public static final int bottom_sections=0x7f09004d;
+        public static final int btn_login=0x7f090049;
         public static final int checkbox=0x7f090029;
         public static final int collapseActionView=0x7f090015;
+        public static final int content=0x7f09004b;
         public static final int decor_content_parent=0x7f09002f;
         public static final int default_activity_button=0x7f090024;
         public static final int dialog=0x7f090019;
         public static final int disableHome=0x7f09000d;
+        public static final int drawer=0x7f09004c;
+        public static final int drawer_header=0x7f090058;
+        public static final int drawer_layout=0x7f090041;
         public static final int dropdown=0x7f09001a;
+        public static final int edit_email=0x7f090047;
+        public static final int edit_pass=0x7f090048;
         public static final int edit_query=0x7f090033;
         public static final int end=0x7f09001c;
         public static final int expand_activities_button=0x7f090022;
         public static final int expanded_menu=0x7f090028;
+        public static final int frame_container=0x7f090042;
+        public static final int gradient=0x7f090054;
         public static final int home=0x7f090000;
         public static final int homeAsUp=0x7f09000e;
         public static final int icon=0x7f090026;
         public static final int ifRoom=0x7f090016;
         public static final int image=0x7f090023;
+        public static final int linear2=0x7f090043;
+        public static final int linear3=0x7f090044;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090025;
+        public static final int logo_tv=0x7f090045;
         public static final int middle=0x7f09001d;
         public static final int never=0x7f090017;
         public static final int none=0x7f09000f;
@@ -1687,20 +2003,41 @@ containing a value of this type.
         public static final int search_plate=0x7f090039;
         public static final int search_src_text=0x7f09003a;
         public static final int search_voice_btn=0x7f09003e;
+        public static final int section_icon=0x7f09005b;
+        public static final int section_notification=0x7f09005a;
+        public static final int section_ripple=0x7f09005c;
+        public static final int section_text=0x7f090059;
+        public static final int sections=0x7f090053;
         public static final int shortcut=0x7f09002a;
         public static final int showCustom=0x7f090010;
         public static final int showHome=0x7f090011;
         public static final int showTitle=0x7f090012;
         public static final int split_action_bar=0x7f090004;
+        public static final int statusBar=0x7f09003f;
         public static final int submit_area=0x7f09003c;
         public static final int tabMode=0x7f09000c;
         public static final int title=0x7f090027;
+        public static final int toolbar=0x7f090040;
+        public static final int tv_quenmatkhau=0x7f09004a;
         public static final int up=0x7f090001;
         public static final int useLogo=0x7f090013;
+        public static final int user_cover=0x7f09004f;
+        public static final int user_cover_switcher=0x7f09004e;
+        public static final int user_email=0x7f090056;
+        public static final int user_nome=0x7f090055;
+        public static final int user_photo=0x7f090050;
+        public static final int user_photo_2=0x7f090051;
+        public static final int user_photo_3=0x7f090052;
+        public static final int user_switcher=0x7f090057;
+        public static final int view1=0x7f090046;
         public static final int withText=0x7f090018;
         public static final int wrap_content=0x7f090009;
     }
     public static final class integer {
+        public static final int DRAWERTYPE_ACCOUNTS=0x7f080001;
+        public static final int DRAWERTYPE_CUSTOM=0x7f080003;
+        public static final int DRAWERTYPE_IMAGE=0x7f080002;
+        public static final int DRAWERTYPE_NO_HEADER=0x7f080004;
         /**  The maximum number of action buttons that should be permitted within
          an action bar/action mode. This will be used to determine how many
          showAsAction="ifRoom" items can fit. "always" items can override this. 
@@ -1749,11 +2086,28 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030014;
         public static final int abc_search_view=0x7f030015;
         public static final int abc_simple_dropdown_hint=0x7f030016;
-        public static final int activity_main=0x7f030017;
-        public static final int support_simple_spinner_dropdown_item=0x7f030018;
+        public static final int activity_google_navigation_drawer=0x7f030017;
+        public static final int activity_login=0x7f030018;
+        public static final int activity_main=0x7f030019;
+        public static final int activity_material_navigation_drawer=0x7f03001a;
+        public static final int activity_material_navigation_drawer_customheader=0x7f03001b;
+        public static final int activity_splash=0x7f03001c;
+        public static final int fragment_sotay=0x7f03001d;
+        public static final int layout_drawer=0x7f03001e;
+        public static final int layout_drawer_customheader=0x7f03001f;
+        public static final int layout_material_section=0x7f030020;
+        public static final int layout_material_section_icon=0x7f030021;
+        public static final int layout_material_section_icon_large=0x7f030022;
+        public static final int layout_material_section_icon_large_ripple=0x7f030023;
+        public static final int layout_material_section_icon_ripple=0x7f030024;
+        public static final int layout_material_section_ripple=0x7f030025;
+        public static final int layout_toolbar_elevation=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
-        public static final int main=0x7f0c0000;
+        public static final int login=0x7f0c0000;
+        public static final int main=0x7f0c0001;
+        public static final int splash=0x7f0c0002;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1812,11 +2166,17 @@ containing a value of this type.
         /**  Content description for the Toolbar icon used to collapse an expanded action mode. [CHAR LIMIT=NONE] 
          */
         public static final int abc_toolbar_collapse_description=0x7f0a0004;
-        public static final int action_settings=0x7f0a0012;
-        public static final int app_name=0x7f0a0010;
-        public static final int hello_world=0x7f0a0011;
+        public static final int action_settings=0x7f0a0013;
+        public static final int app_name=0x7f0a0011;
+        public static final int hello_world=0x7f0a0012;
+        public static final int nothing=0x7f0a0010;
+        public static final int title_activity_login=0x7f0a0015;
+        public static final int title_activity_splash=0x7f0a0014;
     }
     public static final class style {
+        /**  Accounts 
+         */
+        public static final int AccountsLight=0x7f0b00f9;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -1838,11 +2198,11 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b00eb;
+        public static final int AppBaseTheme=0x7f0b00f6;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f0b00ec;
+        public static final int AppTheme=0x7f0b00f7;
         public static final int Base_TextAppearance_AppCompat=0x7f0b0098;
         public static final int Base_TextAppearance_AppCompat_Body1=0x7f0b00a3;
         public static final int Base_TextAppearance_AppCompat_Body2=0x7f0b00a2;
@@ -1987,6 +2347,20 @@ containing a value of this type.
     
          */
         public static final int Base_Widget_AppCompat_Toolbar_Button_Navigation=0x7f0b0090;
+        public static final int MaterialAccountTheme=0x7f0b00f5;
+        public static final int MaterialNavigationDrawerTheme=0x7f0b00eb;
+        public static final int MaterialNavigationDrawerTheme_Light=0x7f0b00ec;
+        public static final int MaterialNavigationDrawerTheme_Light_DarkActionBar=0x7f0b00ed;
+        public static final int MaterialNavigationDrawerTheme_Light_DarkActionBar_TranslucentKitKatStatusBar=0x7f0b00f0;
+        public static final int MaterialNavigationDrawerTheme_Light_TranslucentKitKatStatusBar=0x7f0b00ee;
+        public static final int MaterialNavigationDrawerTheme_TranslucentKitKatStatusBar=0x7f0b00ef;
+        public static final int MaterialSectionTheme=0x7f0b00f1;
+        public static final int MaterialSectionTheme_Light=0x7f0b00f2;
+        public static final int MaterialSubheaderTheme=0x7f0b00f3;
+        public static final int MaterialSubheaderTheme_Light=0x7f0b00f4;
+        /**  Theme Without ActionBar 
+         */
+        public static final int NoActionBar=0x7f0b00f8;
         public static final int Platform_AppCompat=0x7f0b00c9;
         public static final int Platform_AppCompat_Dialog=0x7f0b00cb;
         public static final int Platform_AppCompat_Light=0x7f0b00ca;
@@ -3277,6 +3651,612 @@ containing a value of this type.
           @attr name android:dropDownVerticalOffset
         */
         public static final int ListPopupWindow_android_dropDownVerticalOffset = 1;
+        /** Attributes that can be used with a MaterialAccount.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialAccount_subtitleColor com.hou.sotaycanbo:subtitleColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialAccount_titleColor com.hou.sotaycanbo:titleColor}</code></td><td></td></tr>
+           </table>
+           @see #MaterialAccount_subtitleColor
+           @see #MaterialAccount_titleColor
+         */
+        public static final int[] MaterialAccount = {
+            0x7f0100c8, 0x7f0100c9
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#subtitleColor}
+          attribute's value can be found in the {@link #MaterialAccount} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:subtitleColor
+        */
+        public static final int MaterialAccount_subtitleColor = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#titleColor}
+          attribute's value can be found in the {@link #MaterialAccount} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:titleColor
+        */
+        public static final int MaterialAccount_titleColor = 0;
+        /** Attributes that can be used with a MaterialNavigationDrawer.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_accountStyle com.hou.sotaycanbo:accountStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_defaultSectionLoaded com.hou.sotaycanbo:defaultSectionLoaded}</code></td><td> true -> attivo, false -> disattivato </td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_drawerColor com.hou.sotaycanbo:drawerColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_drawerType com.hou.sotaycanbo:drawerType}</code></td><td> supporto del ripple nelle versioni precedenti di android </td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_learningPattern com.hou.sotaycanbo:learningPattern}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_multipaneSupport com.hou.sotaycanbo:multipaneSupport}</code></td><td> utente singolo (senza pulsante di cambio) </td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_rippleBackport com.hou.sotaycanbo:rippleBackport}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_sectionStyle com.hou.sotaycanbo:sectionStyle}</code></td><td> Colore del drawer </td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_singleAccount com.hou.sotaycanbo:singleAccount}</code></td><td> La toolbar non cambia mai di colore </td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_subheaderStyle com.hou.sotaycanbo:subheaderStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_toolbarElevation com.hou.sotaycanbo:toolbarElevation}</code></td><td> la prima section ad essere caricata </td></tr>
+           <tr><td><code>{@link #MaterialNavigationDrawer_uniqueToolbarColor com.hou.sotaycanbo:uniqueToolbarColor}</code></td><td> Tipologia del drawer </td></tr>
+           </table>
+           @see #MaterialNavigationDrawer_accountStyle
+           @see #MaterialNavigationDrawer_defaultSectionLoaded
+           @see #MaterialNavigationDrawer_drawerColor
+           @see #MaterialNavigationDrawer_drawerType
+           @see #MaterialNavigationDrawer_learningPattern
+           @see #MaterialNavigationDrawer_multipaneSupport
+           @see #MaterialNavigationDrawer_rippleBackport
+           @see #MaterialNavigationDrawer_sectionStyle
+           @see #MaterialNavigationDrawer_singleAccount
+           @see #MaterialNavigationDrawer_subheaderStyle
+           @see #MaterialNavigationDrawer_toolbarElevation
+           @see #MaterialNavigationDrawer_uniqueToolbarColor
+         */
+        public static final int[] MaterialNavigationDrawer = {
+            0x7f0100bb, 0x7f0100bc, 0x7f0100bd, 0x7f0100be,
+            0x7f0100bf, 0x7f0100c0, 0x7f0100c1, 0x7f0100c2,
+            0x7f0100c3, 0x7f0100c4, 0x7f0100c5, 0x7f0100c6
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#accountStyle}
+          attribute's value can be found in the {@link #MaterialNavigationDrawer} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.hou.sotaycanbo:accountStyle
+        */
+        public static final int MaterialNavigationDrawer_accountStyle = 8;
+        /**
+          <p>
+          @attr description
+           true -> attivo, false -> disattivato 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:defaultSectionLoaded
+        */
+        public static final int MaterialNavigationDrawer_defaultSectionLoaded = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#drawerColor}
+          attribute's value can be found in the {@link #MaterialNavigationDrawer} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:drawerColor
+        */
+        public static final int MaterialNavigationDrawer_drawerColor = 5;
+        /**
+          <p>
+          @attr description
+           supporto del ripple nelle versioni precedenti di android 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:drawerType
+        */
+        public static final int MaterialNavigationDrawer_drawerType = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#learningPattern}
+          attribute's value can be found in the {@link #MaterialNavigationDrawer} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:learningPattern
+        */
+        public static final int MaterialNavigationDrawer_learningPattern = 9;
+        /**
+          <p>
+          @attr description
+           utente singolo (senza pulsante di cambio) 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:multipaneSupport
+        */
+        public static final int MaterialNavigationDrawer_multipaneSupport = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#rippleBackport}
+          attribute's value can be found in the {@link #MaterialNavigationDrawer} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:rippleBackport
+        */
+        public static final int MaterialNavigationDrawer_rippleBackport = 0;
+        /**
+          <p>
+          @attr description
+           Colore del drawer 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:sectionStyle
+        */
+        public static final int MaterialNavigationDrawer_sectionStyle = 6;
+        /**
+          <p>
+          @attr description
+           La toolbar non cambia mai di colore 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:singleAccount
+        */
+        public static final int MaterialNavigationDrawer_singleAccount = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#subheaderStyle}
+          attribute's value can be found in the {@link #MaterialNavigationDrawer} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.hou.sotaycanbo:subheaderStyle
+        */
+        public static final int MaterialNavigationDrawer_subheaderStyle = 7;
+        /**
+          <p>
+          @attr description
+           la prima section ad essere caricata 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:toolbarElevation
+        */
+        public static final int MaterialNavigationDrawer_toolbarElevation = 11;
+        /**
+          <p>
+          @attr description
+           Tipologia del drawer 
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.hou.sotaycanbo:uniqueToolbarColor
+        */
+        public static final int MaterialNavigationDrawer_uniqueToolbarColor = 2;
+        /** Attributes that can be used with a MaterialRippleLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleAlpha com.hou.sotaycanbo:mrl_rippleAlpha}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleBackground com.hou.sotaycanbo:mrl_rippleBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleColor com.hou.sotaycanbo:mrl_rippleColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleDelayClick com.hou.sotaycanbo:mrl_rippleDelayClick}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleDimension com.hou.sotaycanbo:mrl_rippleDimension}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleDuration com.hou.sotaycanbo:mrl_rippleDuration}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleFadeDuration com.hou.sotaycanbo:mrl_rippleFadeDuration}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleHover com.hou.sotaycanbo:mrl_rippleHover}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleInAdapter com.hou.sotaycanbo:mrl_rippleInAdapter}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleOverlay com.hou.sotaycanbo:mrl_rippleOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_ripplePersistent com.hou.sotaycanbo:mrl_ripplePersistent}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleRoundedCorners com.hou.sotaycanbo:mrl_rippleRoundedCorners}</code></td><td></td></tr>
+           </table>
+           @see #MaterialRippleLayout_mrl_rippleAlpha
+           @see #MaterialRippleLayout_mrl_rippleBackground
+           @see #MaterialRippleLayout_mrl_rippleColor
+           @see #MaterialRippleLayout_mrl_rippleDelayClick
+           @see #MaterialRippleLayout_mrl_rippleDimension
+           @see #MaterialRippleLayout_mrl_rippleDuration
+           @see #MaterialRippleLayout_mrl_rippleFadeDuration
+           @see #MaterialRippleLayout_mrl_rippleHover
+           @see #MaterialRippleLayout_mrl_rippleInAdapter
+           @see #MaterialRippleLayout_mrl_rippleOverlay
+           @see #MaterialRippleLayout_mrl_ripplePersistent
+           @see #MaterialRippleLayout_mrl_rippleRoundedCorners
+         */
+        public static final int[] MaterialRippleLayout = {
+            0x7f0100a9, 0x7f0100aa, 0x7f0100ab, 0x7f0100ac,
+            0x7f0100ad, 0x7f0100ae, 0x7f0100af, 0x7f0100b0,
+            0x7f0100b1, 0x7f0100b2, 0x7f0100b3, 0x7f0100b4
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleAlpha}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleAlpha
+        */
+        public static final int MaterialRippleLayout_mrl_rippleAlpha = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleBackground}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleBackground
+        */
+        public static final int MaterialRippleLayout_mrl_rippleBackground = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleColor}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleColor
+        */
+        public static final int MaterialRippleLayout_mrl_rippleColor = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleDelayClick}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleDelayClick
+        */
+        public static final int MaterialRippleLayout_mrl_rippleDelayClick = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleDimension}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleDimension
+        */
+        public static final int MaterialRippleLayout_mrl_rippleDimension = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleDuration}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleDuration
+        */
+        public static final int MaterialRippleLayout_mrl_rippleDuration = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleFadeDuration}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleFadeDuration
+        */
+        public static final int MaterialRippleLayout_mrl_rippleFadeDuration = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleHover}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleHover
+        */
+        public static final int MaterialRippleLayout_mrl_rippleHover = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleInAdapter}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleInAdapter
+        */
+        public static final int MaterialRippleLayout_mrl_rippleInAdapter = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleOverlay}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleOverlay
+        */
+        public static final int MaterialRippleLayout_mrl_rippleOverlay = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_ripplePersistent}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_ripplePersistent
+        */
+        public static final int MaterialRippleLayout_mrl_ripplePersistent = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#mrl_rippleRoundedCorners}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:mrl_rippleRoundedCorners
+        */
+        public static final int MaterialRippleLayout_mrl_rippleRoundedCorners = 11;
+        /** Attributes that can be used with a MaterialSection.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialSection_sectionBackgroundColor com.hou.sotaycanbo:sectionBackgroundColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialSection_sectionBackgroundColorPressed com.hou.sotaycanbo:sectionBackgroundColorPressed}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialSection_sectionBackgroundColorSelected com.hou.sotaycanbo:sectionBackgroundColorSelected}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialSection_sectionColorIcon com.hou.sotaycanbo:sectionColorIcon}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialSection_sectionColorNotification com.hou.sotaycanbo:sectionColorNotification}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialSection_sectionColorText com.hou.sotaycanbo:sectionColorText}</code></td><td></td></tr>
+           </table>
+           @see #MaterialSection_sectionBackgroundColor
+           @see #MaterialSection_sectionBackgroundColorPressed
+           @see #MaterialSection_sectionBackgroundColorSelected
+           @see #MaterialSection_sectionColorIcon
+           @see #MaterialSection_sectionColorNotification
+           @see #MaterialSection_sectionColorText
+         */
+        public static final int[] MaterialSection = {
+            0x7f0100b5, 0x7f0100b6, 0x7f0100b7, 0x7f0100b8,
+            0x7f0100b9, 0x7f0100ba
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#sectionBackgroundColor}
+          attribute's value can be found in the {@link #MaterialSection} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:sectionBackgroundColor
+        */
+        public static final int MaterialSection_sectionBackgroundColor = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#sectionBackgroundColorPressed}
+          attribute's value can be found in the {@link #MaterialSection} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:sectionBackgroundColorPressed
+        */
+        public static final int MaterialSection_sectionBackgroundColorPressed = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#sectionBackgroundColorSelected}
+          attribute's value can be found in the {@link #MaterialSection} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:sectionBackgroundColorSelected
+        */
+        public static final int MaterialSection_sectionBackgroundColorSelected = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#sectionColorIcon}
+          attribute's value can be found in the {@link #MaterialSection} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:sectionColorIcon
+        */
+        public static final int MaterialSection_sectionColorIcon = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#sectionColorNotification}
+          attribute's value can be found in the {@link #MaterialSection} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:sectionColorNotification
+        */
+        public static final int MaterialSection_sectionColorNotification = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#sectionColorText}
+          attribute's value can be found in the {@link #MaterialSection} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:sectionColorText
+        */
+        public static final int MaterialSection_sectionColorText = 1;
+        /** Attributes that can be used with a MaterialSubheader.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialSubheader_subheaderTitleColor com.hou.sotaycanbo:subheaderTitleColor}</code></td><td></td></tr>
+           </table>
+           @see #MaterialSubheader_subheaderTitleColor
+         */
+        public static final int[] MaterialSubheader = {
+            0x7f0100c7
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.hou.sotaycanbo.R.attr#subheaderTitleColor}
+          attribute's value can be found in the {@link #MaterialSubheader} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.hou.sotaycanbo:subheaderTitleColor
+        */
+        public static final int MaterialSubheader_subheaderTitleColor = 0;
         /**  Base attributes that are available to all groups. 
            <p>Includes the following attributes:</p>
            <table>

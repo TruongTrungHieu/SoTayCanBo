@@ -4,7 +4,7 @@
  * aapt tool from the resource data it found.  It
  * should not be modified by hand.
  */
-package android.support.v7.appcompat;
+package com.balysv.materialripple;
 
 public final class R {
 	public static final class anim {
@@ -113,6 +113,18 @@ public final class R {
 		public static final int maxButtonHeight = 0x7f010091;
 		public static final int measureWithLargestChild = 0x7f010087;
 		public static final int middleBarArrowSize = 0x7f01009e;
+		public static final int mrl_rippleAlpha = 0x7f0100ac;
+		public static final int mrl_rippleBackground = 0x7f0100b0;
+		public static final int mrl_rippleColor = 0x7f0100a9;
+		public static final int mrl_rippleDelayClick = 0x7f0100b1;
+		public static final int mrl_rippleDimension = 0x7f0100aa;
+		public static final int mrl_rippleDuration = 0x7f0100ad;
+		public static final int mrl_rippleFadeDuration = 0x7f0100ae;
+		public static final int mrl_rippleHover = 0x7f0100af;
+		public static final int mrl_rippleInAdapter = 0x7f0100b3;
+		public static final int mrl_rippleOverlay = 0x7f0100ab;
+		public static final int mrl_ripplePersistent = 0x7f0100b2;
+		public static final int mrl_rippleRoundedCorners = 0x7f0100b4;
 		public static final int navigationContentDescription = 0x7f010096;
 		public static final int navigationIcon = 0x7f010095;
 		public static final int navigationMode = 0x7f010055;
@@ -253,6 +265,7 @@ public final class R {
 		public static final int secondary_text_disabled_material_light = 0x7f060029;
 		public static final int switch_thumb_normal_material_dark = 0x7f060012;
 		public static final int switch_thumb_normal_material_light = 0x7f060013;
+		public static final int transparent = 0x7f060031;
 	}
 	public static final class dimen {
 		public static final int abc_action_bar_default_height_material = 0x7f070014;
@@ -774,6 +787,19 @@ public final class R {
 		public static final int[] ListPopupWindow = { 0x010102ac, 0x010102ad };
 		public static final int ListPopupWindow_android_dropDownHorizontalOffset = 0;
 		public static final int ListPopupWindow_android_dropDownVerticalOffset = 1;
+		public static final int[] MaterialRippleLayout = { 0x7f0100a9, 0x7f0100aa, 0x7f0100ab, 0x7f0100ac, 0x7f0100ad, 0x7f0100ae, 0x7f0100af, 0x7f0100b0, 0x7f0100b1, 0x7f0100b2, 0x7f0100b3, 0x7f0100b4 };
+		public static final int MaterialRippleLayout_mrl_rippleAlpha = 3;
+		public static final int MaterialRippleLayout_mrl_rippleBackground = 7;
+		public static final int MaterialRippleLayout_mrl_rippleColor = 0;
+		public static final int MaterialRippleLayout_mrl_rippleDelayClick = 8;
+		public static final int MaterialRippleLayout_mrl_rippleDimension = 1;
+		public static final int MaterialRippleLayout_mrl_rippleDuration = 4;
+		public static final int MaterialRippleLayout_mrl_rippleFadeDuration = 5;
+		public static final int MaterialRippleLayout_mrl_rippleHover = 6;
+		public static final int MaterialRippleLayout_mrl_rippleInAdapter = 10;
+		public static final int MaterialRippleLayout_mrl_rippleOverlay = 2;
+		public static final int MaterialRippleLayout_mrl_ripplePersistent = 9;
+		public static final int MaterialRippleLayout_mrl_rippleRoundedCorners = 11;
 		public static final int[] MenuGroup = { 0x0101000e, 0x010100d0, 0x01010194, 0x010101de, 0x010101df, 0x010101e0 };
 		public static final int MenuGroup_android_checkableBehavior = 5;
 		public static final int MenuGroup_android_enabled = 0;
