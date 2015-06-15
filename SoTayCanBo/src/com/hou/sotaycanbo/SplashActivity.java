@@ -10,12 +10,12 @@ import android.view.MenuItem;
 public class SplashActivity extends Activity {
 
 	private final int SPLASH_DISPLAY_LENGTH = 1000;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		
+
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -24,13 +24,29 @@ public class SplashActivity extends Activity {
 		}, SPLASH_DISPLAY_LENGTH);
 	}
 
-	public void changeActivity(){
-//		Intent main = new Intent(SplashActivity.this, FragmentManagerActivity.class);
-		Intent main = new Intent(SplashActivity.this, LoginActivity.class);
-		startActivity(main);
+	public void changeActivity() {
+		if (check()) {
+			Intent main = new Intent(SplashActivity.this,
+					FragmentManagerActivity.class);
+			startActivity(main);
+		} else {
+			Intent login = new Intent(SplashActivity.this, LoginActivity.class);
+			startActivity(login);
+		}
+
 		finish();
 	}
-	
+
+	// kiem tra user da dang nhap lan nao chua
+	public boolean check() {
+		boolean check = false;
+		if (true) {
+			// kiểm tra đã lưu references user và chọn nhớ mật khẩu
+			check = true;
+		}
+		return check;
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
