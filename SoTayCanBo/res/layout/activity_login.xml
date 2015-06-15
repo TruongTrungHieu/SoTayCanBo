@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.hou.sotaycanbo.LoginActivity"
-    android:background="@drawable/bg_main" >
+    tools:context="com.hou.sotaycanbo.LoginActivity" >
 
     <LinearLayout
         android:id="@+id/linear2"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:gravity="center_horizontal|center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
@@ -24,19 +24,25 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="10dp" >
+            android:paddingTop="15dp"
+            android:gravity="center_horizontal" >
 
-            
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:drawableLeft="@drawable/logo_hou" />
 
             <TextView
                 android:id="@+id/logo_tv"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:text="Sổ tay cán bộ"
-                android:textColor="#6c6c6c"
-                android:textSize="20sp" />
+                android:layout_marginLeft="20dp"
+                android:text="SỔ TAY CÁN BỘ"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <View
@@ -48,30 +54,31 @@
             android:background="#cacdd3" />
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/layout_border"
-            android:drawableLeft="@drawable/ic_account_circle_black_48dp"
+            android:drawableLeft="@drawable/user_login"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:gravity="left|center_vertical"
-            android:hint="example123@gmail.com"
+            android:hint="Tên đăng nhập"
             android:inputType="textEmailAddress"
             android:maxLength="100"
             android:paddingLeft="10dp" />
 
         <EditText
-            android:id="@+id/edit_pass"
+            android:id="@+id/edt_pass"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="48dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/layout_border"
-            android:drawableLeft="@drawable/ic_wallet_travel_black_48dp"
+            android:drawableLeft="@drawable/password_login"
+            android:drawablePadding="10dp"
             android:ems="10"
             android:gravity="left|center_vertical"
-            android:hint="mật khẩu"
+            android:hint="Mật khẩu"
             android:inputType="textPassword"
             android:maxLength="100"
             android:paddingLeft="10dp" />
@@ -81,21 +88,22 @@
             android:layout_width="fill_parent"
             android:layout_height="36dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_bolder"
             android:gravity="center"
-            android:text="Đăng nhập"
+            android:text="ĐĂNG NHẬP"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_quenmatkhau"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="Quên mật khẩu?"
             android:textColor="#6c6c6c"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 </RelativeLayout>
