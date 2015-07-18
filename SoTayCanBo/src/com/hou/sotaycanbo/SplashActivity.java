@@ -1,6 +1,10 @@
 package com.hou.sotaycanbo;
 
+import com.hou.app.Const;
+import com.hou.app.Global;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,12 +14,14 @@ import android.view.MenuItem;
 public class SplashActivity extends Activity {
 
 	private final int SPLASH_DISPLAY_LENGTH = 1000;
-
+	private Context mContext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 
+		mContext = this;
+		
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -40,8 +46,8 @@ public class SplashActivity extends Activity {
 	// kiem tra user da dang nhap lan nao chua
 	public boolean check() {
 		boolean check = false;
-		if (true) {
-			// kiểm tra đã lưu references user và chọn nhớ mật khẩu
+		if (Global.getPreference(mContext, Const.SAVE_LOGIN) == Const.SAVE_LOGIN_TRUE) {
+			// kiểm tra đã lưu references user và chọn nhớ login
 			check = true;
 		}
 		return check;
