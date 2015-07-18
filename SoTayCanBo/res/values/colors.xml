@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#2F6E9B</color>
-    <color name="colorDarkPrimary">#2B628A</color>
-    <color name="background_grey">#F0F0F0</color>
+    <!-- Action bar -->
+    <color name="colorPrimary">#3269a3</color>
+    <color name="colorDarkPrimary">#2B628A </color>
+    
+    <!-- Color -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
+    <color name="green">#8FCC85</color>
+    <color name="blue">#ff33b5e5</color>
+    <color name="grey">#757575</color>
+	
+    <!-- Line -->
+    <color name="line">#cacdd3</color>
+    
 </resources>
