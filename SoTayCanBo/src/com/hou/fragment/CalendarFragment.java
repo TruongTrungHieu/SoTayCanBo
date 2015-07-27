@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hou.sotaycanbo.NoteActivity;
 import com.hou.sotaycanbo.R;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -28,6 +31,7 @@ public class CalendarFragment extends Fragment {
 	private boolean undo = false;
 	private CaldroidFragment caldroidFragment;
 	private Calendar cal;
+	Date currentDate;
 	private final SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class CalendarFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		cal = Calendar.getInstance();
 		caldroidFragment = new CaldroidFragment();
+		
 	}
 
 	@Override
@@ -74,38 +79,45 @@ public class CalendarFragment extends Fragment {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
+				
+				if (currentDate != null && currentDate != date) {
+					caldroidFragment.setBackgroundResourceForDate(R.color.white, currentDate);
+					caldroidFragment.setTextColorForDate(R.color.black, currentDate);
+					caldroidFragment.clearSelectedDates();
+					caldroidFragment.clearDisableDates();
+					caldroidFragment.refreshView();
+					caldroidFragment.setBackgroundResourceForDate(R.drawable.red_border, new Date());
+					caldroidFragment.setTextColorForDate(R.color.black, new Date());
+				}				
 				Toast.makeText(getActivity().getApplicationContext(),
 						formatter.format(date), Toast.LENGTH_SHORT).show();
-				caldroidFragment.clearSelectedDates();
-				caldroidFragment.clearDisableDates();
-				caldroidFragment.refreshView();
-//				caldroidFragment = new CaldroidFragment();
+				currentDate = date;
 				caldroidFragment.setBackgroundResourceForDate(R.color.blue,
 						date);
 				caldroidFragment.setTextColorForDate(R.color.white, date);
-				
+				caldroidFragment.setCalendarDate(date);
 			}
 
 			@Override
 			public void onChangeMonth(int month, int year) {
-				String text = "month: " + month + " year: " + year;
-				Toast.makeText(getActivity().getApplicationContext(), text,
-						Toast.LENGTH_SHORT).show();
+//				String text = "month: " + month + " year: " + year;
+//				Toast.makeText(getActivity().getApplicationContext(), text,
+//						Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onLongClickDate(Date date, View view) {
-				Toast.makeText(getActivity().getApplicationContext(),
-						"Long click " + formatter.format(date),
-						Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getActivity().getApplicationContext(),
+//						"Long click " + formatter.format(date),
+//						Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onCaldroidViewCreated() {
 				if (caldroidFragment.getLeftArrowButton() != null) {
-					Toast.makeText(getActivity().getApplicationContext(),
-							"Caldroid view is created", Toast.LENGTH_SHORT)
-							.show();
+//					Toast.makeText(getActivity().getApplicationContext(),
+//							"Caldroid view is created", Toast.LENGTH_SHORT)
+//							.show();
 				}
 			}
 
@@ -255,15 +267,31 @@ public class CalendarFragment extends Fragment {
 		switch (id) {
 		case R.id.action_calendar_today:
 //			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DATE, 0);
-			Date today = cal.getTime();
+//			cal.add(Calendar.DATE, 0);
+//			Date today = cal.getTime();
+			Date today = new Date();
+			if (currentDate != null && currentDate != today) {
+				caldroidFragment.setBackgroundResourceForDate(R.color.white, currentDate);
+				caldroidFragment.setTextColorForDate(R.color.black, currentDate);
+				caldroidFragment.clearSelectedDates();
+				caldroidFragment.clearDisableDates();
+				caldroidFragment.refreshView();
+				caldroidFragment.setBackgroundResourceForDate(R.drawable.red_border, new Date());
+				caldroidFragment.setTextColorForDate(R.color.black, new Date());
+			}			
+			caldroidFragment.setCalendarDate(today);
 			caldroidFragment.setBackgroundResourceForDate(R.color.blue,
 					today);
 			caldroidFragment.setTextColorForDate(R.color.white, today);
+			currentDate = today;
 			break;
 			
 		case R.id.action_calendar_add:
 			// create a new event
+			Intent createNote = new Intent(getActivity().getApplicationContext(),
+					NoteActivity.class);
+			createNote.putExtra("TYPE_NOTE", "CREATE_NEW");
+			startActivity(createNote);
 			break;
 
 		default:
