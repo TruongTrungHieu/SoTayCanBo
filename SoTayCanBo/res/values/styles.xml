@@ -42,6 +42,7 @@
     </style>
     <!-- End Transparent Dialog Theme -->
 
+
     <!-- the theme applied to the application or activity -->
     <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
@@ -58,15 +59,14 @@
         <item name="background">@color/colorPrimary</item>
     </style>
 
-    <!-- No Shadow action bar -->
+    <!-- NO SHADOW ACTION BAR -->
     <style name="NoShadowActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBarNoShadow</item>
-		
+
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBarNoShadow</item>
-        
         <item name="android:windowContentOverlay">@null</item>
-	</style>
+    </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBarNoShadow" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
@@ -75,6 +75,14 @@
         <!-- Support library compatibility -->
         <item name="background">@color/colorPrimary</item>
     </style>
-    <!-- End no shadow -->
-    
+    <!-- END - NO SHADOW ACTION BAR -->
+
+
+    <!-- DIALOG NOTE ACTIVITY ANIMATION -->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_note_slideup</item>
+        <item name="android:windowExitAnimation">@anim/dialog_note_slidedown</item>
+    </style>
+    <!-- END - DIALOG NOTE ACTIVITY ANIMATION -->
+
 </resources>

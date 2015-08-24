@@ -39,10 +39,10 @@
             android:layout_toLeftOf="@+id/imgClock"
             android:drawableLeft="@drawable/note_book"
             android:drawablePadding="5dp"
+            android:gravity="center_vertical"
             android:text="Sổ tay"
             android:textAllCaps="true"
-            android:textStyle="bold"
-            android:gravity="center_vertical" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imgClock"
@@ -70,9 +70,19 @@
         android:layout_marginTop="15dp"
         android:background="@color/transparent"
         android:ems="10"
+        android:gravity="top"
         android:hint="@string/soan_ghi_chu"
-        android:textColor="@color/black"
         android:lines="10"
-        android:gravity="top" />
+        android:textColor="@color/black" />
+
+    <ListView
+        android:id="@+id/lvAttachment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtNoidung"
+        android:background="@color/transparent"
+        android:divider="@null"
+        android:dividerHeight="0dp" >
+    </ListView>
 
 </RelativeLayout>

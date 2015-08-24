@@ -38,6 +38,8 @@
     <string name="menu_note_message">Gửi tin nhắn</string>
     <string name="oclock">Đặt thời gian</string>
     <string name="title_share">Chia sẻ qua</string>
+    <string name="cant_insert">Không thể lưu ghi chú rỗng</string>
+    <string name="save_sucessful">Đã lưu ghi chú</string>
 
     <!-- DIALOG NOTE ACTIVITY -->
     <string name="dialog_note_dinhkem">Đính kèm</string>
@@ -59,6 +61,7 @@
     <string name="menu_sotay_addnew">Tạo mới sổ tay</string>
     <string name="menu_sotay_search">Tìm kiếm</string>
     <string name="menu_sotay_sort">Sắp xếp</string>
+    <string name="khong_ghi_chu">Không có ghi chú nào.\nChọn \"+\" để tạo ghi chú mới.</string>
 
     <!-- DIALOG SOTAY FRAGMENT - SORT -->
     <string name="dialog_sotay_sort_titledialog">Sắp xếp Sổ tay theo</string>
@@ -82,5 +85,7 @@
     <string name="sth_more">More</string>
     <string name="title_activity_list_note">ListNoteActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="delete">Delete</string>
+    <string name="file_style">File style</string>
 
 </resources>

@@ -4,6 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <FrameLayout
+        android:id="@+id/flNoNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:paddingTop="30dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/khong_ghi_chu"
+            android:textColor="@color/grey"
+            android:textSize="16sp" />
+    </FrameLayout>
+
     <ListView
         android:id="@+id/lvGhichu"
         android:layout_width="match_parent"

@@ -18,18 +18,11 @@
         android:paddingTop="15dp" >
 
         <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/logo_hou"
-            android:text="" />
-
-        <TextView
             android:id="@+id/logo_tv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
             android:text="@string/login_stcb"
             android:textAllCaps="true"
             android:textColor="@color/white"
@@ -37,12 +30,28 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/layout_border"
+        android:drawableLeft="@drawable/user_login"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:gravity="left|center_vertical"
+        android:hint="@string/login_tendangnhap"
+        android:inputType="textEmailAddress"
+        android:maxLength="100"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
         android:id="@+id/edt_pass"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_above="@+id/btn_login"
-        android:layout_alignLeft="@+id/tv_quenmatkhau"
-        android:layout_marginBottom="70dp"
+        android:layout_below="@+id/edt_email"
+        android:layout_marginTop="10dp"
         android:background="@drawable/layout_border"
         android:drawableLeft="@drawable/password_login"
         android:drawablePadding="10dp"
@@ -69,27 +78,6 @@
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/edt_email"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignLeft="@+id/tv_quenmatkhau"
-        android:layout_centerVertical="true"
-        android:background="@drawable/layout_border"
-        android:drawableLeft="@drawable/user_login"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:gravity="left|center_vertical"
-        android:hint="@string/login_tendangnhap"
-        android:inputType="textEmailAddress"
-        android:maxLength="100"
-        android:paddingLeft="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" >
-
-        <requestFocus />
-    </EditText>
 
     <TextView
         android:id="@+id/tv_quenmatkhau"
