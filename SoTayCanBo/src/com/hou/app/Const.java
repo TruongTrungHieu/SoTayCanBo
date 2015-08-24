@@ -10,5 +10,15 @@ public class Const {
 	public static final String SAVE_LOGIN = "save_login";
 	public static final String SAVE_LOGIN_TRUE = "true";
 	public static final String SAVE_LOGIN_FALSE = "false";
+	// USER
+	public static final String USER_ID = "user_id";
+	public static final String USER_EMAIL = "user_email";
 	
+	
+	/*
+	 * Attachment
+	 */
+	public static final String ATTACHMENT_IMAGE = "image";
+	public static final String ATTACHMENT_FILE = "file";
+	public static final String ATTACHMENT_VOICE = "voice";
 }

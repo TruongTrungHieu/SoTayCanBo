@@ -49,18 +49,14 @@ public class ListNoteActivity extends ActionBarActivity {
 		lvGhichu = (ListView) findViewById(R.id.lvGhichu);
 
 		listGhichu = new ArrayList<GhiChu>();
-		listGhichu.add(new GhiChu("1", "Ý tưởng", "Ứ có gì", 1436207202, "1",
-				1436207202, true));
-		listGhichu.add(new GhiChu("2", "Đi học", "nghỉ học thôi", 1436207202,
-				"1", 1436207202, false));
-		listGhichu.add(new GhiChu("3", "Đi làm", "Ứ có gì", 1436207202, "1",
-				1436207202, true));
-		listGhichu.add(new GhiChu("4", "Ý tưởng", "Ứ có gì", 1436207202, "1",
-				1436207202, true));
-		listGhichu.add(new GhiChu("3", "Đi làm", "Ứ có gì", 1436207202, "1",
-				1436207202, true));
-		listGhichu.add(new GhiChu("4", "Ý tưởng", "Ứ có gì", 1436207202, "1",
-				1436207202, true));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
 
 		adapter = new GhichuAdapter(getApplicationContext(),
 				R.layout.itemlist_sotay, listGhichu);

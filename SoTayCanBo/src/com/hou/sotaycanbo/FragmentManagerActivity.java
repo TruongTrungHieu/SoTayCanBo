@@ -30,7 +30,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		sInstance = this;
 		this.disableLearningPattern();
 
-		account = new MaterialAccount(this.getResources(), "Mai Lan", "",
+		account = new MaterialAccount(this.getResources(), "Nguyễn Mai Lan", "Khoa Công nghệ Thông Tin",
 				R.drawable.account_ava, R.drawable.account_bg);
 		this.addAccount(account);
 

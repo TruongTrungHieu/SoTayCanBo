@@ -3,6 +3,7 @@ package com.hou.adapters;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hou.app.Global;
 import com.hou.models.GhiChu;
 import com.hou.sotaycanbo.R;
 
@@ -49,14 +50,14 @@ public class GhichuAdapter extends ArrayAdapter<GhiChu> {
 		String Tenghichu = listGhichu.get(position).getTenGhiChu();
 		String Noidung = listGhichu.get(position).getNoidung();
 		
-		long timeUpd = listGhichu.get(position).getThoigiansua();
-		String Thoigiansua = null;
+		long timeUpd = listGhichu.get(position).getNgaysua();
+		String Thoigiansua = Global.getFormattedDateTime(timeUpd);
 		
 		tvTenghichu.setText(Tenghichu);
 		tvNoidung.setText(Noidung);
-		tvThoigiansua.setText(timeUpd+"");
+		tvThoigiansua.setText(Thoigiansua);
 		
-		if (listGhichu.get(position).isBookmark()) {
+		if (listGhichu.get(position).getBookmark() == 1) {
 			imgBookmark.setVisibility(View.VISIBLE);
 		} else {
 			imgBookmark.setVisibility(View.GONE);

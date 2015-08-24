@@ -1,6 +1,14 @@
 package com.hou.sotaycanbo;
 
+import java.util.ArrayList;
+
+import com.hou.adapters.AttachmentAdapter;
+import com.hou.app.Const;
+import com.hou.app.Global;
+import com.hou.database_handler.ExecuteQuery;
+import com.hou.models.DinhKem;
 import com.hou.models.GhiChu;
+import com.hou.models.SoTay;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,6 +24,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +39,15 @@ public class NoteActivity extends ActionBarActivity {
 	private ImageView imgClock;
 
 	private GhiChu mGhichu;
+	private SoTay mSotay;
+
+	private AttachmentAdapter adapter = null;
+	private ListView lvAttachment;
+	private ArrayList<DinhKem> listAttachment = null;
+
+	private boolean isCreatNew = false;
+
+	private ExecuteQuery exeQ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +56,10 @@ public class NoteActivity extends ActionBarActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
+
+		exeQ = new ExecuteQuery(getApplicationContext());
+		exeQ.createDatabase();
+		exeQ.open();
 
 		/*
 		 * Init
@@ -55,7 +77,25 @@ public class NoteActivity extends ActionBarActivity {
 		} else {
 			// CREATE NEW NOTE
 			mNoteMode = NoteMode.EDIT;
+			isCreatNew = true;
+			mGhichu = new GhiChu();
 		}
+
+		// Listview attachment
+		lvAttachment = (ListView) findViewById(R.id.lvAttachment);
+
+		listAttachment = new ArrayList<DinhKem>();
+		listAttachment.add(new DinhKem("1", "1", Const.ATTACHMENT_FILE
+				.toString(), "", "abc.txt"));
+		listAttachment.add(new DinhKem("1", "1", Const.ATTACHMENT_IMAGE
+				.toString(), "", "abc.png"));
+		listAttachment.add(new DinhKem("1", "1", Const.ATTACHMENT_VOICE
+				.toString(), "", "abc.mp3"));
+
+		adapter = new AttachmentAdapter(this, R.layout.itemlist_attachment,
+				listAttachment);
+
+		lvAttachment.setAdapter(adapter);
 
 		onClickListener();
 
@@ -94,6 +134,9 @@ public class NoteActivity extends ActionBarActivity {
 			currentMenu.getItem(3).setVisible(true);
 			currentMenu.getItem(4).setVisible(true);
 			currentMenu.getItem(5).setVisible(true);
+
+			edtTenghichu.setEnabled(false);
+			edtNoidung.setEnabled(false);
 		} else {
 			currentMenu.getItem(0).setVisible(true);
 			currentMenu.getItem(1).setVisible(true);
@@ -101,6 +144,9 @@ public class NoteActivity extends ActionBarActivity {
 			currentMenu.getItem(3).setVisible(false);
 			currentMenu.getItem(4).setVisible(false);
 			currentMenu.getItem(5).setVisible(false);
+
+			edtTenghichu.setEnabled(true);
+			edtNoidung.setEnabled(true);
 		}
 	}
 
@@ -121,6 +167,9 @@ public class NoteActivity extends ActionBarActivity {
 		params.width = WindowManager.LayoutParams.MATCH_PARENT;
 		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		window.setAttributes(params);
+
+		// Set animation when opening dialog
+		window.getAttributes().windowAnimations = R.style.DialogAnimation;
 
 		TextView tvDialog_album = (TextView) mDialogAttachment
 				.findViewById(R.id.tvDialog_album);
@@ -207,6 +256,15 @@ public class NoteActivity extends ActionBarActivity {
 		case R.id.action_note_create:
 			mNoteMode = NoteMode.READ;
 			changeMode();
+			if (isCreatNew) {
+				Toast.makeText(getApplicationContext(), "INSERT",
+						Toast.LENGTH_SHORT).show();
+				isCreatNew = !isCreatNew;
+				createNewNote();
+			} else {
+				Toast.makeText(getApplicationContext(), "UPDATE",
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 
 		case R.id.action_note_message:
@@ -232,5 +290,57 @@ public class NoteActivity extends ActionBarActivity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void createNewNote() {
+		if ((edtNoidung.toString().trim().length() <= 0)
+				&& (edtTenghichu.toString().trim().length() <= 0)) {
+			Toast.makeText(getApplicationContext(),
+					getResources().getString(R.string.cant_insert),
+					Toast.LENGTH_SHORT).show();
+			Intent home = new Intent(NoteActivity.this,
+					FragmentManagerActivity.class);
+			startActivity(home);
+			NoteActivity.this.finish();
+		} else {
+			// Insert
+			int dinhkem = listAttachment.size();
+			String maGhichu = Global.getPreference(getApplicationContext(),
+					Const.USER_ID) + "_" + Global.getCurrentDateTime();
+			String noidung = "";
+			if (edtNoidung.toString().trim().length() > 0) {
+				noidung = edtNoidung.getText().toString();
+			}
+			String tenGhichu = "";
+			if (edtTenghichu.toString().trim().length() > 0) {
+				tenGhichu = edtTenghichu.getText().toString();
+			} else {
+				tenGhichu = noidung;
+			}
+			long ngaytao = Global.getCurrentDateTime();
+			long ngaysua = Global.getCurrentDateTime();
+			long ngaythuchien = 0;
+			int trangthai = 0;
+			int bookmark = 0;
+			String maSotay = "1";
+			// String maSotay = mSotay.getMaSoTay();
+
+			mGhichu.setMaGhiChu(maGhichu);
+			mGhichu.setTenGhiChu(tenGhichu);
+			mGhichu.setNgaytao(ngaytao);
+			mGhichu.setNoidung(noidung);
+			mGhichu.setNgaysua(ngaysua);
+			mGhichu.setTrangthai(trangthai);
+			mGhichu.setDinhkem(dinhkem);
+			mGhichu.setNgaythuchien(ngaythuchien);
+			mGhichu.setBookmark(bookmark);
+			mGhichu.setMaSotay(maSotay);
+
+			if (exeQ.insert_tblGhichu_single(mGhichu)) {
+				Toast.makeText(getApplicationContext(),
+						getResources().getString(R.string.save_sucessful),
+						Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 }

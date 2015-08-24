@@ -8,44 +8,43 @@ public class GhiChu implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String idGhiChu;
+	private String maGhiChu;
 	private String tenGhiChu;
+	private long ngaytao;
 	private String noidung;
-	private long thoigiantao;
-	private String idSotay;
-	private long thoigiansua;
-	private boolean bookmark;
+	private long ngaysua;
+	private int trangthai;
+	private int dinhkem;
+	private long ngaythuchien;
+	private int bookmark;
+	private String maSotay;
 	
 	public GhiChu() {
 		
 	}
-	
-	public GhiChu(String idGhiChu, String tenGhiChu, String noidung,
-			long thoigiantao, String idSotay, long thoigiansua, boolean bookmark) {
+
+	public GhiChu(String maGhiChu, String tenGhiChu, long ngaytao,
+			String noidung, long ngaysua, int trangthai, int dinhkem,
+			long ngaythuchien, int bookmark, String maSotay) {
 		super();
-		this.idGhiChu = idGhiChu;
+		this.maGhiChu = maGhiChu;
 		this.tenGhiChu = tenGhiChu;
+		this.ngaytao = ngaytao;
 		this.noidung = noidung;
-		this.thoigiantao = thoigiantao;
-		this.idSotay = idSotay;
-		this.thoigiansua = thoigiansua;
+		this.ngaysua = ngaysua;
+		this.trangthai = trangthai;
+		this.dinhkem = dinhkem;
+		this.ngaythuchien = ngaythuchien;
 		this.bookmark = bookmark;
+		this.maSotay = maSotay;
 	}
 
-	public String getIdGhiChu() {
-		return idGhiChu;
+	public String getMaGhiChu() {
+		return maGhiChu;
 	}
 
-	public boolean isBookmark() {
-		return bookmark;
-	}
-
-	public void setBookmark(boolean bookmark) {
-		this.bookmark = bookmark;
-	}
-
-	public void setIdGhiChu(String idGhiChu) {
-		this.idGhiChu = idGhiChu;
+	public void setMaGhiChu(String maGhiChu) {
+		this.maGhiChu = maGhiChu;
 	}
 
 	public String getTenGhiChu() {
@@ -56,6 +55,14 @@ public class GhiChu implements Serializable{
 		this.tenGhiChu = tenGhiChu;
 	}
 
+	public long getNgaytao() {
+		return ngaytao;
+	}
+
+	public void setNgaytao(long ngaytao) {
+		this.ngaytao = ngaytao;
+	}
+
 	public String getNoidung() {
 		return noidung;
 	}
@@ -64,28 +71,56 @@ public class GhiChu implements Serializable{
 		this.noidung = noidung;
 	}
 
-	public long getThoigiantao() {
-		return thoigiantao;
+	public long getNgaysua() {
+		return ngaysua;
 	}
 
-	public void setThoigiantao(long thoigiantao) {
-		this.thoigiantao = thoigiantao;
+	public void setNgaysua(long ngaysua) {
+		this.ngaysua = ngaysua;
 	}
 
-	public String getIdSotay() {
-		return idSotay;
+	public int getTrangthai() {
+		return trangthai;
 	}
 
-	public void setIdSotay(String idSotay) {
-		this.idSotay = idSotay;
+	public void setTrangthai(int trangthai) {
+		this.trangthai = trangthai;
 	}
 
-	public long getThoigiansua() {
-		return thoigiansua;
+	public int getDinhkem() {
+		return dinhkem;
 	}
 
-	public void setThoigiansua(long thoigiansua) {
-		this.thoigiansua = thoigiansua;
+	public void setDinhkem(int dinhkem) {
+		this.dinhkem = dinhkem;
+	}
+
+	public long getNgaythuchien() {
+		return ngaythuchien;
+	}
+
+	public void setNgaythuchien(long ngaythuchien) {
+		this.ngaythuchien = ngaythuchien;
+	}
+
+	public int getBookmark() {
+		return bookmark;
+	}
+
+	public void setBookmark(int bookmark) {
+		this.bookmark = bookmark;
+	}
+
+	public String getMaSotay() {
+		return maSotay;
+	}
+
+	public void setMaSotay(String maSotay) {
+		this.maSotay = maSotay;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 	

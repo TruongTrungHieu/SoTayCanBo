@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.hou.adapters.SotayAdapter;
+import com.hou.app.Const;
+import com.hou.app.Global;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.SoTay;
 import com.hou.sotaycanbo.ListNoteActivity;
 import com.hou.sotaycanbo.R;
@@ -37,10 +40,17 @@ public class SotayFragment extends Fragment {
 	private static final int SORT_NONOTE = 2;
 	private static final int SORT_TIME = 3;
 
+	private ExecuteQuery exeQ;
+
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
 		setHasOptionsMenu(true);
+
+		exeQ = new ExecuteQuery(getActivity().getApplicationContext());
+		exeQ.createDatabase();
+		exeQ.open();
 	}
 
 	@Override
@@ -51,9 +61,7 @@ public class SotayFragment extends Fragment {
 		lvSotay = (ListView) view.findViewById(R.id.lvSotay);
 
 		listSotay = new ArrayList<SoTay>();
-		listSotay.add(new SoTay("Đồ án", 2));
-		listSotay.add(new SoTay("Nghiên cứu khoa học", 3));
-		listSotay.add(new SoTay("Quẩy", 1));
+		listSotay = exeQ.getAllSotay();
 
 		adapter = new SotayAdapter(getActivity().getApplicationContext(),
 				R.layout.itemlist_sotay, listSotay);
@@ -64,12 +72,13 @@ public class SotayFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent dsSotay = new Intent(getActivity(), ListNoteActivity.class);
+				Intent dsSotay = new Intent(getActivity(),
+						ListNoteActivity.class);
 				dsSotay.putExtra("SoTay", listSotay.get(position));
 				startActivity(dsSotay);
 			}
 		});
-		
+
 		return view;
 	}
 
@@ -110,7 +119,15 @@ public class SotayFragment extends Fragment {
 							return;
 						}
 					}
-					listSotay.add(new SoTay(ten, 0));
+					String pk = Global.getPreference(getActivity(),
+							Const.USER_EMAIL)
+							+ "_"
+							+ Global.getCurrentDateTime();
+					SoTay st = new SoTay(pk, ten, Global.getCurrentDateTime(),
+							0, Global.getPreference(getActivity(),
+									Const.USER_ID));
+					listSotay.add(st);
+					exeQ.insert_tblSotay_single(st);
 					adapter.notifyDataSetChanged();
 					dialogAddnew.dismiss();
 				}
@@ -164,7 +181,8 @@ public class SotayFragment extends Fragment {
 				@Override
 				public int compare(SoTay st1, SoTay st2) {
 
-					return (st1.getTenSoTay().toUpperCase()).compareTo(st2.getTenSoTay().toUpperCase());
+					return (st1.getTenSoTay().toLowerCase()).compareTo(st2
+							.getTenSoTay().toLowerCase());
 				}
 			});
 			break;
@@ -181,13 +199,21 @@ public class SotayFragment extends Fragment {
 			break;
 
 		case SORT_TIME:
+			Collections.sort(listSotay, new Comparator<SoTay>() {
+				@Override
+				public int compare(SoTay st1, SoTay st2) {
+
+					return (st2.getNgayTao() + "").compareTo(st1.getNgayTao()
+							+ "");
+				}
+			});
 			break;
 
 		default:
 			break;
 		}
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub

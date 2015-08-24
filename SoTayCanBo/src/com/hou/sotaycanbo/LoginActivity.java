@@ -1,5 +1,6 @@
 package com.hou.sotaycanbo;
 
+import com.hou.app.Const;
 import com.hou.app.Global;
 
 import android.app.Activity;
@@ -49,6 +50,8 @@ public class LoginActivity extends Activity {
 				if ((_email.toString().trim().length() > 0)
 						&& (_pass.toString().trim().length() > 0)) {
 					if (checkUser()) {
+						Global.savePreference(getApplicationContext(), Const.USER_EMAIL, _email);
+						Global.savePreference(getApplicationContext(), Const.USER_ID, "ID_TEST");
 						Intent manager = new Intent(LoginActivity.this,
 								FragmentManagerActivity.class);
 						startActivity(manager);
