@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SoTayCanBo</string>
+    <string name="action_settings"></string>
+
+    <!-- SPLASH ACTIVITY -->
+    <string name="title_activity_splash">SoTayCanBo</string>
+
+    <!-- LOGIN ACTIVITY -->
+    <string name="title_activity_login">Đăng nhập</string>
+    <string name="login_failed">Sai tên đăng nhập hoặc mật khẩu</string>
+    <string name="login_notnull">Hãy điền đầy đủ thông tin</string>
+    <string name="login_tendangnhap">Tên đăng nhập</string>
+    <string name="login_matkhau">Mật khẩu</string>
+    <string name="login_quenmatkhau">Quên mật khẩu?</string>
+    <string name="login_stcb">SỔ TAY CÁN BỘ</string>
+
+    <!-- FRAGMENT MANAGER ACTIVITY -->
+    <string name="manager_sotay">Sổ tay</string>
+    <string name="manager_ghichu">Tất cả ghi chú</string>
+    <string name="manager_lich">Lịch</string>
+    <string name="manager_lichtuan">Lịch tuần</string>
+    <string name="manager_lienhe">Liên hệ</string>
+    <string name="manager_dongbo">Đồng bộ</string>
+    <string name="manager_caidat">Cài đặt</string>
+    <string name="manager_thongtin">Thông tin</string>
+
+    <!-- NOTE ACTIVITY -->
+    <string name="title_activity_note"></string>
+    <string name="ghi_chu_moi">Tiêu đề Ghi chú</string>
+    <string name="soan_ghi_chu">Soạn ghi chú của bạn</string>
+    <string name="menu_note_share">Chia sẻ</string>
+    <string name="menu_note_create">Tạo mới</string>
+    <string name="menu_note_modify">Chỉnh sửa nội dung</string>
+    <string name="menu_note_chupanh">Chụp ảnh</string>
+    <string name="menu_note_dinhkem">Đính kèm</string>
+    <string name="menu_note_message">Gửi tin nhắn</string>
+    <string name="oclock">Đặt thời gian</string>
+    <string name="title_share">Chia sẻ qua</string>
+    <string name="cant_insert">Không thể lưu ghi chú rỗng</string>
+    <string name="save_sucessful">Đã lưu ghi chú</string>
+
+    <!-- DIALOG NOTE ACTIVITY -->
+    <string name="dialog_note_dinhkem">Đính kèm</string>
+    <string name="dialog_note_album">Hình ảnh</string>
+    <string name="dialog_note_file">Tệp tin</string>
+    <string name="dialog_note_voice">Ghi âm</string>
+
+    <!-- NO INTERNET -->
+    <string name="no_internet">Kiểm tra kết nối mạng</string>
+
+    <!-- CALENDAR FRAGMENT -->
+    <string name="customize">Customize</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="undo">Undo</string>
+    <string name="calendar_add">Tạo mới</string>
+    <string name="calendar_today">Hôm nay</string>
+
+    <!-- SOTAY FRAGMENT -->
+    <string name="menu_sotay_addnew">Tạo mới sổ tay</string>
+    <string name="menu_sotay_search">Tìm kiếm</string>
+    <string name="menu_sotay_sort">Sắp xếp</string>
+    <string name="khong_ghi_chu">Không có ghi chú nào.\nChọn \"+\" để tạo ghi chú mới.</string>
+
+    <!-- DIALOG SOTAY FRAGMENT - SORT -->
+    <string name="dialog_sotay_sort_titledialog">Sắp xếp Sổ tay theo</string>
+    <string name="dialog_sotay_sort_title">Tiêu đề</string>
+    <string name="dialog_sotay_sort_nonote">Số ghi chú</string>
+    <string name="dialog_sotay_sort_time">Thời gian</string>
+
+    <!-- DIALOG SOTAY FRAGMENT - ADD NEW SOTAY -->
+    <string name="dialog_sotay_addnew_title">Sổ tay mới</string>
+    <string name="dialog_sotay_addnew_cancel">HỦY BỎ</string>
+    <string name="dialog_sotay_addnew_ok">TẠO MỚI</string>
+    <string name="dialog_sotay_addnew_hint">Nhập tên sổ tay</string>
+    <string name="dialog_sotay_addnew_notif">Tên đã được sử dụng</string>
+
+    <!-- LISTNOTE ACTIVITY -->
+    <string name="listnote_deletemulti">Xóa ghi chú</string>
+    <string name="listnote_ghichu">Ghi chú</string>
+    
+    <!-- SOMETHING -->
+    <string name="sth_bookmark">Đánh dấu</string>
+    <string name="sth_more">More</string>
+    <string name="title_activity_list_note">ListNoteActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="delete">Delete</string>
+    <string name="file_style">File style</string>
+
+</resources>
