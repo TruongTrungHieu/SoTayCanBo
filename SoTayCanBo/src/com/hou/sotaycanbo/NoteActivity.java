@@ -1,6 +1,9 @@
 package com.hou.sotaycanbo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import com.hou.adapters.AttachmentAdapter;
 import com.hou.app.Const;
@@ -10,6 +13,7 @@ import com.hou.models.DinhKem;
 import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,16 +23,18 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NoteActivity extends ActionBarActivity {
+public class NoteActivity extends ActionBarActivity implements OnClickListener {
 
 	private NoteMode mNoteMode;
 	private Menu currentMenu;
@@ -48,6 +54,9 @@ public class NoteActivity extends ActionBarActivity {
 	private boolean isCreatNew = false;
 
 	private ExecuteQuery exeQ;
+	private DatePickerDialog datePickerDialog;
+	private SimpleDateFormat dateFormatter;
+	private long datePicked;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +83,10 @@ public class NoteActivity extends ActionBarActivity {
 			// READ NOTE FROM LIST NOTE
 			showNoteFromIntent();
 			mNoteMode = NoteMode.READ;
+			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		} else {
 			// CREATE NEW NOTE
+			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 			mNoteMode = NoteMode.EDIT;
 			isCreatNew = true;
 			mGhichu = new GhiChu();
@@ -91,35 +102,31 @@ public class NoteActivity extends ActionBarActivity {
 				.toString(), "", "abc.png"));
 		listAttachment.add(new DinhKem("1", "1", Const.ATTACHMENT_VOICE
 				.toString(), "", "abc.mp3"));
-
 		adapter = new AttachmentAdapter(this, R.layout.itemlist_attachment,
 				listAttachment);
 
 		lvAttachment.setAdapter(adapter);
 
-		onClickListener();
+		imgClock.setOnClickListener(this);
+		tvTensotay.setOnClickListener(this);
 
 	}
 
-	public void onClickListener() {
-		imgClock.setOnClickListener(new View.OnClickListener() {
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub\
+		switch (v.getId()) {
+		case R.id.imgClock:
+			hideKeyboard();
+			setUpDateTimePicker();
+			datePickerDialog.show();
+			break;
 
-			@Override
-			public void onClick(View v) {
-				hideKeyboard();
-				Toast.makeText(getApplicationContext(),
-						getResources().getString(R.string.oclock),
-						Toast.LENGTH_LONG).show();
-			}
-		});
+		case R.id.tvTensotay:
+			hideKeyboard();
+			break;
+		}
 
-		tvTensotay.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				hideKeyboard();
-			}
-		});
 	}
 
 	private enum NoteMode {
@@ -137,6 +144,7 @@ public class NoteActivity extends ActionBarActivity {
 
 			edtTenghichu.setEnabled(false);
 			edtNoidung.setEnabled(false);
+			imgClock.setEnabled(false);
 		} else {
 			currentMenu.getItem(0).setVisible(true);
 			currentMenu.getItem(1).setVisible(true);
@@ -147,6 +155,7 @@ public class NoteActivity extends ActionBarActivity {
 
 			edtTenghichu.setEnabled(true);
 			edtNoidung.setEnabled(true);
+			imgClock.setEnabled(true);
 		}
 	}
 
@@ -291,7 +300,18 @@ public class NoteActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	public void setUpDateTimePicker() {        
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(NoteActivity.this, new DatePickerDialog.OnDateSetListener() {            
 
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                datePicked = newDate.getTimeInMillis();           
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }
 	public void createNewNote() {
 		if ((edtNoidung.toString().trim().length() <= 0)
 				&& (edtTenghichu.toString().trim().length() <= 0)) {
@@ -319,7 +339,7 @@ public class NoteActivity extends ActionBarActivity {
 			}
 			long ngaytao = Global.getCurrentDateTime();
 			long ngaysua = Global.getCurrentDateTime();
-			long ngaythuchien = 0;
+			long ngaythuchien = datePicked;
 			int trangthai = 0;
 			int bookmark = 0;
 			String maSotay = "1";
@@ -343,4 +363,5 @@ public class NoteActivity extends ActionBarActivity {
 			}
 		}
 	}
+
 }

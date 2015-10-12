@@ -439,6 +439,25 @@ public class ExecuteQuery {
 		}
 	}
 	
+//	public ArrayList<Group> getAllGhiChu() {
+//		ArrayList<Group> listGhiChu = new ArrayList<Group>();
+//		String selectQuery = "SELECT * FROM " + ColumnName.GHICHU_TABLE;
+//		database = mDbHelper.getReadableDatabase();
+//		Cursor cursor = database.rawQuery(selectQuery, null);
+//		if (cursor.moveToFirst()) {
+//			do {
+//				GhiChu g = new GhiChu();
+//
+//				g.setMaGroup(cursor.getString(0));
+//				g.setTenGroup(cursor.getString(1));
+//				g.setMaCanbo_admin(cursor.getString(2));
+//
+//				listGhiChu.add(g);
+//			} while (cursor.moveToNext());
+//		}
+//		return listGhiChu;
+//	}
+	
 	/*
 	 * END - tbl_ghichu
 	 */
