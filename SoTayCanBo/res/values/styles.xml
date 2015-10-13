@@ -23,14 +23,14 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <!-- Accounts -->
+    <!-- ACCOUNT LIGHT - FOR FRAGMENT -->
     <style name="AccountsLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorDarkPrimary</item>
         <item name="colorAccent">#FFFFFF</item>
     </style>
 
-    <!-- Transparent Dialog Theme -->
+    <!-- TRANSPARENT DIALOG THEME -->
     <style name="TransparentDialogTheme" parent="android:Theme.Dialog">
 
         <!-- No backgrounds, titles or window float -->
@@ -40,10 +40,10 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-    <!-- End Transparent Dialog Theme -->
+    <!-- END - TRANSPARENT DIALOG THEME -->
 
 
-    <!-- the theme applied to the application or activity -->
+    <!-- CUSTOM ACTION BAR THEME -->
     <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
 
@@ -58,7 +58,8 @@
         <!-- Support library compatibility -->
         <item name="background">@color/colorPrimary</item>
     </style>
-
+	<!-- END - CUSTOM ACTION BAR THEME -->
+    
     <!-- NO SHADOW ACTION BAR -->
     <style name="NoShadowActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBarNoShadow</item>
