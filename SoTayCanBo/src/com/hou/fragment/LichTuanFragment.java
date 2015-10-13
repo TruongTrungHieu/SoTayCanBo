@@ -24,13 +24,6 @@ public class LichTuanFragment extends Fragment {
 	private ArrayList<SuKien> child6s = new ArrayList<SuKien>();
 	private ArrayList<SuKien> child7s = new ArrayList<SuKien>();
 	private ArrayList<SuKien> child8s = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child2c = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child3c = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child4c = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child5c = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child6c = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child7c = new ArrayList<SuKien>();
-	private ArrayList<SuKien> child8c = new ArrayList<SuKien>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
