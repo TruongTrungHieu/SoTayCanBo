@@ -2,6 +2,7 @@ package com.hou.sotaycanbo;
 
 import com.hou.fragment.CalendarFragment;
 import com.hou.fragment.GhichuFragment;
+import com.hou.fragment.LichTuanFragment;
 import com.hou.fragment.SotayFragment;
 
 import android.os.Bundle;
@@ -49,7 +50,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 
 		LichTuan = newSection(
 				getResources().getString(R.string.manager_lichtuan),
-				R.drawable.menu_lichtuan_material, new SotayFragment());
+				R.drawable.menu_lichtuan_material, new LichTuanFragment());
 
 		LienHe = newSection(getResources().getString(R.string.manager_lienhe),
 				R.drawable.menu_lienhe_material, new SotayFragment());

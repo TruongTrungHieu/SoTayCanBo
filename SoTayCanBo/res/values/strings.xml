@@ -68,6 +68,21 @@
     <string name="dialog_sotay_sort_title">Tiêu đề</string>
     <string name="dialog_sotay_sort_nonote">Số ghi chú</string>
     <string name="dialog_sotay_sort_time">Thời gian</string>
+    
+    <!-- List lich tuan -->
+    <string name="Mon">Thứ hai</string>
+    <string name="Tue">Thứ ba</string>
+    <string name="Wed">Thứ tư</string>
+    <string name="Thus">Thứ năm</string>
+    <string name="Fri">Thứ sáu</string>
+    <string name="Sat">Thứ bảy</string>
+    <string name="Sun">Chủ nhật</string>
+    <string name="dialogSukien">Chi tiết</string>
+    <string name="btnDismiss">OK</string>
+    <string name="dialogTitleNote">Ghi chú</string>
+    <string name="dialogTitleContents">Nội dung</string>
+    <string name="toastGetEvent">Sự kiện được thêm vào lịch</string>
+    <string name="toastDropEvent">Sự kiện được gỡ khỏi lịch</string>
 
     <!-- DIALOG SOTAY FRAGMENT - ADD NEW SOTAY -->
     <string name="dialog_sotay_addnew_title">Sổ tay mới</string>

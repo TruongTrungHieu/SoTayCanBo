@@ -17,7 +17,6 @@ import android.net.NetworkInfo;
  */
 
 public class Global {
-
 	public static void savePreference(Context mContext, String key, String value) {
 		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
 				Const.XML_FILE_NAME, Context.MODE_PRIVATE);
