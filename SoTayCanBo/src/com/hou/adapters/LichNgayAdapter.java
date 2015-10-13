@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import com.hou.models.DayNumberOfContents;
 import com.hou.models.SuKien;
-import com.hou.models.TuanSukien;
 import com.hou.sotaycanbo.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +38,8 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		this.activity = activity;
 	}
 
-	@Override
+	@SuppressWarnings("unchecked")
+	@SuppressLint("InflateParams") @Override
 	public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView,
 			ViewGroup parent) {
 
@@ -140,7 +139,7 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		dialog.show();
 	}
 
-	@Override
+	@SuppressLint("InflateParams") @Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.day_group_layout, null);
@@ -165,6 +164,7 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		return ((ArrayList<String>) childtems.get(groupPosition)).size();
