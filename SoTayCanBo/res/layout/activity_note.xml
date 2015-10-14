@@ -60,7 +60,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/rlTensotay"
         android:layout_marginTop="5dp"
-        android:background="@color/line" />
+        android:background="@color/line_grey" />
 
     <EditText
         android:id="@+id/edtNoidung"

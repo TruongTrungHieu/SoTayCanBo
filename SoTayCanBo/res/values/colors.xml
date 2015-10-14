@@ -13,6 +13,6 @@
     <color name="grey">#757575</color>
 	
     <!-- Line -->
-    <color name="line">#cacdd3</color>
+    <color name="line_grey">#fafafa</color>
     
 </resources>

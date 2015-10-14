@@ -1,5 +1,6 @@
 package com.hou.app;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Environment;
 
 /**
  * Global
@@ -75,5 +78,18 @@ public class Global {
 		Date dateTime = new Date(timeInSeconds * 1000);
 		StringBuilder date = new StringBuilder(DATE_FORMAT.format(dateTime));
 		return date.toString();
+	}
+	
+	public static String getURI(String image) {
+		File mediaStorageDir;
+		if (Build.VERSION.SDK_INT > 8) {
+			mediaStorageDir = Environment
+					.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		} else {
+			mediaStorageDir = new File(
+					Environment.getExternalStorageDirectory(), "Pictures");
+		}
+
+		return "file://" + mediaStorageDir.getPath() + "/" + image;
 	}
 }

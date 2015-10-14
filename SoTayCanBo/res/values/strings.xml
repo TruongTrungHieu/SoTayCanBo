@@ -3,6 +3,7 @@
 
     <string name="app_name">SoTayCanBo</string>
     <string name="action_settings"></string>
+    <string name="description"></string>
 
     <!-- SPLASH ACTIVITY -->
     <string name="title_activity_splash">SoTayCanBo</string>
@@ -68,7 +69,7 @@
     <string name="dialog_sotay_sort_title">Tiêu đề</string>
     <string name="dialog_sotay_sort_nonote">Số ghi chú</string>
     <string name="dialog_sotay_sort_time">Thời gian</string>
-    
+
     <!-- List lich tuan -->
     <string name="Mon">Thứ hai</string>
     <string name="Tue">Thứ ba</string>
@@ -94,7 +95,7 @@
     <!-- LISTNOTE ACTIVITY -->
     <string name="listnote_deletemulti">Xóa ghi chú</string>
     <string name="listnote_ghichu">Ghi chú</string>
-    
+
     <!-- SOMETHING -->
     <string name="sth_bookmark">Đánh dấu</string>
     <string name="sth_more">More</string>
@@ -102,5 +103,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="delete">Delete</string>
     <string name="file_style">File style</string>
+    <string name="title_activity_danh_sach_can_bo">DanhSachCanBoActivity</string>
 
 </resources>

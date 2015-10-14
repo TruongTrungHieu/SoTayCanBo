@@ -42,11 +42,15 @@
             android:label="@string/title_activity_note"
             android:theme="@style/CustomActionBarTheme" >
         </activity>
-        
         <activity
             android:name=".ListNoteActivity"
             android:label="@string/title_activity_list_note"
             android:theme="@style/NoShadowActionBarTheme" >
+        </activity>
+        <activity
+            android:name=".DanhSachCanBoActivity"
+            android:label="@string/title_activity_danh_sach_can_bo"
+            android:theme="@style/CustomActionBarTheme" >
         </activity>
     </application>
 

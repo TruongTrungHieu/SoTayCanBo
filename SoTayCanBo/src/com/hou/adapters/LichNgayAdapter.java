@@ -103,26 +103,12 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		tvNote.setText(sk.getGhichu());
 		tvContens.setText(sk.getNoidung());
 
-		final ImageView ivGet = (ImageView) dialog.findViewById(R.id.btnGetEvent);
-		final ImageView ivDrop = (ImageView) dialog.findViewById(R.id.btnDropEvent);
-		ivGet.setOnClickListener(new OnClickListener() {
-
+		final ImageView btnAddEvent = (ImageView) dialog.findViewById(R.id.btnAddEvent);
+		btnAddEvent.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				ivGet.setVisibility(View.INVISIBLE);
-				ivDrop.setVisibility(View.VISIBLE);
-				Toast.makeText(c, c.getText(R.string.toastGetEvent), Toast.LENGTH_SHORT).show();
-			}
-		});
-		ivDrop.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				ivGet.setVisibility(View.VISIBLE);
-				ivDrop.setVisibility(View.INVISIBLE);
-				Toast.makeText(c, c.getText(R.string.toastDropEvent), Toast.LENGTH_SHORT).show();
+				
 			}
 		});
 
