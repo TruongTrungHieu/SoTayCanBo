@@ -137,10 +137,10 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		if (mNoteMode == NoteMode.READ) {
 			currentMenu.getItem(0).setVisible(false);
 			currentMenu.getItem(1).setVisible(false);
-			currentMenu.getItem(2).setVisible(false);
+			currentMenu.getItem(2).setVisible(true);
 			currentMenu.getItem(3).setVisible(true);
-			currentMenu.getItem(4).setVisible(true);
-			currentMenu.getItem(5).setVisible(true);
+//			currentMenu.getItem(4).setVisible(true);
+//			currentMenu.getItem(5).setVisible(true);
 
 			edtTenghichu.setEnabled(false);
 			edtNoidung.setEnabled(false);
@@ -148,10 +148,10 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		} else {
 			currentMenu.getItem(0).setVisible(true);
 			currentMenu.getItem(1).setVisible(true);
-			currentMenu.getItem(2).setVisible(true);
+			currentMenu.getItem(2).setVisible(false);
 			currentMenu.getItem(3).setVisible(false);
-			currentMenu.getItem(4).setVisible(false);
-			currentMenu.getItem(5).setVisible(false);
+//			currentMenu.getItem(4).setVisible(false);
+//			currentMenu.getItem(5).setVisible(false);
 
 			edtTenghichu.setEnabled(true);
 			edtNoidung.setEnabled(true);
@@ -259,8 +259,8 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			showDialogAttachment();
 			break;
 
-		case R.id.action_note_chupanh:
-			break;
+//		case R.id.action_note_chupanh:
+//			break;
 
 		case R.id.action_note_create:
 			mNoteMode = NoteMode.READ;
@@ -276,8 +276,8 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			}
 			break;
 
-		case R.id.action_note_message:
-			break;
+//		case R.id.action_note_message:
+//			break;
 
 		case R.id.action_note_share:
 			String body = edtTenghichu.getText().toString() + "\n"

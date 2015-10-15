@@ -9,21 +9,21 @@
         android:icon="@drawable/ic_attachment_white_36dp"
         android:title="@string/menu_note_dinhkem"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_note_chupanh"
-        android:icon="@drawable/ic_camera_alt_white_36dp"
-        android:title="@string/menu_note_chupanh"
-        app:showAsAction="always"/>
+<!--     <item -->
+<!--         android:id="@+id/action_note_chupanh" -->
+<!--         android:icon="@drawable/ic_camera_alt_white_36dp" -->
+<!--         android:title="@string/menu_note_chupanh" -->
+<!--         app:showAsAction="always"/> -->
     <item
         android:id="@+id/action_note_create"
         android:icon="@drawable/ic_done_white_36dp"
         android:title="@string/menu_note_create"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_note_message"
-        android:icon="@drawable/ic_message_white_36dp"
-        android:title="@string/menu_note_message"
-        app:showAsAction="always"/>
+<!--     <item -->
+<!--         android:id="@+id/action_note_message" -->
+<!--         android:icon="@drawable/ic_message_white_36dp" -->
+<!--         android:title="@string/menu_note_message" -->
+<!--         app:showAsAction="always"/> -->
     <item
         android:id="@+id/action_note_share"
         android:icon="@drawable/ic_share_white_36dp"
