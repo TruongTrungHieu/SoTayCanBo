@@ -159,9 +159,7 @@ public class ListNoteActivity extends ActionBarActivity {
 		int id = item.getItemId();
 		switch (id) {
 		case android.R.id.home:
-			Intent sotayFragment = new Intent(this,
-					FragmentManagerActivity.class);
-			startActivity(sotayFragment);
+			onBackPressed();
 			break;
 
 		case R.id.action_listnote_share:

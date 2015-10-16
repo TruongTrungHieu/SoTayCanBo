@@ -249,9 +249,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		int id = item.getItemId();
 		switch (id) {
 		case android.R.id.home:
-			Intent home = new Intent(NoteActivity.this,
-					FragmentManagerActivity.class);
-			startActivity(home);
+			onBackPressed();
 			NoteActivity.this.finish();
 			break;
 

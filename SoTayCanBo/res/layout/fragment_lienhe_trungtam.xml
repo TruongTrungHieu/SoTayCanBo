@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <ListView
+        android:id="@+id/lvDonvi_Trungtam"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Trung tam" />
+        android:layout_height="match_parent" >
+    </ListView>
 
 </LinearLayout>

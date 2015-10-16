@@ -13,7 +13,8 @@ public class LienheFragment_Phong extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_lienhe_phong, container, false);
+		View view = inflater.inflate(R.layout.fragment_lienhe_phong, container,
+				false);
 		return view;
 	}
 

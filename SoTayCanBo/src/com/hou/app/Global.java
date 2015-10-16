@@ -2,7 +2,10 @@ package com.hou.app;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+
+import com.hou.models.DonVi;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,6 +23,11 @@ import android.os.Environment;
  */
 
 public class Global {
+	
+	public static ArrayList<DonVi> listDvPhong = null;
+	public static ArrayList<DonVi> listDvKhoa = null;
+	public static ArrayList<DonVi> listDvTrungtam = null;
+	
 	public static void savePreference(Context mContext, String key, String value) {
 		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
 				Const.XML_FILE_NAME, Context.MODE_PRIVATE);
