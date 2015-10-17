@@ -3,12 +3,14 @@ package com.hou.sotaycanbo;
 import java.util.ArrayList;
 
 import com.hou.adapters.CanboAdapter;
+import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.CanBo;
 import com.hou.models.DonVi;
 import com.hou.quickaction.ActionItem;
 import com.hou.quickaction.QuickAction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -26,6 +28,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 	private CanboAdapter adapter = null;
 
 	private DonVi mDonvi;
+	private int pos = -1;
 
 	// Quick Action
 	private static final int ID_INFOR = 1;
@@ -73,11 +76,16 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 							int actionId) {
 						switch (actionId) {
 						case ID_INFOR:
-
+							Intent i = new Intent(DanhSachCanBoActivity.this, CanboActivity.class);
+							i.putExtra("donvi", Global.listDvKhoa.get(pos));
+							startActivity(i);
+							overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
 							break;
 						case ID_CALL:
+							
 							break;
 						case ID_SMS:
+							
 							break;
 						default:
 							break;
@@ -107,6 +115,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				pos = position;
 				quickAction.show(view);
 			}
 		});

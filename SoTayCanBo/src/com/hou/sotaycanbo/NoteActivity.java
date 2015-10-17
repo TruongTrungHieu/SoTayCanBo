@@ -324,7 +324,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			// Insert
 			int dinhkem = listAttachment.size();
 			String maGhichu = Global.getPreference(getApplicationContext(),
-					Const.USER_ID) + "_" + Global.getCurrentDateTime();
+					Const.USER_EMAIL) + "_" + Global.getCurrentDateTime();
 			String noidung = "";
 			if (edtNoidung.toString().trim().length() > 0) {
 				noidung = edtNoidung.getText().toString();

@@ -33,7 +33,8 @@ import com.hou.sotaycanbo.R;
  * Contributors:
  * - Kevin Peck <kevinwpeck@gmail.com>
  */
-@SuppressLint("InflateParams") public class QuickAction extends PopupWindows implements OnDismissListener {
+@SuppressLint("InflateParams") 
+public class QuickAction extends PopupWindows implements OnDismissListener {
 	private View mRootView;
 	private ImageView mArrowUp;
 	private ImageView mArrowDown;

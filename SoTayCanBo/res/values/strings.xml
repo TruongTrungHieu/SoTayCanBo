@@ -104,5 +104,6 @@
     <string name="delete">Delete</string>
     <string name="file_style">File style</string>
     <string name="title_activity_danh_sach_can_bo">DanhSachCanBoActivity</string>
+    <string name="title_activity_canbo">CanboActivity</string>
 
 </resources>

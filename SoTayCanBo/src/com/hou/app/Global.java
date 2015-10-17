@@ -28,6 +28,8 @@ public class Global {
 	public static ArrayList<DonVi> listDvKhoa = new ArrayList<DonVi>();
 	public static ArrayList<DonVi> listDvTrungtam = new ArrayList<DonVi>();
 	
+	
+	
 	public static void savePreference(Context mContext, String key, String value) {
 		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(
 				Const.XML_FILE_NAME, Context.MODE_PRIVATE);

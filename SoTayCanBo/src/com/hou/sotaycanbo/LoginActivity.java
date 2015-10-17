@@ -51,7 +51,7 @@ public class LoginActivity extends Activity {
 						&& (_pass.toString().trim().length() > 0)) {
 					if (checkUser()) {
 						Global.savePreference(getApplicationContext(), Const.USER_EMAIL, _email);
-						Global.savePreference(getApplicationContext(), Const.USER_ID, "ID_TEST");
+						Global.savePreference(getApplicationContext(), Const.USER_MACANBO, "ID_TEST");
 						Intent manager = new Intent(LoginActivity.this,
 								FragmentManagerActivity.class);
 						startActivity(manager);

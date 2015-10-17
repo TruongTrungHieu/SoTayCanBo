@@ -52,6 +52,11 @@
             android:label="@string/title_activity_danh_sach_can_bo"
             android:theme="@style/CustomActionBarTheme" >
         </activity>
+        <activity
+            android:name=".CanboActivity"
+            android:label="@string/title_activity_canbo"
+            android:theme="@style/CustomActionBarTheme" >
+        </activity>
     </application>
 
 </manifest>

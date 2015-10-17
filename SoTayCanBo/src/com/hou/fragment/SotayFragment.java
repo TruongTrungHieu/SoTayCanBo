@@ -125,7 +125,7 @@ public class SotayFragment extends Fragment {
 							+ Global.getCurrentDateTime();
 					SoTay st = new SoTay(pk, ten, Global.getCurrentDateTime(),
 							0, Global.getPreference(getActivity(),
-									Const.USER_ID));
+									Const.USER_EMAIL));
 					listSotay.add(st);
 					exeQ.insert_tblSotay_single(st);
 					adapter.notifyDataSetChanged();
