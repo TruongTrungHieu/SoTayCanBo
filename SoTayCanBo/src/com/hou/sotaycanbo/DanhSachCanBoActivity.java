@@ -28,6 +28,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 	private CanboAdapter adapter = null;
 
 	private DonVi mDonvi;
+	@SuppressWarnings("unused")
 	private int pos = -1;
 
 	// Quick Action

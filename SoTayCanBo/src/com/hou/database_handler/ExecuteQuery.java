@@ -3,6 +3,7 @@ package com.hou.database_handler;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hou.models.DinhKem;
 import com.hou.models.GhiChu;
 import com.hou.models.Group;
 import com.hou.models.SoTay;
@@ -568,5 +569,33 @@ public class ExecuteQuery {
 	
 	/*
 	 * END - tbl_ghichu
+	 */
+	
+	/*
+	 * tbl_dinhkem
+	 */
+	public ArrayList<DinhKem> getAllDinhKemByMaGhiChu(String maGhichu) {
+		ArrayList<DinhKem> listDinhkem = new ArrayList<DinhKem>();
+		String selectQuery = "SELECT * FROM " + ColumnName.DINHKEM_TABLE + " WHERE " + ColumnName.DINHKEM_MAGHICHU + " = '" + maGhichu + "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				DinhKem dk = new DinhKem();
+
+				dk.setMaDinhkem(cursor.getString(0));
+				dk.setMaGhichu(cursor.getString(1));
+				dk.setLoaifile(cursor.getString(2));
+				dk.setUrl(cursor.getString(3));
+				dk.setFilename(cursor.getString(4));
+
+				listDinhkem.add(dk);
+			} while (cursor.moveToNext());
+		}
+		return listDinhkem;
+	}
+	
+	/*
+	 * END - tbl_dinhkem
 	 */
 }
