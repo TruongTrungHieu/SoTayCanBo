@@ -103,6 +103,11 @@ public class LienheFragment extends Fragment {
 	}
 
 	@Override
+	public void onResume() {
+	    super.onResume();  	    
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

@@ -107,15 +107,16 @@ public class CircularImageView extends ImageView {
 		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyle, 0);
 
 		// Check for extra features being enabled
-		hasBorder = attributes.getBoolean(R.styleable.CircularImageView_civ_border, false);
+		hasBorder = attributes.getBoolean(R.styleable.CircularImageView_civ_border, true);
 		hasSelector = attributes.getBoolean(R.styleable.CircularImageView_civ_selector, false);
 		shadowEnabled = attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, SHADOW_ENABLED);
 
 		// Set border properties, if enabled
 		if(hasBorder) {
-			int defaultBorderSize = (int) (2 * context.getResources().getDisplayMetrics().density + 0.5f);
+//			int defaultBorderSize = (int) (2 * context.getResources().getDisplayMetrics().density + 0.5f);
+			int defaultBorderSize = (int) (0.5f);
 			setBorderWidth(attributes.getDimensionPixelOffset(R.styleable.CircularImageView_civ_borderWidth, defaultBorderSize));
-			setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_borderColor, Color.WHITE));
+			setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_borderColor, Color.GRAY));
 		}
 
 		// Set selector properties, if enabled

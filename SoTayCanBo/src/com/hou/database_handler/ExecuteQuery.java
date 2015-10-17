@@ -186,6 +186,24 @@ public class ExecuteQuery {
 		return listSotay;
 	}
 
+	// select * from tbl_sotay where maSotay
+	public SoTay getSotayByMaSotay(String maSotay) {
+		SoTay st = new SoTay();
+		String selectQuery = "SELECT * FROM " + ColumnName.SOTAY_TABLE
+				+ " WHERE " + ColumnName.SOTAY_MASOTAY + " = '" + maSotay
+				+ "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			st.setMaSoTay(cursor.getString(0));
+			st.setMaCanBo(cursor.getString(1));
+			st.setTenSoTay(cursor.getString(2));
+			st.setNgayTao(Long.parseLong(cursor.getString(3)));
+			st.setSoGhiChu(cursor.getInt(4));
+		}
+		return st;
+	}
+
 	// insert 1 record
 	public boolean insert_tblSotay_single(SoTay st) {
 		try {
@@ -371,7 +389,7 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
-	
+
 	// delete all record
 	public boolean delete_tblGroup_allrecord() {
 		try {
@@ -383,7 +401,7 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
-	
+
 	// update tenGroup in tblGroup
 	public boolean update_tblGroup_tenGroup(String tenGroup, String maGroup) {
 		try {
@@ -404,15 +422,95 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
-	
+
 	/*
 	 * END - tbl_group
 	 */
-	
+
 	/*
 	 * tbl_ghichu
 	 */
-	
+
+	// select * from tbl_ghichu
+	public ArrayList<GhiChu> getAllGhichu() {
+		ArrayList<GhiChu> listGhichu = new ArrayList<GhiChu>();
+		String selectQuery = "SELECT * FROM " + ColumnName.GHICHU_TABLE;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				GhiChu gc = new GhiChu();
+
+				gc.setMaGhiChu(cursor.getString(0));
+				gc.setTenGhiChu(cursor.getString(1));
+				gc.setNgaytao(cursor.getLong(2));
+				gc.setNoidung(cursor.getString(3));
+				gc.setNgaysua(cursor.getLong(4));
+				gc.setTrangthai(cursor.getInt(5));
+				gc.setDinhkem(cursor.getInt(6));
+				gc.setNgaythuchien(cursor.getLong(7));
+				gc.setBookmark(cursor.getInt(8));
+				gc.setMaSotay(cursor.getString(9));
+
+				listGhichu.add(gc);
+			} while (cursor.moveToNext());
+		}
+		return listGhichu;
+	}
+
+	// select * from tbl_ghichu where maSotay
+	public ArrayList<GhiChu> getAllGhichuByMasotay(String maSotay) {
+		ArrayList<GhiChu> listGhichu = new ArrayList<GhiChu>();
+		String selectQuery = "SELECT * FROM " + ColumnName.GHICHU_TABLE
+				+ " WHERE " + ColumnName.GHICHU_MASOTAY + " = '" + maSotay
+				+ "' ";
+		;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				GhiChu gc = new GhiChu();
+
+				gc.setMaGhiChu(cursor.getString(0));
+				gc.setTenGhiChu(cursor.getString(1));
+				gc.setNgaytao(cursor.getLong(2));
+				gc.setNoidung(cursor.getString(3));
+				gc.setNgaysua(cursor.getLong(4));
+				gc.setTrangthai(cursor.getInt(5));
+				gc.setDinhkem(cursor.getInt(6));
+				gc.setNgaythuchien(cursor.getLong(7));
+				gc.setBookmark(cursor.getInt(8));
+				gc.setMaSotay(cursor.getString(9));
+
+				listGhichu.add(gc);
+			} while (cursor.moveToNext());
+		}
+		return listGhichu;
+	}
+
+	// select * from tbl_ghichu where maGhichu
+	public GhiChu getGhichuByMaghichu(String maGhichu) {
+		GhiChu gc = new GhiChu();
+		String selectQuery = "SELECT * FROM " + ColumnName.GHICHU_TABLE
+				+ " WHERE " + ColumnName.GHICHU_MAGHICHU + " = '" + maGhichu
+				+ "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			gc.setMaGhiChu(cursor.getString(0));
+			gc.setTenGhiChu(cursor.getString(1));
+			gc.setNgaytao(cursor.getLong(2));
+			gc.setNoidung(cursor.getString(3));
+			gc.setNgaysua(cursor.getLong(4));
+			gc.setTrangthai(cursor.getInt(5));
+			gc.setDinhkem(cursor.getInt(6));
+			gc.setNgaythuchien(cursor.getLong(7));
+			gc.setBookmark(cursor.getInt(8));
+			gc.setMaSotay(cursor.getString(9));
+		}
+		return gc;
+	}
+
 	// insert 1 record
 	public boolean insert_tblGhichu_single(GhiChu g) {
 		try {
@@ -431,32 +529,42 @@ public class ExecuteQuery {
 			cv.put(ColumnName.GHICHU_MASOTAY, g.getMaSotay());
 
 			database.insert(ColumnName.GHICHU_TABLE, null, cv);
-			
+
 			return true;
 		} catch (SQLiteException e) {
 			Log.e("insert_tblGhichu_single", e.getMessage());
 			return false;
 		}
 	}
-	
-//	public ArrayList<Group> getAllGhiChu() {
-//		ArrayList<Group> listGhiChu = new ArrayList<Group>();
-//		String selectQuery = "SELECT * FROM " + ColumnName.GHICHU_TABLE;
-//		database = mDbHelper.getReadableDatabase();
-//		Cursor cursor = database.rawQuery(selectQuery, null);
-//		if (cursor.moveToFirst()) {
-//			do {
-//				GhiChu g = new GhiChu();
-//
-//				g.setMaGroup(cursor.getString(0));
-//				g.setTenGroup(cursor.getString(1));
-//				g.setMaCanbo_admin(cursor.getString(2));
-//
-//				listGhiChu.add(g);
-//			} while (cursor.moveToNext());
-//		}
-//		return listGhiChu;
-//	}
+
+	// update Ghichu
+	public boolean update_tblGhichu(GhiChu gc) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+
+			ContentValues cv = new ContentValues();
+			
+			cv.put(ColumnName.GHICHU_TENGHICHU, gc.getTenGhiChu());
+			cv.put(ColumnName.GHICHU_NOIDUNG, gc.getNoidung());
+			cv.put(ColumnName.GHICHU_NGAYSUA, gc.getNgaysua());
+			cv.put(ColumnName.GHICHU_TRANGTHAI, gc.getTrangthai());
+			cv.put(ColumnName.GHICHU_DINHKEM, gc.getDinhkem());
+			cv.put(ColumnName.GHICHU_NGAYTHUCHIEN, gc.getNgaythuchien());
+			cv.put(ColumnName.GHICHU_BOOKMARK, gc.getBookmark());
+			cv.put(ColumnName.GHICHU_MASOTAY, gc.getMaSotay());
+			
+			String where = ColumnName.GHICHU_MAGHICHU + " = ? ";
+
+			if (database.update(ColumnName.GHICHU_TABLE, cv, where,
+					new String[] { gc.getMaGhiChu() }) > 0) {
+				return true;
+			}
+			return false;
+		} catch (SQLiteException e) {
+			Log.e("update_tblGhichu", e.getMessage());
+			return false;
+		}
+	}
 	
 	/*
 	 * END - tbl_ghichu

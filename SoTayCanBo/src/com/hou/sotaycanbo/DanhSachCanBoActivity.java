@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import com.hou.adapters.CanboAdapter;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.CanBo;
+import com.hou.models.DonVi;
+import com.hou.quickaction.ActionItem;
+import com.hou.quickaction.QuickAction;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -21,7 +24,14 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 	private ExecuteQuery exeQ;
 	private ArrayList<CanBo> listCanbo = null;
 	private CanboAdapter adapter = null;
-	
+
+	private DonVi mDonvi;
+
+	// Quick Action
+	private static final int ID_INFOR = 1;
+	private static final int ID_CALL = 2;
+	private static final int ID_SMS = 3;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,13 +39,54 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
-		
+
+		mDonvi = (DonVi) getIntent().getSerializableExtra("donvi");
+		if (mDonvi != null) {
+			this.setTitle(mDonvi.getTenDonvi().toString());
+		}
+
 		exeQ = new ExecuteQuery(getApplicationContext());
 		exeQ.createDatabase();
 		exeQ.open();
 
+		/*
+		 * Quick Action
+		 */
+		ActionItem inforItem = new ActionItem(ID_INFOR, "Infor", getResources()
+				.getDrawable(R.drawable.quick_infor));
+		ActionItem callItem = new ActionItem(ID_CALL, "Call", getResources()
+				.getDrawable(R.drawable.quick_call));
+		ActionItem smsItem = new ActionItem(ID_SMS, "SMS", getResources()
+				.getDrawable(R.drawable.quick_sms));
+		
+		final QuickAction quickAction = new QuickAction(this,
+				QuickAction.HORIZONTAL);
+
+		quickAction.addActionItem(inforItem);
+		quickAction.addActionItem(callItem);
+		quickAction.addActionItem(smsItem);
+		
+		quickAction
+				.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+					@Override
+					public void onItemClick(QuickAction source, int pos,
+							int actionId) {
+						switch (actionId) {
+						case ID_INFOR:
+
+							break;
+						case ID_CALL:
+							break;
+						case ID_SMS:
+							break;
+						default:
+							break;
+						}
+					}
+				});
+
 		listCanbo = new ArrayList<CanBo>();
-		// listCanbo = exeQ.getAllCanboFromDV();
+		// listCanbo = exeQ.getAllCanboFromDV(String maDonvi);
 		listCanbo.add(new CanBo("CB1", "1", "2", "Mai Lan", "Lương Định Của",
 				"aa@gmail.com", "111111", "Thac sy", "", ""));
 		listCanbo.add(new CanBo("CB1", "1", "2", "Nguyễn Thị Húngw",
@@ -56,26 +107,21 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// open CanboActivity
+				quickAction.show(view);
 			}
 		});
-		
+
 		lvCanbo.setAdapter(adapter);
 	}
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.danh_sach_can_bo, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		switch (id) {
 		case android.R.id.home:
