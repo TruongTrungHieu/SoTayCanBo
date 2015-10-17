@@ -3,6 +3,7 @@ package com.hou.fragment;
 import java.util.ArrayList;
 
 import com.hou.adapters.GhichuAdapter;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.GhiChu;
 import com.hou.sotaycanbo.NoteActivity;
 import com.hou.sotaycanbo.R;
@@ -28,13 +29,16 @@ public class GhichuFragment extends Fragment {
 	private GhichuAdapter adapter = null;
 
 	private FrameLayout flNoNote;
+	private ExecuteQuery exeQ;
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
-
+		exeQ = new ExecuteQuery(getActivity().getApplicationContext());
+		exeQ.createDatabase();
+		exeQ.open();
 	}
 
 	@Override
@@ -44,24 +48,11 @@ public class GhichuFragment extends Fragment {
 				.inflate(R.layout.fragment_ghichu, container, false);
 
 		lvGhichu = (ListView) view.findViewById(R.id.lvGhichu);
-
 		listGhichu = new ArrayList<GhiChu>();
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương",
-				1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương",
-				1436207202, 0, 0, 0, 0, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương",
-				1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương",
-				1436207202, 0, 0, 0, 0, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương",
-				1436207202, 0, 0, 0, 1, "st1"));
-
+		listGhichu = exeQ.getAllGhichu();
 		adapter = new GhichuAdapter(getActivity().getApplicationContext(),
 				R.layout.itemlist_sotay, listGhichu);
-
 		lvGhichu.setAdapter(adapter);
-
 		flNoNote = (FrameLayout) view.findViewById(R.id.flNoNote);
 		if (listGhichu.size() > 0) {
 			flNoNote.setVisibility(View.GONE);
@@ -72,6 +63,14 @@ public class GhichuFragment extends Fragment {
 		onClickListener();
 
 		return view;
+	}
+	
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		adapter.notifyDataSetChanged();
 	}
 
 	public void onClickListener() {

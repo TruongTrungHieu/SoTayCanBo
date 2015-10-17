@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rlContentRegister"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"    
-    android:background="#f8f8f9">
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <com.astuetz.PagerSlidingTabStrip
+    <com.astuetz.pagerslidingtabstrip
         android:id="@+id/pstWalletTabs"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -16,11 +15,11 @@
         app:pstsIndicatorHeight="0dp"
         app:pstsTextAllCaps="false" />
 
-    <android.support.v4.view.ViewPager
+    <ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pstWalletTabs"
         android:background="#f8f8f9"
-        tools:context=".RetailerSignUp" />
-</RelativeLayout>
+        tools:context=".LienHeFragment" />
+
+</LinearLayout>

@@ -63,6 +63,7 @@
     <string name="menu_sotay_search">Tìm kiếm</string>
     <string name="menu_sotay_sort">Sắp xếp</string>
     <string name="khong_ghi_chu">Không có ghi chú nào.\nChọn \"+\" để tạo ghi chú mới.</string>
+    <string name="khong_so_tay">Không có sổ tay nào.\nChọn \"+\" để tạo sổ tay mới.</string>
 
     <!-- DIALOG SOTAY FRAGMENT - SORT -->
     <string name="dialog_sotay_sort_titledialog">Sắp xếp Sổ tay theo</string>
@@ -95,6 +96,7 @@
     <!-- LISTNOTE ACTIVITY -->
     <string name="listnote_deletemulti">Xóa ghi chú</string>
     <string name="listnote_ghichu">Ghi chú</string>
+    <string name="remove_attach_confirm">Bạn có muốn xóa file đính kèm này không ?</string>
 
     <!-- SOMETHING -->
     <string name="sth_bookmark">Đánh dấu</string>

@@ -5,6 +5,24 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
+    <FrameLayout
+        android:id="@+id/flNoSotay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:visibility="gone"
+        android:paddingTop="30dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/khong_so_tay"
+            android:textColor="@color/grey"
+            android:textSize="16sp" />
+    </FrameLayout>
+
     <ListView
         android:id="@+id/lvSotay"
         android:layout_width="match_parent"

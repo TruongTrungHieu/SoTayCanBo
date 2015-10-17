@@ -3,6 +3,8 @@ package com.hou.sotaycanbo;
 import java.util.ArrayList;
 
 import com.hou.adapters.GhichuAdapter;
+import com.hou.app.Const;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
 
@@ -28,18 +30,23 @@ public class ListNoteActivity extends ActionBarActivity {
 	private ListView lvGhichu;
 	private GhichuAdapter adapter;
 	private ArrayList<GhiChu> listGhichu;
+	private ExecuteQuery exeQ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_note);
-
+		
+		exeQ = new ExecuteQuery(getApplicationContext());
+		exeQ.createDatabase();
+		exeQ.open();
+		
 		actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		actionbar.setHomeButtonEnabled(true);
 		actionbar.setElevation(0);
 
-		mSoTay = (SoTay) getIntent().getSerializableExtra("SoTay");
+		mSoTay = (SoTay) getIntent().getSerializableExtra(Const.KEY_SOTAY);
 
 		this.setTitle(mSoTay.getTenSoTay());
 
@@ -49,14 +56,16 @@ public class ListNoteActivity extends ActionBarActivity {
 		lvGhichu = (ListView) findViewById(R.id.lvGhichu);
 
 		listGhichu = new ArrayList<GhiChu>();
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
+		
+		listGhichu = exeQ.getAllGhichuByMasotay(mSoTay.getMaSoTay());
 
 		adapter = new GhichuAdapter(getApplicationContext(),
 				R.layout.itemlist_sotay, listGhichu);
@@ -77,6 +86,7 @@ public class ListNoteActivity extends ActionBarActivity {
 						NoteActivity.class);
 				note.putExtra("TYPE_NOTE", "READ");
 				note.putExtra("NOTE", listGhichu.get(position));
+				note.putExtra(Const.KEY_SOTAY, mSoTay);			
 				startActivity(note);
 			}
 		});

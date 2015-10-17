@@ -20,4 +20,5 @@ public class Const {
 	public static final String ATTACHMENT_IMAGE = "image";
 	public static final String ATTACHMENT_FILE = "file";
 	public static final String ATTACHMENT_VOICE = "voice";
+	public static final String KEY_SOTAY = "sotay";
 }

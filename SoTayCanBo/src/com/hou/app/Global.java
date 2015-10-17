@@ -8,6 +8,7 @@ import java.util.Date;
 import com.hou.models.DonVi;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -101,5 +102,13 @@ public class Global {
 		}
 
 		return "file://" + mediaStorageDir.getPath() + "/" + image;
+	}
+	
+	public static String getMaCanBo(Activity context){
+		return Global.getPreference(context, Const.USER_MACANBO);
+	}
+	public static String getCurrentTime(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");		
+		return format.format(new Date());
 	}
 }

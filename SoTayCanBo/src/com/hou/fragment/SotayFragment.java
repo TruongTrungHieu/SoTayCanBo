@@ -27,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class SotayFragment extends Fragment {
 	private static final int SORT_TIME = 3;
 
 	private ExecuteQuery exeQ;
+	private FrameLayout flNoSotay;
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -74,10 +76,16 @@ public class SotayFragment extends Fragment {
 					int position, long id) {
 				Intent dsSotay = new Intent(getActivity(),
 						ListNoteActivity.class);
-				dsSotay.putExtra("SoTay", listSotay.get(position));
+				dsSotay.putExtra(Const.KEY_SOTAY, listSotay.get(position));
 				startActivity(dsSotay);
 			}
 		});
+		flNoSotay = (FrameLayout) view.findViewById(R.id.flNoSotay);
+		if (listSotay.size() > 0) {
+			flNoSotay.setVisibility(View.GONE);
+		} else {
+			flNoSotay.setVisibility(View.VISIBLE);
+		}
 
 		return view;
 	}

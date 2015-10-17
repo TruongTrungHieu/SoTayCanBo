@@ -8,7 +8,12 @@ import com.hou.models.DinhKem;
 import com.hou.sotaycanbo.R;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,34 +74,54 @@ public class AttachmentAdapter extends ArrayAdapter<DinhKem> {
 
 			@Override
 			public void onClick(View v) {
-				Animation fadeOut = new AlphaAnimation(1, 0);
-				fadeOut.setInterpolator(new AccelerateInterpolator());
-				fadeOut.setDuration(500);
-
-				fadeOut.setAnimationListener(new Animation.AnimationListener() {
-					@Override
-					public void onAnimationStart(Animation animation) {
-
-					}
+				AlertDialog.Builder buider = new Builder(context);
+				buider.setMessage(context
+						.getString(R.string.remove_attach_confirm));
+				buider.setNegativeButton("Cancel", new OnClickListener() {
 
 					@Override
-					public void onAnimationEnd(Animation animation) {
-						// adapter.pointItems.remove(position);
-						// adapter.notifyDataSetChanged();
-						remove(listAttachment.get(position));
-					}
-
-					@Override
-					public void onAnimationRepeat(Animation animation) {
-
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
 					}
 				});
+				buider.setNeutralButton("OK", new OnClickListener() {
 
-				rowView.startAnimation(fadeOut);
-				// remove(listAttachment.get(position));
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						Animation fadeOut = new AlphaAnimation(1, 0);
+						fadeOut.setInterpolator(new AccelerateInterpolator());
+						fadeOut.setDuration(500);
+
+						fadeOut.setAnimationListener(new Animation.AnimationListener() {
+							@Override
+							public void onAnimationStart(Animation animation) {
+
+							}
+
+							@Override
+							public void onAnimationEnd(Animation animation) {
+								// adapter.pointItems.remove(position);
+								// adapter.notifyDataSetChanged();
+								remove(listAttachment.get(position));
+							}
+
+							@Override
+							public void onAnimationRepeat(Animation animation) {
+
+							}
+						});
+
+						rowView.startAnimation(fadeOut);
+						// remove(listAttachment.get(position));
+					}
+				});
+				buider.create().show();
 			}
+			
+			
 		});
-
 		return rowView;
 	}
 
