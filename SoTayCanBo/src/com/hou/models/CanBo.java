@@ -11,7 +11,6 @@ public class CanBo implements Serializable{
 
 	private String maCanbo;
 	private String maDonvi;
-	private String maNganh;
 	private String tenCanbo;
 	private String diachi;
 	private String email;
@@ -19,18 +18,18 @@ public class CanBo implements Serializable{
 	private String hocham;
 	private String hocvi;
 	private String avatar;
+	private String sdt;
 	
 	public CanBo() {
 		
 	}
 
-	public CanBo(String maCanbo, String maDonvi, String maNganh,
+	public CanBo(String maCanbo, String maDonvi,
 			String tenCanbo, String diachi, String email, String cmnd,
-			String hocham, String hocvi, String avatar) {
+			String hocham, String hocvi, String avatar, String sdt) {
 		super();
 		this.maCanbo = maCanbo;
 		this.maDonvi = maDonvi;
-		this.maNganh = maNganh;
 		this.tenCanbo = tenCanbo;
 		this.diachi = diachi;
 		this.email = email;
@@ -38,6 +37,7 @@ public class CanBo implements Serializable{
 		this.hocham = hocham;
 		this.hocvi = hocvi;
 		this.avatar = avatar;
+		this.sdt = sdt;
 	}
 
 	public String getMaCanbo() {
@@ -54,14 +54,6 @@ public class CanBo implements Serializable{
 
 	public void setMaDonvi(String maDonvi) {
 		this.maDonvi = maDonvi;
-	}
-
-	public String getMaNganh() {
-		return maNganh;
-	}
-
-	public void setMaNganh(String maNganh) {
-		this.maNganh = maNganh;
 	}
 
 	public String getTenCanbo() {
@@ -118,6 +110,14 @@ public class CanBo implements Serializable{
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	
+	public String getSdt() {
+		return sdt;
+	}
+
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
 
 	public static long getSerialversionuid() {

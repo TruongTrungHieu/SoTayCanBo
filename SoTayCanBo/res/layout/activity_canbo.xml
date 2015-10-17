@@ -1,16 +1,151 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.hou.sotaycanbo.CanboActivity" >
+    android:background="#FFF" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:background="#FFF"
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlImgInfo"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <com.hou.ultis.CircularImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:alpha="50"
+                android:src="@drawable/account_ava" />
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="50dp"
+                android:layout_toRightOf="@id/imgAvatar"
+                android:text="Maria Olala"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDonvi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvUserName"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/imgAvatar"
+                android:drawablePadding="10dp"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/lnInfomation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlImgInfo"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/edtFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/canbo_sdt"
+                android:drawablePadding="30dp"
+                android:enabled="false"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Full Name"
+                android:textColor="#505050"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#dadada" />
+
+            <EditText
+                android:id="@+id/edtSdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/canbo_sdt"
+                android:drawablePadding="30dp"
+                android:enabled="false"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="SDT"
+                android:textColor="#505050"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#dadada" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/canbo_sdt"
+                android:drawablePadding="30dp"
+                android:enabled="false"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Email"
+                android:textColor="#505050"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#dadada" />
+
+            <EditText
+                android:id="@+id/edtDiachi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/canbo_sdt"
+                android:drawablePadding="30dp"
+                android:enabled="false"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="Address"
+                android:textColor="#505050"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#dadada" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

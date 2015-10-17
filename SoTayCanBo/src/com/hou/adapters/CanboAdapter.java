@@ -71,7 +71,7 @@ public class CanboAdapter extends ArrayAdapter<CanBo> {
 		CanBo cb = listCanbo.get(position);
 		tvTenCanbo.setText(cb.getTenCanbo().toString());
 		tvEmail.setText(cb.getEmail().toString());
-		tvSodienthoai.setText(cb.getDiachi().toString());
+		tvSodienthoai.setText(cb.getSdt().toString());
 
 		File f = ImageUltiFunctions
 				.getFileFromUri(Global.getURI(cb.getAvatar()));

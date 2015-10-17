@@ -544,7 +544,7 @@ public class ExecuteQuery {
 			database = mDbHelper.getWritableDatabase();
 
 			ContentValues cv = new ContentValues();
-			
+
 			cv.put(ColumnName.GHICHU_TENGHICHU, gc.getTenGhiChu());
 			cv.put(ColumnName.GHICHU_NOIDUNG, gc.getNoidung());
 			cv.put(ColumnName.GHICHU_NGAYSUA, gc.getNgaysua());
@@ -553,7 +553,7 @@ public class ExecuteQuery {
 			cv.put(ColumnName.GHICHU_NGAYTHUCHIEN, gc.getNgaythuchien());
 			cv.put(ColumnName.GHICHU_BOOKMARK, gc.getBookmark());
 			cv.put(ColumnName.GHICHU_MASOTAY, gc.getMaSotay());
-			
+
 			String where = ColumnName.GHICHU_MAGHICHU + " = ? ";
 
 			if (database.update(ColumnName.GHICHU_TABLE, cv, where,
@@ -566,17 +566,19 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
-	
+
 	/*
 	 * END - tbl_ghichu
 	 */
-	
+
 	/*
 	 * tbl_dinhkem
 	 */
 	public ArrayList<DinhKem> getAllDinhKemByMaGhiChu(String maGhichu) {
 		ArrayList<DinhKem> listDinhkem = new ArrayList<DinhKem>();
-		String selectQuery = "SELECT * FROM " + ColumnName.DINHKEM_TABLE + " WHERE " + ColumnName.DINHKEM_MAGHICHU + " = '" + maGhichu + "' ";
+		String selectQuery = "SELECT * FROM " + ColumnName.DINHKEM_TABLE
+				+ " WHERE " + ColumnName.DINHKEM_MAGHICHU + " = '" + maGhichu
+				+ "' ";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
@@ -594,7 +596,27 @@ public class ExecuteQuery {
 		}
 		return listDinhkem;
 	}
-	
+
+	// insert 1 record
+	public boolean insert_tblDinhkem_single(DinhKem d) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+
+			cv.put(ColumnName.DINHKEM_MADINHKEM, d.getMaDinhkem());
+			cv.put(ColumnName.DINHKEM_MAGHICHU, d.getMaGhichu());
+			cv.put(ColumnName.DINHKEM_LOAIFILE, d.getLoaifile());
+			cv.put(ColumnName.DINHKEM_URL, d.getUrl());
+			cv.put(ColumnName.DINHKEM_FILENAME, d.getFilename());
+
+			database.insert(ColumnName.DINHKEM_TABLE, null, cv);
+
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("insert_tblDinhkem_single", e.getMessage());
+			return false;
+		}
+	}
 	/*
 	 * END - tbl_dinhkem
 	 */
