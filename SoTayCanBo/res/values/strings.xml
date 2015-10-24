@@ -40,6 +40,7 @@
     <string name="manager_dongbo">Đồng bộ</string>
     <string name="manager_caidat">Cài đặt</string>
     <string name="manager_thongtin">Thông tin</string>
+    <string name="manager_thongtincanbo">Thông tin cán bộ</string>
 
     <!-- NOTE ACTIVITY -->
     <string name="title_activity_note"></string>

@@ -49,4 +49,11 @@ public class Const {
 	public static final String ATTACHMENT_FILE = "file";
 	public static final String ATTACHMENT_VOICE = "voice";
 	public static final String KEY_SOTAY = "sotay";
+	
+	/**
+	 * 
+	 * SERVER
+	 * */
+	public static final String URL_SERVER = "http://128.199.112.15/static/";
+	
 }

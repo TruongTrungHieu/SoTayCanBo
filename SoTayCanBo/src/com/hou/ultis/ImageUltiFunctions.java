@@ -1,7 +1,16 @@
 package com.hou.ultis;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+
+import com.hou.app.Const;
+import com.hou.app.Global;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,8 +18,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 
 public class ImageUltiFunctions {
 	public static File getFileFromUri(String imgUri) {
@@ -31,43 +42,43 @@ public class ImageUltiFunctions {
 		return null;
 	}
 
-	public static String getRealPathFromURI(String contentURI,Context context) {
-        Uri contentUri = Uri.parse(contentURI);
+	public static String getRealPathFromURI(String contentURI, Context context) {
+		Uri contentUri = Uri.parse(contentURI);
 
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = null;
-        try {
-            if (Build.VERSION.SDK_INT > 19) {
-                // Will return "image:x*"
-                String wholeID = DocumentsContract.getDocumentId(contentUri);
-                // Split at colon, use second item in the array
-                String id = wholeID.split(":")[1];
-                // where id is equal to
-                String sel = MediaStore.Images.Media._ID + "=?";
+		String[] projection = { MediaStore.Images.Media.DATA };
+		Cursor cursor = null;
+		try {
+			if (Build.VERSION.SDK_INT > 19) {
+				// Will return "image:x*"
+				String wholeID = DocumentsContract.getDocumentId(contentUri);
+				// Split at colon, use second item in the array
+				String id = wholeID.split(":")[1];
+				// where id is equal to
+				String sel = MediaStore.Images.Media._ID + "=?";
 
-                cursor = context.getContentResolver().query(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        projection, sel, new String[] { id }, null);
-            } else {
-                cursor = context.getContentResolver().query(contentUri,
-                        projection, null, null, null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+				cursor = context.getContentResolver().query(
+						MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						projection, sel, new String[] { id }, null);
+			} else {
+				cursor = context.getContentResolver().query(contentUri,
+						projection, null, null, null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        String path = null;
-        try {
-            int column_index = cursor
-                    .getColumnIndex(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            path = cursor.getString(column_index).toString();
-            cursor.close();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return path;
-    }
+		String path = null;
+		try {
+			int column_index = cursor
+					.getColumnIndex(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			path = cursor.getString(column_index).toString();
+			cursor.close();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return path;
+	}
 
 	public static Bitmap decodeSampledBitmapFromFile(File file, int reqWidth,
 			int reqHeight) {
@@ -106,5 +117,61 @@ public class ImageUltiFunctions {
 		}
 		return inSampleSize;
 	}
-}
 
+	public static void downloadFileFromServer(String filename) {
+		BufferedInputStream in = null;
+		FileOutputStream fout = null;
+		int count;		
+		
+		try {
+			URL url = new URL(Const.URL_SERVER + "travel/5610/" + filename);
+			URLConnection conection = url.openConnection();
+			conection.connect();
+			// getting file length
+			File mediaStorageDir;
+			if (Build.VERSION.SDK_INT > 8) {
+				mediaStorageDir = Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+			} else {
+				mediaStorageDir = new File(
+						Environment.getExternalStorageDirectory(), "Pictures");
+			}
+			if (!mediaStorageDir.exists()) {
+				if (mediaStorageDir.mkdirs() || mediaStorageDir.isDirectory()) {
+
+				}
+			}
+
+			Log.d("Url", Const.URL_SERVER + "travel/5610/" + filename);
+
+			// input stream to read file - with 8k buffer
+			InputStream input = new BufferedInputStream(url.openStream(), 8192);
+
+			// Output stream to write file
+
+			Log.d("Out", mediaStorageDir.getPath() + "/" + filename);
+			OutputStream output = new FileOutputStream(
+					mediaStorageDir.getPath() + "/" + filename);
+
+			byte data[] = new byte[1024];
+
+			long total = 0;
+
+			while ((count = input.read(data)) != -1) {
+				output.write(data, 0, count);
+			}
+
+			// flushing output
+			output.flush();
+
+			// closing streams
+			output.close();
+			input.close();
+
+		} catch (Exception e) {
+
+		}
+	}
+	
+	// http://128.199.112.15/static/travel/5610/f3599b7c4dc80e5e0319.jpg
+}

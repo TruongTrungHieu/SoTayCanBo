@@ -36,7 +36,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_toRightOf="@id/imgAvatar"
                 android:text="Maria Olala"
-                android:textColor="#FFF"
+                android:textColor="#202020"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/imgAvatar"
                 android:drawablePadding="10dp"
-                android:textColor="#FFF"
+                android:textColor="#202020"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </RelativeLayout>

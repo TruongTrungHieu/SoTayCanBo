@@ -5,9 +5,11 @@ import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.fragment.CalendarFragment;
 import com.hou.fragment.GhichuFragment;
+import com.hou.fragment.LienHeFragment;
 import com.hou.fragment.LienheFragment;
 import com.hou.fragment.SotayFragment;
 import com.hou.models.CanBo;
+import com.hou.fragment.ThongTinCanBoFragment;
 
 import android.os.Bundle;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
@@ -28,6 +30,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 	private MaterialSection<?> DongBo;
 	private MaterialSection<?> CaiDat;
 	private MaterialSection<?> ThongTin;
+	private MaterialSection<?> ThongTinCanBo;
 
 	public static FragmentManagerActivity sInstance;
 
@@ -72,7 +75,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 				R.drawable.menu_lichtuan_material, new CalendarFragment());
 
 		LienHe = newSection(getResources().getString(R.string.manager_lienhe),
-				R.drawable.menu_lienhe_material, new LienheFragment());
+				R.drawable.menu_lienhe_material, new LienHeFragment());
 
 		DongBo = newSection(getResources().getString(R.string.manager_dongbo),
 				R.drawable.menu_dongbo_material, new SotayFragment());
@@ -83,6 +86,10 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		ThongTin = newSection(
 				getResources().getString(R.string.manager_thongtin),
 				R.drawable.menu_thongtin_material, new SotayFragment());
+		
+		ThongTinCanBo = newSection(
+				getResources().getString(R.string.manager_thongtincanbo),
+				R.drawable.menu_thongtin_material, new ThongTinCanBoFragment());
 
 		this.addSection(GhiChu);
 		this.addSection(SoTay);
@@ -92,6 +99,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		this.addSection(DongBo);
 		this.addSection(CaiDat);
 		this.addSection(ThongTin);
+		this.addSection(ThongTinCanBo);
 
 	}
 
