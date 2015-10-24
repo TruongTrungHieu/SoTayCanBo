@@ -3,7 +3,6 @@ package com.hou.sotaycanbo;
 import java.util.ArrayList;
 
 import com.hou.adapters.CanboAdapter;
-import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.CanBo;
 import com.hou.models.DonVi;
@@ -78,7 +77,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 						switch (actionId) {
 						case ID_INFOR:
 							Intent i = new Intent(DanhSachCanBoActivity.this, CanboActivity.class);
-							i.putExtra("donvi", Global.listDvKhoa.get(pos));
+							i.putExtra("canbo", listCanbo.get(pos));
 							startActivity(i);
 							overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
 							break;
@@ -96,8 +95,8 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 
 		listCanbo = new ArrayList<CanBo>();
 		// listCanbo = exeQ.getAllCanboFromDV(String maDonvi);
-		listCanbo.add(new CanBo("CB1", "1", "2", "Mai Lan", "Lương Định Của",
-				"aa@gmail.com", "111111", "Thac sy", "", ""));
+		listCanbo.add(new CanBo("CB1", "1", "Mai Lan", "Lương Định Của", "a@gmail.com",
+				"aa@gmail.com", "111111", "Thac sy", "avatar.jpeg", ""));
 		listCanbo.add(new CanBo("CB1", "1", "2", "Nguyễn Thị Húngw",
 				"Lương Định Của", "aa@gmail.com", "111111", "Thac sy", "", ""));
 		listCanbo.add(new CanBo("CB1", "1", "2", "Mai Lan", "Lương Định Của",

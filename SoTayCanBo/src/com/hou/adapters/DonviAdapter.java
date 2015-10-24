@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class DonviAdapter extends ArrayAdapter<DonVi>{
+public class DonviAdapter extends ArrayAdapter<DonVi> {
 
 	private Context mContext;
 	private ArrayList<DonVi> listDonvi;
@@ -28,7 +28,7 @@ public class DonviAdapter extends ArrayAdapter<DonVi>{
 		this.layoutId = resource;
 		this.listDonvi = (ArrayList<DonVi>) listDV;
 	}
-	
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -46,7 +46,7 @@ public class DonviAdapter extends ArrayAdapter<DonVi>{
 		// TODO Auto-generated method stub
 		return position;
 	}
-	
+
 	@SuppressLint({ "InflateParams", "ViewHolder" })
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -65,10 +65,13 @@ public class DonviAdapter extends ArrayAdapter<DonVi>{
 		DonVi dv = listDonvi.get(position);
 		tvTenDonvi.setText(dv.getTenDonvi().toString());
 		tvSodienthoai.setText(dv.getSodienthoai().toString());
-		tvEmail.setText(dv.getEmail().toString());
+		if (dv.getEmail().trim().toString().length() > 0) {
+			tvEmail.setText(dv.getEmail().toString());
+		} else {
+			tvEmail.setText(getContext().getApplicationContext().getResources().getString(R.string.default_email));
+		}
 		tvDiachi.setText(dv.getDiachi().toString());
 
 		return v;
 	}
 }
-	

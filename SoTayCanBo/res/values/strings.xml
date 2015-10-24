@@ -4,6 +4,11 @@
     <string name="app_name">SoTayCanBo</string>
     <string name="action_settings"></string>
     <string name="description"></string>
+	<string name="default_email">webmaster@hou.edu.vn</string>
+    
+    <!-- SERVER -->
+    <string name="check_internet">Kiểm tra lại dịch vụ mạng</string>
+    <string name="database_error">Hệ thống đang sửa chữa :(</string>
 
     <!-- SPLASH ACTIVITY -->
     <string name="title_activity_splash">SoTayCanBo</string>
@@ -16,6 +21,15 @@
     <string name="login_matkhau">Mật khẩu</string>
     <string name="login_quenmatkhau">Quên mật khẩu?</string>
     <string name="login_stcb">SỔ TAY CÁN BỘ</string>
+
+    <!-- DIALOG FORGOT PASSWORD -->
+    <string name="forgotpass_title">Quên mật khẩu</string>
+    <string name="forgotpass_message">Xác nhận địa chỉ Email</string>
+    <string name="forgotpass_ok">Đồng ý</string>
+    <string name="forgotpass_cancel">Hủy bỏ</string>
+    <string name="forgotpass_success">Mật khẩu mới được gửi tới email của bạn</string>
+    <string name="forgotpass_false">Địa chỉ email không tồn tại</string>
+    <string name="forgotpass_validate">Địa chỉ email không được bỏ trống</string>
 
     <!-- FRAGMENT MANAGER ACTIVITY -->
     <string name="manager_sotay">Sổ tay</string>
@@ -108,4 +122,19 @@
     <string name="title_activity_danh_sach_can_bo">DanhSachCanBoActivity</string>
     <string name="title_activity_canbo">CanboActivity</string>
 
+    <!-- CANBO ACTIVITY -->
+    <string name="canboActivity_title">Thông tin cán bộ</string>
+    
+    <!-- DOIMATKHAU ACTIVITY -->
+    <string name="title_activity_doi_matkhau">Đổi mật khẩu</string>
+    <string name="doimatkhau_isfirst">Bạn phải đổi mật khẩu ở lần đăng nhập đầu tiên</string>
+    <string name="doimatkhau_validate">Bạn phải điền đầy đủ thông tin</string>
+    <string name="doimatkhau_pass">Mật khẩu mới không được giống mật khẩu cũ</string>
+    <string name="doimatkhau_passshort">Mật khẩu phải lớn hơn 8 ký tự</string>
+    <string name="doimatkhau_success">Đổi mật khẩu thành công</string>
+    <string name="doimatkhau_false">Tên đăng nhập hoặc mật khẩu không hợp lệ</string>
+	<string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
+	<string name="doimatkhau_passcu">Mật khẩu cũ</string>
+	<string name="doimatkhau_passmoi">Mật khẩu mới</string>
+    
 </resources>

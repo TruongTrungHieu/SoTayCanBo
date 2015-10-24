@@ -10,7 +10,6 @@ import com.hou.sotaycanbo.R;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -119,8 +118,6 @@ public class AttachmentAdapter extends ArrayAdapter<DinhKem> {
 				});
 				buider.create().show();
 			}
-			
-			
 		});
 		return rowView;
 	}

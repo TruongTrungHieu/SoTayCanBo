@@ -41,7 +41,7 @@ public class LienheFragment_Khoa extends Fragment {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				Intent i = new Intent(getActivity(), DanhSachCanBoActivity.class);
-				i.putExtra("canbo", Global.listDvKhoa.get(position));
+				i.putExtra("donvi", Global.listDvKhoa.get(position));
 				startActivity(i);
 				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
 			}

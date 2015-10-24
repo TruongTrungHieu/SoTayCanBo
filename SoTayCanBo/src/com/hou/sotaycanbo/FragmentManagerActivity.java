@@ -1,9 +1,13 @@
 package com.hou.sotaycanbo;
 
+import com.hou.app.Const;
+import com.hou.app.Global;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.fragment.CalendarFragment;
 import com.hou.fragment.GhichuFragment;
-import com.hou.fragment.LienHeFragment;
+import com.hou.fragment.LienheFragment;
 import com.hou.fragment.SotayFragment;
+import com.hou.models.CanBo;
 
 import android.os.Bundle;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
@@ -15,6 +19,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		implements MaterialAccountListener {
 
 	private MaterialAccount account;
+
 	private MaterialSection<?> SoTay;
 	private MaterialSection<?> GhiChu;
 	private MaterialSection<?> Lich;
@@ -26,13 +31,27 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 
 	public static FragmentManagerActivity sInstance;
 
+	private ExecuteQuery exeQ;
+
 	@Override
 	public void init(Bundle savedInstanceState) {
 		sInstance = this;
 		this.disableLearningPattern();
 
-		account = new MaterialAccount(this.getResources(), "Nguyễn Mai Lan", "Khoa Công nghệ Thông Tin",
-				R.drawable.account_ava, R.drawable.account_bg);
+		exeQ = new ExecuteQuery(getApplicationContext());
+		exeQ.createDatabase();
+		exeQ.open();
+
+		saveInfoCanbo();
+		String tenDonvi = exeQ.getTendonviByMadonvi(Global.getPreference(
+				getApplicationContext(), Const.USER_MADONVI));
+		String tenCanbo = Global.getPreference(
+				getApplicationContext(), Const.USER_HOTEN);
+		String anh = Global.getPreference(getApplicationContext(), Const.USER_ANH);
+		
+		account = new MaterialAccount(this.getResources(), tenCanbo,
+				tenDonvi, R.drawable.account_ava,
+				R.drawable.bg);
 		this.addAccount(account);
 
 		this.setAccountListener(this);
@@ -41,7 +60,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 
 		GhiChu = newSection(getResources().getString(R.string.manager_ghichu),
 				R.drawable.menu_ghichu_material, new GhichuFragment());
-		
+
 		SoTay = newSection(getResources().getString(R.string.manager_sotay),
 				R.drawable.menu_sotay_material, new SotayFragment());
 
@@ -53,7 +72,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 				R.drawable.menu_lichtuan_material, new CalendarFragment());
 
 		LienHe = newSection(getResources().getString(R.string.manager_lienhe),
-				R.drawable.menu_lienhe_material, new LienHeFragment());
+				R.drawable.menu_lienhe_material, new LienheFragment());
 
 		DongBo = newSection(getResources().getString(R.string.manager_dongbo),
 				R.drawable.menu_dongbo_material, new SotayFragment());
@@ -74,6 +93,33 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		this.addSection(CaiDat);
 		this.addSection(ThongTin);
 
+	}
+
+	private void saveInfoCanbo() {
+		CanBo cb;
+		cb = (CanBo) getIntent().getSerializableExtra("canbo");
+		if (cb != null) {
+			Global.savePreference(getApplicationContext(), Const.USER_MACANBO,
+					cb.getMaCanbo());
+			Global.savePreference(getApplicationContext(), Const.USER_HOTEN,
+					cb.getTenCanbo());
+			Global.savePreference(getApplicationContext(), Const.USER_DIACHI,
+					cb.getDiachi());
+			Global.savePreference(getApplicationContext(), Const.USER_SDT,
+					cb.getSdt());
+			Global.savePreference(getApplicationContext(), Const.USER_EMAIL,
+					cb.getEmail());
+			Global.savePreference(getApplicationContext(), Const.USER_CMND,
+					cb.getCmnd());
+			Global.savePreference(getApplicationContext(), Const.USER_HOCVI,
+					cb.getHocvi());
+			Global.savePreference(getApplicationContext(), Const.USER_HOCHAM,
+					cb.getHocham());
+			Global.savePreference(getApplicationContext(), Const.USER_ANH,
+					cb.getAvatar());
+			Global.savePreference(getApplicationContext(), Const.USER_MADONVI,
+					cb.getMaDonvi());
+		}
 	}
 
 	@Override

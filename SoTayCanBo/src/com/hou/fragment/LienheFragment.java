@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class LienHeFragment extends Fragment {
+public class LienheFragment extends Fragment {
 	PagerSlidingTabStrip pstWalletTabs;
 	ViewPager pager;
 
@@ -37,42 +37,42 @@ public class LienHeFragment extends Fragment {
 
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "khoa"));
 
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "phong"));
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội", "phong"));
 
 		listDonvi.add(new DonVi("1", "Khoa công nghệ thông tin",
 				"(+84)0403345654", "fithou@gmail.com", "fithou.edu.com.vn",
-				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội",
+				"(+84)0403345654", "96 �?ịnh Công, Hoàng Mai, Hà Nội",
 				"trungtam"));
 
 		Global.listDvPhong = new ArrayList<DonVi>();

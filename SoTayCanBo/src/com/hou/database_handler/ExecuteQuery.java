@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.hou.models.DinhKem;
+import com.hou.models.DonVi;
 import com.hou.models.GhiChu;
 import com.hou.models.Group;
 import com.hou.models.SoTay;
@@ -574,6 +575,7 @@ public class ExecuteQuery {
 	/*
 	 * tbl_dinhkem
 	 */
+	// select DinhKem by maGhichu
 	public ArrayList<DinhKem> getAllDinhKemByMaGhiChu(String maGhichu) {
 		ArrayList<DinhKem> listDinhkem = new ArrayList<DinhKem>();
 		String selectQuery = "SELECT * FROM " + ColumnName.DINHKEM_TABLE
@@ -617,7 +619,80 @@ public class ExecuteQuery {
 			return false;
 		}
 	}
+
 	/*
 	 * END - tbl_dinhkem
+	 */
+
+	/*
+	 * tbl_donvi
+	 */
+	// select * from tbl_donvi
+	public ArrayList<DonVi> getAllDonvi() {
+		ArrayList<DonVi> listDV = new ArrayList<DonVi>();
+		String selectQuery = "SELECT * FROM " + ColumnName.DONVI_TABLE;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				DonVi dv = new DonVi();
+
+				dv.setMaDonvi(cursor.getString(0));
+				dv.setTenDonvi(cursor.getString(1));
+				dv.setSodienthoai(cursor.getString(2));
+				dv.setEmail(cursor.getString(3));
+				dv.setWebsite(cursor.getString(4));
+				dv.setFax(cursor.getString(5));
+				dv.setDiachi(cursor.getString(6));
+				dv.setMaNhomdonvi(cursor.getString(7));
+
+				listDV.add(dv);
+			} while (cursor.moveToNext());
+		}
+		return listDV;
+	}
+
+	// select tenDonvi by maDonvi
+	public String getTendonviByMadonvi(String maDonvi) {
+		String tenDonvi = null;
+		String selectQuery = "SELECT " + ColumnName.DONVI_TENDONVI + " FROM " + ColumnName.DONVI_TABLE
+				+ " WHERE " + ColumnName.DONVI_MADONVI + " = '" + maDonvi
+				+ "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			tenDonvi = cursor.getString(0);
+		}
+		return tenDonvi;
+	}
+
+	// insert multi record
+	public boolean insert_tblDonvi_single(ArrayList<DonVi> listDV) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+
+			for (DonVi dv : listDV) {
+				ContentValues cv = new ContentValues();
+
+				cv.put(ColumnName.DONVI_MADONVI, dv.getMaDonvi());
+				cv.put(ColumnName.DONVI_TENDONVI, dv.getTenDonvi());
+				cv.put(ColumnName.DONVI_SODIENTHOAI, dv.getSodienthoai());
+				cv.put(ColumnName.DONVI_EMAIL, dv.getEmail());
+				cv.put(ColumnName.DONVI_WEBSITE, dv.getWebsite());
+				cv.put(ColumnName.DONVI_FAX, dv.getFax());
+				cv.put(ColumnName.DONVI_DIACHI, dv.getDiachi());
+				cv.put(ColumnName.DONVI_MANHOMDONVI, dv.getMaNhomdonvi());
+
+				database.insert(ColumnName.DONVI_TABLE, null, cv);
+			}
+
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("insert_tblDonvi_single", e.getMessage());
+			return false;
+		}
+	}
+	/*
+	 * END - tbl_donvi
 	 */
 }

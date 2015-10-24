@@ -239,4 +239,33 @@ public class BlurBuilder {
 		bitmap.setPixels(pix, 0, w, 0, 0, w, h);
 		return (bitmap);
 	}
+	
+	public static Bitmap CreateBlurredImage (Bitmap originalBitmap, Context context)
+	{	
+	    // Create another bitmap that will hold the results of the filter.
+	    Bitmap blurredBitmap;
+	    blurredBitmap = Bitmap.createBitmap (originalBitmap);
+
+	    // Create the Renderscript instance that will do the work.
+	    RenderScript rs = RenderScript.create (context);
+
+	    // Allocate memory for Renderscript to work with
+	    Allocation input = Allocation.createFromBitmap (rs, originalBitmap, Allocation.MipmapControl.MIPMAP_FULL, Allocation.USAGE_SCRIPT);
+	    Allocation output = Allocation.createTyped (rs, input.getType());
+
+	    // Load up an instance of the specific script that we want to use.
+	    ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create (rs, Element.U8_4 (rs));
+	    script.setInput (input);
+
+	    // Set the blur radius
+	    script.setRadius (25f);
+
+	    // Start the ScriptIntrinisicBlur
+	    script.forEach (output);
+
+	    // Copy the output to the blurred bitmap
+	    output.copyTo (blurredBitmap);
+
+	    return blurredBitmap;
+	}
 }

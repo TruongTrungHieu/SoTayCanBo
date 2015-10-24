@@ -81,7 +81,7 @@ public class CanboAdapter extends ArrayAdapter<CanBo> {
 			ava.setImageBitmap(b);
 
 		} else {
-			ava.setImageResource(R.drawable.ava_deafault);
+			ava.setImageResource(R.drawable.test1);
 		}
 
 		return v;

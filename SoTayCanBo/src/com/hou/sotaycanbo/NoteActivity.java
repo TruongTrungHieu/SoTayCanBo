@@ -1,12 +1,9 @@
 package com.hou.sotaycanbo;
 
 import java.io.File;
-import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import com.hou.adapters.AttachmentAdapter;
 import com.hou.adapters.SotayAdapter;
@@ -18,14 +15,12 @@ import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
 import com.hou.ultis.ImageUltiFunctions;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Constants;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;

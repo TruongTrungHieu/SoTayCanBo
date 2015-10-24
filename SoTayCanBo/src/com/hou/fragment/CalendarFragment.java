@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import android.R.bool;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,14 +17,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.GhiChu;
@@ -36,8 +31,7 @@ import com.roomorama.caldroid.CaldroidListener;
 
 public class CalendarFragment extends Fragment {
 
-	private boolean undo = false;
-	private CaldroidFragment caldroidFragment;
+	CaldroidFragment caldroidFragment;
 	private Calendar cal;
 	Date currentDate;
 	private final SimpleDateFormat formatter = new SimpleDateFormat(
@@ -109,8 +103,10 @@ public class CalendarFragment extends Fragment {
 						caldroidFragment.setBackgroundResourceForDate(
 								R.drawable.red_border, currentDate);
 						if (isEventDate(currentDate)) {
-							caldroidFragment.setBackgroundResourceForDate(
-									R.drawable.red_border_green_bg, currentDate);
+							caldroidFragment
+									.setBackgroundResourceForDate(
+											R.drawable.red_border_green_bg,
+											currentDate);
 							caldroidFragment.setTextColorForDate(R.color.black,
 									currentDate);
 						}
@@ -158,8 +154,8 @@ public class CalendarFragment extends Fragment {
 		setHasOptionsMenu(true);
 		return view;
 	}
-	
-	public boolean isDateEqual(Date date1, Date date2){
+
+	public boolean isDateEqual(Date date1, Date date2) {
 		String d1 = formatter.format(date1);
 		String d2 = formatter.format(date2);
 		if (d1.equals(d2)) {
@@ -216,7 +212,7 @@ public class CalendarFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				Intent note = new Intent(getActivity(),NoteActivity.class);
+				Intent note = new Intent(getActivity(), NoteActivity.class);
 				note.putExtra("TYPE_NOTE", "READ");
 				note.putExtra("NOTE", getListEvent(date).get(arg2));
 				startActivity(note);
