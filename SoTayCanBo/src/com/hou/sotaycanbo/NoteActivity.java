@@ -1,6 +1,7 @@
 package com.hou.sotaycanbo;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -25,6 +26,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -129,18 +133,39 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 					long arg3) {
 				// TODO Auto-generated method stub
 				String url = listAttachment.get(arg2).getUrl();
-				String type = "*";
+				String type = "*/*";
 				if (url.contains(".mp4")) {
-					type = "audio";
+//					MediaPlayer mediaPlayer = new MediaPlayer();
+//					mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//					try {
+//						mediaPlayer.setDataSource(url);
+//						mediaPlayer.prepare(); // must call prepare first
+//						mediaPlayer.start(); // then start
+//					} catch (IllegalArgumentException | SecurityException
+//							| IllegalStateException | IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+					MediaPlayer mediaPlayer = MediaPlayer.create(NoteActivity.this, Uri.fromFile(new File(url)));
+					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+						
+						@Override
+						public void onPrepared(MediaPlayer mp) {
+							// TODO Auto-generated method stub
+							mp.start();
+						}
+					});
+				} else {
+					if (url.contains(".jpg") || url.contains(".png")
+							|| url.contains(".bmp")) {
+						type = "image/*";
+					}
+					File f = new File(url);
+					Intent t = new Intent();
+					t.setAction(Intent.ACTION_VIEW);
+					t.setDataAndType(Uri.fromFile(f), type);
+					startActivity(t);
 				}
-				if (url.contains(".jpg") || url.contains(".png") ||url.contains(".bmp")) {
-					type = "image";
-				}
-				File f = new File(url);
-				Intent t = new Intent();
-				t.setAction(Intent.ACTION_VIEW);
-				t.setDataAndType(Uri.fromFile(f), type + "/*");
-				startActivity(t);
 			}
 		});
 		imgClock.setOnClickListener(this);
@@ -220,16 +245,16 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		filePath = IntentUtils.getPath(this, data.getData());
 		String[] temp = filePath.split("/");
 		fileName = temp[temp.length - 1];
-//		
-//		if (data.getDataString().contains("context")) {
-//			filePath = ImageUltiFunctions.getRealPathFromURI(data.getData()
-//					.toString(), NoteActivity.this);
-//			String[] temp = filePath.split("/");
-//			fileName = temp[temp.length - 1];
-//		} else {
-//			filePath = data.getData().getPath();
-//			fileName = data.getData().getLastPathSegment();
-//		}
+		//
+		// if (data.getDataString().contains("context")) {
+		// filePath = ImageUltiFunctions.getRealPathFromURI(data.getData()
+		// .toString(), NoteActivity.this);
+		// String[] temp = filePath.split("/");
+		// fileName = temp[temp.length - 1];
+		// } else {
+		// filePath = data.getData().getPath();
+		// fileName = data.getData().getLastPathSegment();
+		// }
 		listAttachment.add(new DinhKem("1", "1", type, filePath, fileName));
 
 		adapter.notifyDataSetChanged();
@@ -514,15 +539,16 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			activity = (NoteActivity) context;
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setContentView(R.layout.dialog_recording_audio);
-			setCancelable(false);			
-			getWindow().setLayout((int) (screenSize.x * 0.99), (int)(screenSize.y * 0.55));
-            getWindow().getDecorView().setBackgroundResource(0);
-            WindowManager.LayoutParams attributes = getWindow().getAttributes();
-            attributes.gravity = Gravity.CENTER;			
+			setCancelable(false);
+			getWindow().setLayout((int) (screenSize.x * 0.99),
+					(int) (screenSize.y * 0.55));
+			getWindow().getDecorView().setBackgroundResource(0);
+			WindowManager.LayoutParams attributes = getWindow().getAttributes();
+			attributes.gravity = Gravity.CENTER;
 			initView();
 			recording = new AudioRecording(activity, recorder);
-			timer = new CountDownTimer(TimeUnit.MINUTES.toMillis(1000), TimeUnit.SECONDS.toMillis(1),
-					activity, tvTimeCounter);
+			timer = new CountDownTimer(TimeUnit.MINUTES.toMillis(1000),
+					TimeUnit.SECONDS.toMillis(1), activity, tvTimeCounter);
 		}
 
 		public void initView() {
@@ -536,22 +562,23 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		public void onClick(View view) {
 			// TODO Auto-generated method stub
 			switch (view.getId()) {
-			case R.id.ivRecording:			
-				if (isRecording) {					
+			case R.id.ivRecording:
+				if (isRecording) {
 					timer.cancel();
 					recording.stopRecording();
 					dismiss();
 					String path = recording.getFilename();
 					String[] temp = path.split("/");
 					String name = temp[temp.length - 1];
-					listAttachment.add(new DinhKem("1", "1", Const.ATTACHMENT_VOICE, path, name));
+					listAttachment.add(new DinhKem("1", "1",
+							Const.ATTACHMENT_VOICE, path, name));
 					adapter.notifyDataSetChanged();
-				}else {
+				} else {
 					ivRecording.setImageResource(R.drawable.pause);
 					timer.start();
-					recording.startRecording();					
+					recording.startRecording();
 				}
-				isRecording = !isRecording;				
+				isRecording = !isRecording;
 				break;
 			}
 
