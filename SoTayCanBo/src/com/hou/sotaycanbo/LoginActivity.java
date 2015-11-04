@@ -54,8 +54,8 @@ public class LoginActivity extends Activity {
 		btnLogin = (Button) findViewById(R.id.btn_login);
 		tvForgetPass = (TextView) findViewById(R.id.tv_quenmatkhau);
 
-		edtEmail.setText("letuanvu1059");
-		edtPass.setText("anhvu123");
+		edtEmail.setText("levanthanh");
+		edtPass.setText("ns123456");
 
 		getRegId();
 		OnClickListeners();

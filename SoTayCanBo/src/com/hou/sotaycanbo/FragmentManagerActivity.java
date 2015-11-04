@@ -5,7 +5,6 @@ import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.fragment.CalendarFragment;
 import com.hou.fragment.GhichuFragment;
-import com.hou.fragment.LienHeFragment;
 import com.hou.fragment.LienheFragment;
 import com.hou.fragment.SotayFragment;
 import com.hou.models.CanBo;
@@ -75,7 +74,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 				R.drawable.menu_lichtuan_material, new CalendarFragment());
 
 		LienHe = newSection(getResources().getString(R.string.manager_lienhe),
-				R.drawable.menu_lienhe_material, new LienHeFragment());
+				R.drawable.menu_lienhe_material, new LienheFragment());
 
 		DongBo = newSection(getResources().getString(R.string.manager_dongbo),
 				R.drawable.menu_dongbo_material, new SotayFragment());

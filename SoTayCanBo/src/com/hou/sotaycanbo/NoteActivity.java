@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.hou.adapters.AttachmentAdapter;
 import com.hou.adapters.SotayAdapter;
@@ -13,20 +14,28 @@ import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.DinhKem;
 import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
+import com.hou.ultis.AudioRecording;
 import com.hou.ultis.ImageUltiFunctions;
+import com.hou.ultis.IntentUtils;
 
+import android.R.bool;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.transition.Scene;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -43,6 +52,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 
 	private static final int REQUESTCODE_PICK_FILE = 3;
 	private static final int REQUESTCODE_PICK_IMAGE = 1;
+	private static final int REQUESTCODE_PICK_AUDIO = 2;
 	private NoteMode mNoteMode;
 	private Menu currentMenu;
 	private Dialog mDialogAttachment;
@@ -64,6 +74,10 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	private SoTay sotay = new SoTay();
 	String MACANBO, CURRENTTIME;
 	List<SoTay> listSotay;
+
+	private boolean isRecording = false;
+	public MediaRecorder recorder;
+	private Point screenSize;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,16 +128,27 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				File f = new File(listAttachment.get(arg2).getUrl());
+				String url = listAttachment.get(arg2).getUrl();
+				String type = "*";
+				if (url.contains(".mp4")) {
+					type = "audio";
+				}
+				if (url.contains(".jpg") || url.contains(".png") ||url.contains(".bmp")) {
+					type = "image";
+				}
+				File f = new File(url);
 				Intent t = new Intent();
 				t.setAction(Intent.ACTION_VIEW);
-				t.setDataAndType(Uri.fromFile(f), "*/*");
+				t.setDataAndType(Uri.fromFile(f), type + "/*");
 				startActivity(t);
 			}
 		});
 		imgClock.setOnClickListener(this);
 		tvTensotay.setOnClickListener(this);
-
+		if (screenSize == null) {
+			screenSize = new Point();
+			getWindowManager().getDefaultDisplay().getSize(screenSize);
+		}
 	}
 
 	@Override
@@ -161,8 +186,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			break;
 
 		case R.id.tvDialog_voice:
-			Toast.makeText(getApplicationContext(), "VOICE", Toast.LENGTH_SHORT)
-					.show();
+			new DialogRecording(this).show();
 			mDialogAttachment.dismiss();
 			break;
 		}
@@ -193,15 +217,19 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		String filePath = "";
 		String fileName = "";
 
-		if (data.getDataString().contains("context")) {
-			filePath = ImageUltiFunctions.getRealPathFromURI(data.getData()
-					.toString(), NoteActivity.this);
-			String[] temp = filePath.split("/");
-			fileName = temp[temp.length - 1];
-		} else {
-			filePath = data.getData().getPath();
-			fileName = data.getData().getLastPathSegment();
-		}
+		filePath = IntentUtils.getPath(this, data.getData());
+		String[] temp = filePath.split("/");
+		fileName = temp[temp.length - 1];
+//		
+//		if (data.getDataString().contains("context")) {
+//			filePath = ImageUltiFunctions.getRealPathFromURI(data.getData()
+//					.toString(), NoteActivity.this);
+//			String[] temp = filePath.split("/");
+//			fileName = temp[temp.length - 1];
+//		} else {
+//			filePath = data.getData().getPath();
+//			fileName = data.getData().getLastPathSegment();
+//		}
 		listAttachment.add(new DinhKem("1", "1", type, filePath, fileName));
 
 		adapter.notifyDataSetChanged();
@@ -304,7 +332,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 				Toast.makeText(getApplicationContext(), "INSERT",
 						Toast.LENGTH_SHORT).show();
 				isCreatNew = !isCreatNew;
-				
+
 			} else {
 				Toast.makeText(getApplicationContext(), "UPDATE",
 						Toast.LENGTH_SHORT).show();
@@ -318,15 +346,16 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			String body = edtTenghichu.getText().toString() + "\n"
 					+ edtNoidung.getText().toString();
 			Intent shareIntent = new Intent();
-			
-			shareIntent.setAction(Intent.ACTION_SEND);			
+
+			shareIntent.setAction(Intent.ACTION_SEND);
 			shareIntent.putExtra(Intent.EXTRA_TEXT, body);
 			ArrayList<Uri> listUri = new ArrayList<Uri>();
 			for (DinhKem dinhKem : listAttachment) {
 				Uri uri = Uri.fromFile(new File(dinhKem.getUrl()));
 				listUri.add(uri);
 			}
-			shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, listUri);
+			shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,
+					listUri);
 			shareIntent.setType("*/*");
 			startActivity(Intent.createChooser(shareIntent, getResources()
 					.getString(R.string.title_share)));
@@ -372,9 +401,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			NoteActivity.this.finish();
 		} else {
 			// Insert
-			int dinhkem = listAttachment.size();			
-			String noidung = edtNoidung.getText().toString().trim();			
-			String tenGhichu = edtTenghichu.getText().toString().trim();			
+			int dinhkem = listAttachment.size();
+			String noidung = edtNoidung.getText().toString().trim();
+			String tenGhichu = edtTenghichu.getText().toString().trim();
 			long ngaytao = Global.getCurrentDateTime();
 			long ngaysua = Global.getCurrentDateTime();
 			long ngaythuchien = datePicked;
@@ -384,7 +413,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			// String maSotay = mSotay.getMaSoTay();
 
 			// mGhichu.setMaGhiChu(maGhichu);
-			mGhichu.setTenGhiChu(tenGhichu);			
+			mGhichu.setTenGhiChu(tenGhichu);
 			mGhichu.setNoidung(noidung);
 			mGhichu.setNgaysua(ngaysua);
 			mGhichu.setTrangthai(trangthai);
@@ -395,27 +424,27 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			if (isCreatNew) {
 				mGhichu.setMaGhiChu("NT" + CURRENTTIME);
 				mGhichu.setNgaytao(ngaytao);
-				if (exeQ.insert_tblGhichu_single(mGhichu)) {					
+				if (exeQ.insert_tblGhichu_single(mGhichu)) {
 					Toast.makeText(getApplicationContext(),
 							getResources().getString(R.string.save_sucessful),
 							Toast.LENGTH_SHORT).show();
 				}
-			}else {
-				if (exeQ.update_tblGhichu(mGhichu)) {					
+			} else {
+				if (exeQ.update_tblGhichu(mGhichu)) {
 					Toast.makeText(getApplicationContext(),
 							getResources().getString(R.string.save_sucessful),
 							Toast.LENGTH_SHORT).show();
 				}
 			}
 			if (dinhkem > 0) {
-				for (int i = 0; i < dinhkem; i++) {					
+				for (int i = 0; i < dinhkem; i++) {
 					DinhKem dinhKem2 = listAttachment.get(i);
 					if (dinhKem2.getMaDinhkem().equals("1")) {
 						dinhKem2.setMaGhichu(mGhichu.getMaGhiChu());
 						dinhKem2.setMaDinhkem("DK_" + mGhichu.getMaGhiChu()
 								+ "_" + i);
-						exeQ.insert_tblDinhkem_single(dinhKem2);						
-					}					
+						exeQ.insert_tblDinhkem_single(dinhKem2);
+					}
 				}
 			}
 		}
@@ -467,6 +496,97 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		String typeStr = type + "/*";
 		Intent mediaIntent = new Intent(Intent.ACTION_GET_CONTENT);
 		mediaIntent.setType(typeStr); // set mime type as per requirement
+		mediaIntent.putExtra("return-data", true);
 		startActivityForResult(mediaIntent, requestCode);
+	}
+
+	public class DialogRecording extends Dialog implements OnClickListener {
+
+		TextView tvTimeCounter, tvSave;
+		ImageView ivRecording;
+		NoteActivity activity;
+		AudioRecording recording;
+		CountDownTimer timer;
+
+		public DialogRecording(Context context) {
+			super(context);
+			// TODO Auto-generated constructor stub
+			activity = (NoteActivity) context;
+			requestWindowFeature(Window.FEATURE_NO_TITLE);
+			setContentView(R.layout.dialog_recording_audio);
+			setCancelable(false);			
+			getWindow().setLayout((int) (screenSize.x * 0.99), (int)(screenSize.y * 0.55));
+            getWindow().getDecorView().setBackgroundResource(0);
+            WindowManager.LayoutParams attributes = getWindow().getAttributes();
+            attributes.gravity = Gravity.CENTER;			
+			initView();
+			recording = new AudioRecording(activity, recorder);
+			timer = new CountDownTimer(TimeUnit.MINUTES.toMillis(1000), TimeUnit.SECONDS.toMillis(1),
+					activity, tvTimeCounter);
+		}
+
+		public void initView() {
+			tvTimeCounter = (TextView) findViewById(R.id.tvTimeCounter);
+			ivRecording = (ImageView) findViewById(R.id.ivRecording);
+
+			ivRecording.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View view) {
+			// TODO Auto-generated method stub
+			switch (view.getId()) {
+			case R.id.ivRecording:			
+				if (isRecording) {					
+					timer.cancel();
+					recording.stopRecording();
+					dismiss();
+					String path = recording.getFilename();
+					String[] temp = path.split("/");
+					String name = temp[temp.length - 1];
+					listAttachment.add(new DinhKem("1", "1", Const.ATTACHMENT_VOICE, path, name));
+					adapter.notifyDataSetChanged();
+				}else {
+					ivRecording.setImageResource(R.drawable.pause);
+					timer.start();
+					recording.startRecording();					
+				}
+				isRecording = !isRecording;				
+				break;
+			}
+
+		}
+
+		class CountDownTimer extends android.os.CountDownTimer {
+			private Context context;
+			private long timeTick, millisInFuture;
+			private TextView txtCountDown;
+
+			public CountDownTimer(long millisInFuture, long countDownInterval,
+					Context context, TextView txtCountDown) {
+				super(millisInFuture, countDownInterval);
+				this.context = context;
+				this.txtCountDown = txtCountDown;
+				this.millisInFuture = millisInFuture;
+			}
+
+			public long getCurrentTime() {
+				return timeTick;
+			}
+
+			@Override
+			public void onTick(long millisUntilFinished) {
+				timeTick = millisUntilFinished;
+				txtCountDown.setText(String.format("%02d:%02d",
+						((millisInFuture - millisUntilFinished) / 60000),
+						59 - ((millisUntilFinished) % 60000 / 1000)));
+			}
+
+			@Override
+			public void onFinish() {
+				// TODO Auto-generated method stub
+
+			}
+		}
 	}
 }
