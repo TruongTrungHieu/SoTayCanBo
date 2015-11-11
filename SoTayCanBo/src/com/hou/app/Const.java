@@ -10,13 +10,15 @@ public class Const {
 	/*
 	 * URL
 	 */
-	public static final String URL_BASE = "http://nhansu.hou.edu.vn/API/capi";
-	public static final String URL_DANG_NHAP = URL_BASE + "";
-	public static final String URL_DONVI = URL_BASE + "/getdonvi";
-	public static final String URL_NHANVIEN = URL_BASE + "/getdsnhanvien";
-	public static final String URL_SUKIEN = URL_BASE + "/getsukien";
-	public static final String URL_DOIMATKHAU = URL_BASE + "/doimatkhau";
-	public static final String URL_QUENMATKHAU = URL_BASE + "/quenmatkhau";
+	public static final String URL_BASE = "http://nhansu.hou.edu.vn";
+	public static final String URL_DANG_NHAP = "http://nhansu.hou.edu.vn/API/";
+	public static final String URL_DONVI = "http://nhansu.hou.edu.vn/API/capi/getdonvi";
+	public static final String URL_NHANVIEN_ALL = "http://nhansu.hou.edu.vn/API/capi/getdsnhanvien";
+	public static final String URL_NHANVIEN_DONVI = "http://nhansu.hou.edu.vn/API/getnvdonvi.php";
+	public static final String URL_SUKIEN = "http://nhansu.hou.edu.vn/API/capi/getsukien";
+	public static final String URL_DOIMATKHAU = "http://nhansu.hou.edu.vn/API/changepass.php";
+	public static final String URL_QUENMATKHAU = "http://nhansu.hou.edu.vn/API/capi/quenmatkhau";
+	public static final String URL_DOWNLOAD_AVATAR = "http://nhansu.hou.edu.vn/anhnhanvien/";
 	
 	/*
 	 * Share References
@@ -49,11 +51,5 @@ public class Const {
 	public static final String ATTACHMENT_FILE = "file";
 	public static final String ATTACHMENT_VOICE = "voice";
 	public static final String KEY_SOTAY = "sotay";
-	
-	/**
-	 * 
-	 * SERVER
-	 * */
-	public static final String URL_SERVER = "http://128.199.112.15/static/";
 	
 }

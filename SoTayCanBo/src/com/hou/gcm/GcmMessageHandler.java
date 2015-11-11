@@ -1,8 +1,8 @@
 package com.hou.gcm;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.hou.sotaycanbo.CanboActivity;
+import com.hou.sotaycanbo.SplashActivity;
 
+import android.R;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,11 +15,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
+@SuppressWarnings("unused")
 public class GcmMessageHandler extends IntentService {
 
-	String mes;
+	private String mes;
+	private String title;
 	private Handler handler;
 
 	public GcmMessageHandler() {
@@ -37,54 +38,38 @@ public class GcmMessageHandler extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		Bundle extras = intent.getExtras();
 
-		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-		// The getMessageType() intent parameter must be the intent you received
-		// in your BroadcastReceiver.
-		String messageType = gcm.getMessageType(intent);
-
-		mes = extras.getString("title");
-		showToast();
+		title = extras.getString("title");
+		mes = extras.getString("mes");
 		SoundNoti();
-		Log.i("GCM",
-				"Received : (" + messageType + ")  "
-						+ extras.getString("title"));
+		Log.i("GCM", title + "-" + mes);
 
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
-	public void showToast() {
-		handler.post(new Runnable() {
-			public void run() {
-				Toast.makeText(getApplicationContext(), mes, Toast.LENGTH_LONG)
-						.show();
-			}
-		});
+	@SuppressWarnings("deprecation")
+	private void SoundNoti() {
+		try {
+			NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			Notification notify = new Notification(android.R.drawable.alert_light_frame, "HaNoi Open Universty",
+					System.currentTimeMillis());
+			notify.flags = Notification.FLAG_AUTO_CANCEL;
 
-	}
-	
-	 @SuppressWarnings("deprecation")
-	private void SoundNoti(){
-			try {
-				NotificationManager NM= (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-				//Notification notify=new Notification(android.R.drawable.stat_notify_more,"Test",System.currentTimeMillis());
-				Notification notify=new Notification(android.R.drawable.stat_notify_more,"Test",System.currentTimeMillis());
-				notify.flags = Notification.FLAG_AUTO_CANCEL;
-				
-				String Title = "DulibuTeam";
-				String Text = "Keep movin forward";
-				
-				Intent intent= new Intent(getApplicationContext(), CanboActivity.class);
-				intent.putExtra("NotiTitle", Title);
-				intent.putExtra("NotiText", Text);
-				PendingIntent pending=PendingIntent.getActivity(getApplicationContext(),0,intent,0);
-				notify.setLatestEventInfo(getApplicationContext(), Title, Text, pending);
-				NM.notify(0,notify);
-				
-			    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-			    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-			    r.play();
-			} catch (Exception e) {
-			    e.printStackTrace();
-			}
+			Intent intent = new Intent(getApplicationContext(),
+					SplashActivity.class);
+			
+			PendingIntent pending = PendingIntent.getActivity(
+					getApplicationContext(), 0, intent, 0);
+			notify.setLatestEventInfo(getApplicationContext(), title, mes,
+					pending);
+			NM.notify(0, notify);
+
+			Uri notification = RingtoneManager
+					.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+			Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),
+					notification);
+			r.play();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
 }

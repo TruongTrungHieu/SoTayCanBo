@@ -11,7 +11,7 @@
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/rlImgInfo"
+            android:id="@+id/rlImgInfoF"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_alignParentTop="true"
@@ -19,7 +19,7 @@
             android:orientation="vertical" >
 
             <com.hou.ultis.CircularImageView
-                android:id="@+id/imgAvatar"
+                android:id="@+id/imgAvatarF"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_centerVertical="true"
@@ -29,25 +29,25 @@
                 android:src="@drawable/account_ava" />
 
             <TextView
-                android:id="@+id/tvUserName"
+                android:id="@+id/tvUserNameF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="30dp"
-                android:layout_toRightOf="@id/imgAvatar"
+                android:layout_toRightOf="@id/imgAvatarF"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvDonvi"
+                android:id="@+id/tvDonviF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvUserName"
+                android:layout_below="@id/tvUserNameF"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:layout_toRightOf="@id/imgAvatar"
+                android:layout_toRightOf="@id/imgAvatarF"
                 android:drawablePadding="10dp"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -55,14 +55,14 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/lnInfomation"
+            android:id="@+id/lnInfomationF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rlImgInfo"
+            android:layout_below="@id/rlImgInfoF"
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/edtFullName"
+                android:id="@+id/edtFullNameF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -70,13 +70,13 @@
                 android:drawablePadding="30dp"
                 android:enabled="false"
                 android:focusable="false"
-                android:inputType="text"
                 android:paddingBottom="15dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
                 android:textColor="#505050"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="text" />
 
             <View
                 android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                 android:background="#dadada" />
 
             <EditText
-                android:id="@+id/edtSdt"
+                android:id="@+id/edtSdtF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -92,13 +92,13 @@
                 android:drawablePadding="30dp"
                 android:enabled="false"
                 android:focusable="false"
-                android:inputType="phone"
                 android:paddingBottom="15dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
                 android:textColor="#505050"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="phone" />
 
             <View
                 android:layout_width="match_parent"
@@ -106,7 +106,7 @@
                 android:background="#dadada" />
 
             <EditText
-                android:id="@+id/edtEmail"
+                android:id="@+id/edtEmailF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -114,13 +114,13 @@
                 android:drawablePadding="30dp"
                 android:enabled="false"
                 android:focusable="false"
-                android:inputType="textEmailAddress"
                 android:paddingBottom="15dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
                 android:textColor="#505050"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="textEmailAddress" />
 
             <View
                 android:layout_width="match_parent"
@@ -128,7 +128,7 @@
                 android:background="#dadada" />
 
             <EditText
-                android:id="@+id/edtDiachi"
+                android:id="@+id/edtDiachiF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -136,13 +136,13 @@
                 android:drawablePadding="30dp"
                 android:enabled="false"
                 android:focusable="false"
-                android:inputType="text"
                 android:paddingBottom="15dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="15dp"
                 android:paddingTop="15dp"
                 android:textColor="#505050"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:inputType="text" />
 
             <View
                 android:layout_width="match_parent"

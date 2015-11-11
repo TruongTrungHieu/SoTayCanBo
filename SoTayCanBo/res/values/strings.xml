@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SoTayCanBo</string>
+    <string name="app_name">HOU Note</string>
     <string name="action_settings"></string>
     <string name="description"></string>
 	<string name="default_email">webmaster@hou.edu.vn</string>
@@ -11,7 +11,7 @@
     <string name="database_error">Hệ thống đang sửa chữa :(</string>
 
     <!-- SPLASH ACTIVITY -->
-    <string name="title_activity_splash">SoTayCanBo</string>
+    <string name="title_activity_splash">HOU Note</string>
 
     <!-- LOGIN ACTIVITY -->
     <string name="title_activity_login">Đăng nhập</string>
@@ -40,7 +40,7 @@
     <string name="manager_dongbo">Đồng bộ</string>
     <string name="manager_caidat">Cài đặt</string>
     <string name="manager_thongtin">Thông tin</string>
-    <string name="manager_thongtincanbo">Thông tin cán bộ</string>
+    <string name="manager_thongtincanbo">Cá nhân</string>
 
     <!-- NOTE ACTIVITY -->
     <string name="title_activity_note"></string>
@@ -100,7 +100,14 @@
     <string name="dialogTitleContents">Nội dung</string>
     <string name="toastGetEvent">Sự kiện được thêm vào lịch</string>
     <string name="toastDropEvent">Sự kiện được gỡ khỏi lịch</string>
-
+	<string name="lichtuan_sang">Sáng</string>
+	<string name="lichtuan_chieu">Chiều</string>
+    <string name="dialog_lichtuan_thoigian">Thời gian:</string>
+    <string name="dialog_lichtuan_diadiem">Địa điểm:</string>
+    <string name="dialog_lichtuan_thanhphan">Thành phần:</string>
+    <string name="dialog_lichtuan_ghichu">Ghi chú:</string>
+    <string name="dialog_lichtuan_noidung">Nội dung:</string>
+	
     <!-- DIALOG SOTAY FRAGMENT - ADD NEW SOTAY -->
     <string name="dialog_sotay_addnew_title">Sổ tay mới</string>
     <string name="dialog_sotay_addnew_cancel">HỦY BỎ</string>
@@ -138,4 +145,12 @@
 	<string name="doimatkhau_passcu">Mật khẩu cũ</string>
 	<string name="doimatkhau_passmoi">Mật khẩu mới</string>
     
+	<!-- LIENHE FRAGMENT -->
+	<string name="lienhe_title_phong">Phòng</string>
+	<string name="lienhe_title_khoa">Khoa</string>
+	<string name="lienhe_title_trungtam">Trung tâm</string>
+	
+	<!-- GCM -->
+	<string name="gcm_title">Lịch hoạt động HOU</string>
+	<string name="gcm_message">Lịch tuần được cập nhật</string>
 </resources>

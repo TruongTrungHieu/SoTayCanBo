@@ -10,7 +10,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import com.hou.app.Const;
-import com.hou.app.Global;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -118,13 +117,14 @@ public class ImageUltiFunctions {
 		return inSampleSize;
 	}
 
+	@SuppressWarnings("unused")
 	public static void downloadFileFromServer(String filename) {
 		BufferedInputStream in = null;
 		FileOutputStream fout = null;
 		int count;		
 		
 		try {
-			URL url = new URL(Const.URL_SERVER + "travel/5610/" + filename);
+			URL url = new URL(Const.URL_DOWNLOAD_AVATAR + filename);
 			URLConnection conection = url.openConnection();
 			conection.connect();
 			// getting file length
@@ -142,7 +142,7 @@ public class ImageUltiFunctions {
 				}
 			}
 
-			Log.d("Url", Const.URL_SERVER + "travel/5610/" + filename);
+			Log.d("Url", url.toString());
 
 			// input stream to read file - with 8k buffer
 			InputStream input = new BufferedInputStream(url.openStream(), 8192);
@@ -169,9 +169,8 @@ public class ImageUltiFunctions {
 			input.close();
 
 		} catch (Exception e) {
-
+			Log.e("downloadFileFromServer", e.getMessage());
 		}
 	}
 	
-	// http://128.199.112.15/static/travel/5610/f3599b7c4dc80e5e0319.jpg
 }

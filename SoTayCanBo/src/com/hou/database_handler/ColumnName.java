@@ -73,11 +73,11 @@ public class ColumnName {
 	public static String CANBO_DIACHI = "diachi";
 	public static String CANBO_EMAIL = "email";
 	public static String CANBO_CMND = "cmnd";
-	public static String CANBO_SOHOCHIEU = "sohochieu";
+	public static String CANBO_SDT = "sdt";
 	public static String CANBO_HOCHAM = "hocham";
 	public static String CANBO_HOCVI = "hocvi";
 	public static String CANBO_AVATAR = "avatar";
-	public static String CANBO_MANGANH = "maNganh";
+	public static String CANBO_MADONVI = "maDonvi";
 	
 	/*
 	 * tbl_chucvu_donvi

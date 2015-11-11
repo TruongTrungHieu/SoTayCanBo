@@ -2,8 +2,10 @@ package com.hou.fragment;
 
 import com.hou.adapters.DonviAdapter;
 import com.hou.app.Global;
+import com.hou.sotaycanbo.DanhSachCanBoActivity;
 import com.hou.sotaycanbo.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,7 +39,10 @@ public class LienheFragment_Trungtam extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				
+				Intent i = new Intent(getActivity(), DanhSachCanBoActivity.class);
+				i.putExtra("donvi", Global.listDvTrungtam.get(position));
+				startActivity(i);
+				getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.fade_out);
 			}
 		});
 		

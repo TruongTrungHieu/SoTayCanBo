@@ -1,7 +1,6 @@
 package com.hou.sotaycanbo;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -16,30 +15,24 @@ import com.hou.models.DinhKem;
 import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
 import com.hou.ultis.AudioRecording;
-import com.hou.ultis.ImageUltiFunctions;
 import com.hou.ultis.IntentUtils;
 
-import android.R.bool;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.transition.Scene;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -56,6 +49,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 
 	private static final int REQUESTCODE_PICK_FILE = 3;
 	private static final int REQUESTCODE_PICK_IMAGE = 1;
+	@SuppressWarnings("unused")
 	private static final int REQUESTCODE_PICK_AUDIO = 2;
 	private NoteMode mNoteMode;
 	private Menu currentMenu;
@@ -585,6 +579,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		}
 
 		class CountDownTimer extends android.os.CountDownTimer {
+			@SuppressWarnings("unused")
 			private Context context;
 			private long timeTick, millisInFuture;
 			private TextView txtCountDown;

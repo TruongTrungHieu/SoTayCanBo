@@ -11,7 +11,7 @@ public class SuKien implements Serializable{
 	private String maSukien;
 	private String thu;
 	private String buoi;
-	private long ngay;
+	private String ngay;
 	private String tenSukien;
 	private String phong;
 	private String diadiem;
@@ -25,7 +25,7 @@ public class SuKien implements Serializable{
 		
 	}
 
-	public SuKien(String maSukien, String thu, String buoi, long ngay,
+	public SuKien(String maSukien, String thu, String buoi, String ngay,
 			String tenSukien, String phong, String diadiem, String tp_thamgia,
 			String thoigianbatdau, int trangthai, String ghichu, String noidung) {
 		super();
@@ -67,11 +67,11 @@ public class SuKien implements Serializable{
 		this.buoi = buoi;
 	}
 
-	public long getNgay() {
+	public String getNgay() {
 		return ngay;
 	}
 
-	public void setNgay(long ngay) {
+	public void setNgay(String ngay) {
 		this.ngay = ngay;
 	}
 

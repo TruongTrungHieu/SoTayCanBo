@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_weight="80"
-        android:orientation="vertical"
-        android:padding="15dp" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:padding="15dp" >
 
                 <TextView
-                    android:id="@+id/sukienName"
+                    android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="45dp"
-                    android:text="name"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:text="@string/dialogSukien"
+                    android:textColor="@color/colorDarkPrimary"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/btnAddEvent"
@@ -36,88 +35,115 @@
                     android:layout_height="32dp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/ic_getevent"
+                    android:contentDescription="@string/description"
                     android:scaleType="fitXY"
                     android:visibility="visible" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/sukienDate"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:layout_height="1dp"
+                android:alpha="0.7"
+                android:background="@color/colorDarkPrimary" />
 
             <LinearLayout
+                android:id="@+id/llTensukien"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp" >
 
                 <TextView
-                    android:id="@+id/sukienTimeBegin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/tvTensukien"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:text="-" />
-
-                <TextView
-                    android:id="@+id/sukienRoom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:text="-" />
-
-                <TextView
-                    android:id="@+id/sukienPlace"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="15dp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/dialogTitleContents"
-                android:textColor="@color/grey"
-                android:textSize="11dp" />
-
-            <TextView
-                android:id="@+id/sukienContents"
+            <LinearLayout
+                android:id="@+id/llThoigian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:orientation="vertical"
+                android:padding="15dp" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/dialogTitleNote"
-                android:textColor="@color/grey"
-                android:textSize="11dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/dialog_lichtuan_thoigian"
+                    android:textColor="@color/blue_dark" />
 
-            <TextView
-                android:id="@+id/sukienNote"
+                <TextView
+                    android:id="@+id/tvThoigian"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDiadiem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:orientation="vertical"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/dialog_lichtuan_diadiem"
+                    android:textColor="@color/blue_dark" />
+
+                <TextView
+                    android:id="@+id/tvDiadiem"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llThanhphan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/dialog_lichtuan_thanhphan"
+                    android:textColor="@color/blue_dark" />
+
+                <TextView
+                    android:id="@+id/tvThanhphan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvThanhphan_khac"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llNoidung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/dialog_lichtuan_noidung"
+                    android:textColor="@color/blue_dark" />
+
+                <TextView
+                    android:id="@+id/tvNoidung"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

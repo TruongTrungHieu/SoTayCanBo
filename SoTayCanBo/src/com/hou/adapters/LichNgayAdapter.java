@@ -8,7 +8,7 @@ import com.hou.sotaycanbo.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +57,8 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		tvTime.setText(child.get(childPosition).getThoigianbatdau());
 		ivBuoi = (ImageView) convertView.findViewById(R.id.ivBuoi);
 		
-		if(child.get(childPosition).getBuoi().toString().equalsIgnoreCase("Sáng")){
+		String buoi = child.get(childPosition).getBuoi().toString().trim();
+		if(buoi.equalsIgnoreCase(this.activity.getResources().getString(R.string.lichtuan_sang))){
 			ivBuoi.setBackgroundResource(R.drawable.ic_morning);
 		}
 		else{
@@ -68,11 +69,6 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 
 			@Override
 			public void onClick(View view) {
-				/*
-				 * Toast.makeText(activity,
-				 * child.get(childPosition).getMaSukien(),
-				 * Toast.LENGTH_SHORT).show();
-				 */
 				sukienDetailDialog(activity, child.get(childPosition));
 			}
 		});
@@ -80,29 +76,36 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
+	@SuppressLint("InflateParams") 
 	public void sukienDetailDialog(final Context c, SuKien sk) {
-		final Dialog dialog = new Dialog(c);
-		dialog.setContentView(R.layout.dialog_chitiet_sukien);
-		dialog.setTitle(R.string.dialogSukien);
-		dialog.setCancelable(true);
-		TextView tvName, tvDate, tvRoom, tvTimeBegin, tvPlace, tvNote, tvContens;
-		tvName = (TextView) dialog.findViewById(R.id.sukienName);
-		tvDate = (TextView) dialog.findViewById(R.id.sukienDate);
-		tvRoom = (TextView) dialog.findViewById(R.id.sukienRoom);
-		tvTimeBegin = (TextView) dialog.findViewById(R.id.sukienTimeBegin);
-		tvPlace = (TextView) dialog.findViewById(R.id.sukienPlace);
-		tvNote = (TextView) dialog.findViewById(R.id.sukienNote);
-		tvContens = (TextView) dialog.findViewById(R.id.sukienContents);
+		LayoutInflater inflater = this.activity.getLayoutInflater();
+		View alertLayout = inflater.inflate(R.layout.dialog_chitiet_sukien, null);
+		
+		AlertDialog.Builder alert = new AlertDialog.Builder(this.activity);
+		alert.setView(alertLayout);
+		final AlertDialog dialog = alert.create();
+		
+		TextView tvTensukien, tvThoigian, tvDiadiem, tvThanhphan, tvThanhphan_khac, tvNoidung;
+		tvTensukien = (TextView) alertLayout.findViewById(R.id.tvTensukien);
+		tvThoigian = (TextView) alertLayout.findViewById(R.id.tvThoigian);
+		tvDiadiem = (TextView) alertLayout.findViewById(R.id.tvDiadiem);
+		tvThanhphan = (TextView) alertLayout.findViewById(R.id.tvThanhphan);
+		tvThanhphan_khac = (TextView) alertLayout.findViewById(R.id.tvThanhphan_khac);
+		tvNoidung = (TextView) alertLayout.findViewById(R.id.tvNoidung);
 
-		tvName.setText(sk.getTenSukien());
-		tvDate.setText("" + sk.getNgay());
-		tvRoom.setText(sk.getPhong());
-		tvTimeBegin.setText(sk.getThoigianbatdau());
-		tvPlace.setText(sk.getDiadiem());
-		tvNote.setText(sk.getGhichu());
-		tvContens.setText(sk.getNoidung());
-
-		final ImageView btnAddEvent = (ImageView) dialog.findViewById(R.id.btnAddEvent);
+		tvTensukien.setText(sk.getTenSukien());
+		tvThoigian.setText(sk.getThoigianbatdau() + " - " + sk.getNgay());
+		if (!sk.getPhong().trim().equalsIgnoreCase("")) {
+			tvDiadiem.setText(sk.getPhong() + "\n" + sk.getDiadiem());
+		} else {
+			tvDiadiem.setText(sk.getDiadiem());
+		}
+		String[] tpThamgia = sk.getTp_thamgia().split("##");
+		tvThanhphan.setText(tpThamgia[0]);
+		tvThanhphan_khac.setText(tpThamgia[1]);
+		tvNoidung.setText(sk.getNoidung());
+		
+		final ImageView btnAddEvent = (ImageView) alertLayout.findViewById(R.id.btnAddEvent);
 		btnAddEvent.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -111,7 +114,7 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 			}
 		});
 
-		Button btnOK = (Button) dialog.findViewById(R.id.btnDismiss);
+		Button btnOK = (Button) alertLayout.findViewById(R.id.btnDismiss);
 		btnOK.setOnClickListener(new OnClickListener() {
 
 			@Override

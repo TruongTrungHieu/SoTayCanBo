@@ -3,6 +3,7 @@ package com.hou.database_handler;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hou.models.CanBo;
 import com.hou.models.DinhKem;
 import com.hou.models.DonVi;
 import com.hou.models.GhiChu;
@@ -70,7 +71,7 @@ public class ExecuteQuery {
 				sk.setMaSukien(cursor.getString(0));
 				sk.setThu(cursor.getString(1));
 				sk.setBuoi(cursor.getString(2));
-				sk.setNgay(Long.parseLong(cursor.getString(3)));
+				sk.setNgay(cursor.getString(3));
 				sk.setTenSukien(cursor.getString(4));
 				sk.setPhong(cursor.getString(5));
 				sk.setDiadiem(cursor.getString(6));
@@ -655,9 +656,9 @@ public class ExecuteQuery {
 	// select tenDonvi by maDonvi
 	public String getTendonviByMadonvi(String maDonvi) {
 		String tenDonvi = null;
-		String selectQuery = "SELECT " + ColumnName.DONVI_TENDONVI + " FROM " + ColumnName.DONVI_TABLE
-				+ " WHERE " + ColumnName.DONVI_MADONVI + " = '" + maDonvi
-				+ "' ";
+		String selectQuery = "SELECT " + ColumnName.DONVI_TENDONVI + " FROM "
+				+ ColumnName.DONVI_TABLE + " WHERE " + ColumnName.DONVI_MADONVI
+				+ " = '" + maDonvi + "' ";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
@@ -667,7 +668,7 @@ public class ExecuteQuery {
 	}
 
 	// insert multi record
-	public boolean insert_tblDonvi_single(ArrayList<DonVi> listDV) {
+	public boolean insert_tblDonvi_multi(ArrayList<DonVi> listDV) {
 		try {
 			database = mDbHelper.getWritableDatabase();
 
@@ -688,11 +689,111 @@ public class ExecuteQuery {
 
 			return true;
 		} catch (SQLiteException e) {
+			Log.e("insert_tblDonvi_multi", e.getMessage());
+			return false;
+		}
+	}
+
+	// insert single record
+	public boolean insert_tblDonvi_single(DonVi dv) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+
+			ContentValues cv = new ContentValues();
+
+			cv.put(ColumnName.DONVI_MADONVI, dv.getMaDonvi());
+			cv.put(ColumnName.DONVI_TENDONVI, dv.getTenDonvi());
+			cv.put(ColumnName.DONVI_SODIENTHOAI, dv.getSodienthoai());
+			cv.put(ColumnName.DONVI_EMAIL, dv.getEmail());
+			cv.put(ColumnName.DONVI_WEBSITE, dv.getWebsite());
+			cv.put(ColumnName.DONVI_FAX, dv.getFax());
+			cv.put(ColumnName.DONVI_DIACHI, dv.getDiachi());
+			cv.put(ColumnName.DONVI_MANHOMDONVI, dv.getMaNhomdonvi());
+
+			database.insert(ColumnName.DONVI_TABLE, null, cv);
+
+			return true;
+		} catch (SQLiteException e) {
 			Log.e("insert_tblDonvi_single", e.getMessage());
 			return false;
 		}
 	}
+
+	// delete all record
+	public boolean delete_tblDonvi_allrecord() {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			database.delete(ColumnName.DONVI_TABLE, null, null);
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("delete_tblDonvi_allrecord", e.getMessage());
+			return false;
+		}
+	}
+
 	/*
 	 * END - tbl_donvi
+	 */
+
+	/*
+	 * tbl_canbo
+	 */
+
+	// select * from tbl_canbo where maDonvi
+	public ArrayList<CanBo> getAllCanboFromDV(String maDonvi) {
+		ArrayList<CanBo> listCB = new ArrayList<CanBo>();
+		String selectQuery = "SELECT * FROM " + ColumnName.CANBO_TABLE
+				+ " WHERE " + ColumnName.CANBO_MADONVI + " = '" + maDonvi + "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selectQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				CanBo cb = new CanBo();
+
+				cb.setMaCanbo(cursor.getString(0));
+				cb.setTenCanbo(cursor.getString(1));
+				cb.setDiachi(cursor.getString(2));
+				cb.setEmail(cursor.getString(3));
+				cb.setCmnd(cursor.getString(4));
+				cb.setHocham(cursor.getString(5));
+				cb.setHocvi(cursor.getString(6));
+				cb.setAvatar(cursor.getString(7));
+				cb.setMaDonvi(cursor.getString(8));
+				cb.setSdt(cursor.getString(9));
+
+				listCB.add(cb);
+			} while (cursor.moveToNext());
+		}
+		return listCB;
+	}
+
+	// insert single record
+	public boolean insert_tblCanbo_single(CanBo d) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+
+			cv.put(ColumnName.CANBO_MACANBO, d.getMaCanbo());
+			cv.put(ColumnName.CANBO_TENCANBO, d.getTenCanbo());
+			cv.put(ColumnName.CANBO_DIACHI, d.getDiachi());
+			cv.put(ColumnName.CANBO_EMAIL, d.getEmail());
+			cv.put(ColumnName.CANBO_CMND, d.getCmnd());
+			cv.put(ColumnName.CANBO_HOCHAM, d.getHocham());
+			cv.put(ColumnName.CANBO_HOCVI, d.getHocvi());
+			cv.put(ColumnName.CANBO_AVATAR, d.getAvatar());
+			cv.put(ColumnName.CANBO_MADONVI, d.getMaDonvi());
+			cv.put(ColumnName.CANBO_SDT, d.getSdt());
+
+			database.insert(ColumnName.CANBO_TABLE, null, cv);
+
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("insert_tblCanbo_single", e.getMessage());
+			return false;
+		}
+	} 
+	
+	/*
+	 * END - tbl_canbo
 	 */
 }

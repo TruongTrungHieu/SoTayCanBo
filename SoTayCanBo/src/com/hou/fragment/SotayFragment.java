@@ -81,15 +81,19 @@ public class SotayFragment extends Fragment {
 			}
 		});
 		flNoSotay = (FrameLayout) view.findViewById(R.id.flNoSotay);
+		checkViewNoSotay();
+
+		return view;
+	}
+
+	private void checkViewNoSotay() {
 		if (listSotay.size() > 0) {
 			flNoSotay.setVisibility(View.GONE);
 		} else {
 			flNoSotay.setVisibility(View.VISIBLE);
 		}
-
-		return view;
 	}
-
+	
 	public void showDialogNewSotay() {
 		final Dialog dialogAddnew = new Dialog(getActivity());
 		dialogAddnew.setTitle(getResources().getString(
@@ -136,6 +140,7 @@ public class SotayFragment extends Fragment {
 									Const.USER_EMAIL));
 					listSotay.add(st);
 					exeQ.insert_tblSotay_single(st);
+					checkViewNoSotay();
 					adapter.notifyDataSetChanged();
 					dialogAddnew.dismiss();
 				}

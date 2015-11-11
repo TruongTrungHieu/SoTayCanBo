@@ -54,9 +54,6 @@ public class LoginActivity extends Activity {
 		btnLogin = (Button) findViewById(R.id.btn_login);
 		tvForgetPass = (TextView) findViewById(R.id.tv_quenmatkhau);
 
-		edtEmail.setText("levanthanh");
-		edtPass.setText("ns123456");
-
 		getRegId();
 		OnClickListeners();
 	}
@@ -157,7 +154,7 @@ public class LoginActivity extends Activity {
 				String ten_hocvi = canbo.optString("ten_hocvi", "");
 				String ten_hocham = canbo.optString("ten_hocham", "");
 				String anh_nv = canbo.optString("anh_nv", "");
-				String ma_donvi = canbo.optString("ma_donvi", "");
+				String ma_donvi = canbo.optString("ma_dv", "");
 				
 				CanBo cb = new CanBo(ma_nv, ma_donvi, hoten_nv, chitietdiachihientai, email_nv, so_cmnd, ten_hocham, ten_hocvi, anh_nv, sdt);
 				
@@ -346,5 +343,5 @@ public class LoginActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 }

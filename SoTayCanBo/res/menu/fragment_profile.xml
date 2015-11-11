@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hou.sotaycanbo.CanboActivity" >
+    
+    <item
+        android:id="@+id/action_thongtin_edit"
+        android:icon="@drawable/ic_edit_white_36dp"
+        android:title="@string/menu_note_modify"
+        app:showAsAction="always"/>
+    
+    <item
+        android:id="@+id/action_thongtin_done"
+        android:icon="@drawable/ic_done_white_36dp"
+        android:title="@string/menu_note_modify"
+        app:showAsAction="never|collapseActionView"/>
+    
+</menu>
+
+
+    
