@@ -42,6 +42,21 @@ public class LienheFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		setupTabs();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view = inflater
+				.inflate(R.layout.fragment_lienhe, container, false);
+		initView(view);
 
 		exeQ = new ExecuteQuery(getActivity().getApplicationContext());
 		exeQ.createDatabase();
@@ -59,41 +74,28 @@ public class LienheFragment extends Fragment {
 						.show();
 			}
 		}
+		if (Global.listDvKhoa.size() <= 0 || Global.listDvKhoa.size() <= 0 || Global.listDvTrungtam.size() <= 0) {
+			Global.listDvPhong = new ArrayList<DonVi>();
+			Global.listDvKhoa = new ArrayList<DonVi>();
+			Global.listDvTrungtam = new ArrayList<DonVi>();
 
-		Global.listDvPhong = new ArrayList<DonVi>();
-		Global.listDvKhoa = new ArrayList<DonVi>();
-		Global.listDvTrungtam = new ArrayList<DonVi>();
-
-		for (DonVi dv : listDonvi) {
-			String maNhomDonvi = dv.getMaNhomdonvi();
-			switch (maNhomDonvi) {
-			case "phong":
-				Global.listDvPhong.add(dv);
-				break;
-			case "khoa":
-				Global.listDvKhoa.add(dv);
-				break;
-			case "trungtam":
-				Global.listDvTrungtam.add(dv);
-				break;
-			default:
-				break;
+			for (DonVi dv : listDonvi) {
+				String maNhomDonvi = dv.getMaNhomdonvi();
+				switch (maNhomDonvi) {
+				case "phong":
+					Global.listDvPhong.add(dv);
+					break;
+				case "khoa":
+					Global.listDvKhoa.add(dv);
+					break;
+				case "trungtam":
+					Global.listDvTrungtam.add(dv);
+					break;
+				default:
+					break;
+				}
 			}
-		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View view = inflater
-				.inflate(R.layout.fragment_lienhe, container, false);
-		initView(view);
+		}		
 		setupTabs();
 		return view;
 	}

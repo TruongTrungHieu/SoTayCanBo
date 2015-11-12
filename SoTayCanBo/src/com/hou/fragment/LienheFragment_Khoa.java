@@ -33,8 +33,6 @@ public class LienheFragment_Khoa extends Fragment {
 				false);
 
 		lvDonviKhoa = (ListView) view.findViewById(R.id.lvDonvi_Khoa);
-		adapter = new DonviAdapter(getActivity().getApplicationContext(),
-				R.layout.itemlist_donvi, Global.listDvKhoa);
 
 		lvDonviKhoa
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -70,6 +68,8 @@ public class LienheFragment_Khoa extends Fragment {
 			
 		});
 		
+		adapter = new DonviAdapter(getActivity(),
+				R.layout.itemlist_donvi, Global.listDvKhoa);
 		lvDonviKhoa.setAdapter(adapter);
 
 		return view;
@@ -77,8 +77,6 @@ public class LienheFragment_Khoa extends Fragment {
 
 	public void onResume() {
 		super.onResume();
-		adapter = new DonviAdapter(getActivity().getApplicationContext(),
-				R.layout.itemlist_donvi, Global.listDvKhoa);
-		lvDonviKhoa.setAdapter(adapter);
+		
 	}
 }
