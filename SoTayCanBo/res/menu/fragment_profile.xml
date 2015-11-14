@@ -13,7 +13,7 @@
         android:id="@+id/action_thongtin_done"
         android:icon="@drawable/ic_done_white_36dp"
         android:title="@string/menu_note_modify"
-        app:showAsAction="never|collapseActionView"/>
+        app:showAsAction="always"/>
     
 </menu>
 

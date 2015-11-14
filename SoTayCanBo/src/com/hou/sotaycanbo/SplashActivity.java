@@ -4,7 +4,6 @@ import com.hou.app.Const;
 import com.hou.app.Global;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,14 +12,11 @@ import android.view.MenuItem;
 
 public class SplashActivity extends Activity {
 
-	private final int SPLASH_DISPLAY_LENGTH = 1000;
-	private Context mContext;
+	private final int SPLASH_DISPLAY_LENGTH = 500;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-
-		mContext = this;
 		
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -30,7 +26,7 @@ public class SplashActivity extends Activity {
 		}, SPLASH_DISPLAY_LENGTH);
 	}
 
-	public void changeActivity() {
+	private void changeActivity() {
 		if (check()) {
 			Intent main = new Intent(SplashActivity.this,
 					FragmentManagerActivity.class);
@@ -44,11 +40,14 @@ public class SplashActivity extends Activity {
 	}
 
 	// kiem tra user da dang nhap lan nao chua
-	public boolean check() {
+	private boolean check() {
 		boolean check = false;
-		if (Global.getPreference(mContext, Const.SAVE_LOGIN) == Const.SAVE_LOGIN_TRUE) {
-			// kiểm tra đã lưu references user và chọn nhớ login
-			check = true;
+		String saveLogin = Global.getPreference(getApplicationContext(), Const.SAVE_LOGIN);
+		String maCanbo = Global.getPreference(getApplicationContext(), Const.USER_MACANBO);
+		if (saveLogin.equals(Const.SAVE_LOGIN_TRUE)) {
+			if (!maCanbo.equals("") && maCanbo != null) {
+				check = true;
+			}
 		}
 		return check;
 	}

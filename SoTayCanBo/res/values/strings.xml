@@ -141,18 +141,28 @@
     <string name="doimatkhau_passshort">Mật khẩu phải lớn hơn 8 ký tự</string>
     <string name="doimatkhau_success">Đổi mật khẩu thành công</string>
     <string name="doimatkhau_false">Tên đăng nhập hoặc mật khẩu không hợp lệ</string>
-    <string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
-    <string name="doimatkhau_passcu">Mật khẩu cũ</string>
-    <string name="doimatkhau_passmoi">Mật khẩu mới</string>
-
-    <!-- LIENHE FRAGMENT -->
-    <string name="lienhe_title_phong">Phòng</string>
-    <string name="lienhe_title_khoa">Khoa</string>
-    <string name="lienhe_title_trungtam">Trung tâm</string>
-
+	<string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
+	<string name="doimatkhau_passcu">Mật khẩu cũ</string>
+	<string name="doimatkhau_passmoi">Mật khẩu mới</string>
+    
+	<!-- LIENHE FRAGMENT -->
+	<string name="lienhe_title_phong">Phòng</string>
+	<string name="lienhe_title_khoa">Khoa</string>
+	<string name="lienhe_title_trungtam">Trung tâm</string>
+	
+	<!-- SETTING FRAGMENT -->
+	<string name="setting_account">CÀI ĐẶT TÀI KHOẢN</string>
+	<string name="setting_acc_changepass">Đổi mật khẩu</string>
+	<string name="setting_acc_savelogin">Đăng nhập tự động</string>
+	<string name="setting_acc_logout">Đăng xuất</string>
+	<string name="setting_application">CÀI ĐẶT ỨNG DỤNG</string>
+	<string name="setting_app_getnotif">Nhận thông báo</string>
+	<string name="setting_app_update">Cập nhật dữ liệu</string>
+	<string name="setting_app_help">Trung tâm hỗ trợ</string>
+	
     <!-- GCM -->
     <string name="gcm_title">Lịch hoạt động HOU</string>
     <string name="gcm_message">Lịch tuần được cập nhật</string>
-    <string name="title_activity_lienhe">LienheActivity</string>
-
+	<string name="gcm_notif_ticker">Viện Đại học Mở Hà Nội</string>
+	
 </resources>

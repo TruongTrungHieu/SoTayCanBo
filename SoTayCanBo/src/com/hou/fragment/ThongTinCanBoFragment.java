@@ -2,9 +2,9 @@ package com.hou.fragment;
 
 import java.io.File;
 
+import com.hou.app.Const;
 import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
-import com.hou.models.CanBo;
 import com.hou.sotaycanbo.R;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
@@ -36,22 +36,17 @@ import android.widget.TextView;
 @SuppressLint("InflateParams")
 public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 
-	private CanBo mCanbo;
 	private EditText edtFullName, edtSdt, edtEmail, edtDiachi;
 	private TextView tvUsername, tvDonvi;
 	private CircularImageView imgAvatar;
-	public Point screenSize = new Point();
-
+	public static Point screenSize = new Point();
 	private ExecuteQuery exeQ;
-
+	private Menu mMenu;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
 		setHasOptionsMenu(true);
-		exeQ = new ExecuteQuery(getActivity().getApplicationContext());
-		exeQ.createDatabase();
-		exeQ.open();
 	}
 	
 	@Override
@@ -67,29 +62,29 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		edtEmail = (EditText) view.findViewById(R.id.edtEmailF);
 		edtDiachi = (EditText) view.findViewById(R.id.edtDiachiF);
 		imgAvatar = (CircularImageView) view.findViewById(R.id.imgAvatarF);
-
 		imgAvatar.setOnClickListener(this);
 
-		mCanbo = (CanBo) getActivity().getIntent()
-				.getSerializableExtra("canbo");
-		if (mCanbo != null) {
-			initData();
-		}
-
+		exeQ = new ExecuteQuery(getActivity());
+		exeQ.createDatabase();
+		exeQ.open();
+		
+		initData();
+		
 		return view;
 	}
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		String tenDv = exeQ.getTendonviByMadonvi(mCanbo.getMaDonvi());
-		tvDonvi.setText(tenDv);
-		tvUsername.setText(mCanbo.getTenCanbo());
-		edtFullName.setText(mCanbo.getTenCanbo());
-		edtSdt.setText(mCanbo.getSdt());
-		edtEmail.setText(mCanbo.getEmail());
-		edtDiachi.setText(mCanbo.getDiachi());
+		String maDonvi = Global.getPreference(getActivity(), Const.USER_MADONVI);
+		String tenDonvi = exeQ.getTendonviByMadonvi(maDonvi);
+		tvDonvi.setText(tenDonvi);
+		tvUsername.setText(Global.getPreference(getActivity(), Const.USER_HOTEN));
+		edtFullName.setText(Global.getPreference(getActivity(), Const.USER_HOTEN));
+		edtSdt.setText(Global.getPreference(getActivity(), Const.USER_SDT));
+		edtEmail.setText(Global.getPreference(getActivity(), Const.USER_EMAIL));
+		edtDiachi.setText(Global.getPreference(getActivity(), Const.USER_DIACHI));
 		
-		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(mCanbo.getAvatar()));
+		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(Global.getPreference(getActivity(), Const.USER_ANH)));
 		if (f != null) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
@@ -97,15 +92,14 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	public void initView(View view) {
-
-	}
-
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
 		inflater.inflate(R.menu.fragment_profile, menu);
 		super.onCreateOptionsMenu(menu, inflater);
+		mMenu = menu;
+		mMenu.getItem(0).setVisible(true);
+		mMenu.getItem(1).setVisible(false);
 	}
 
 	@Override
@@ -126,6 +120,8 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 	}
 
 	public void setEnable(boolean isEnable) {
+		mMenu.getItem(0).setVisible(!isEnable);
+		mMenu.getItem(1).setVisible(isEnable);
 		edtFullName.setEnabled(isEnable);
 		edtSdt.setEnabled(isEnable);
 		edtEmail.setEnabled(isEnable);
@@ -137,10 +133,9 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		switch (view.getId()) {
-		case R.id.imgAvatar:
-
+		case R.id.imgAvatarF:
+			new ImageDialog(getActivity(), R.layout.select_image_layout).show();
 			break;
-
 		default:
 			break;
 		}

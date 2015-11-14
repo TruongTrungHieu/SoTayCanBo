@@ -13,6 +13,7 @@ import com.hou.fragment.CalendarFragment;
 import com.hou.fragment.GhichuFragment;
 import com.hou.fragment.LichTuanFragment;
 import com.hou.fragment.LienheFragment;
+import com.hou.fragment.SettingFragment;
 import com.hou.fragment.SotayFragment;
 import com.hou.models.CanBo;
 import com.hou.models.SuKien;
@@ -42,9 +43,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 	private MaterialSection<?> Lich;
 	private MaterialSection<?> LichTuan;
 	private MaterialSection<?> LienHe;
-	// private MaterialSection<?> DongBo;
 	private MaterialSection<?> CaiDat;
-	// private MaterialSection<?> ThongTin;
 	private MaterialSection<?> ThongTinCanBo;
 
 	public static FragmentManagerActivity sInstance;
@@ -110,20 +109,12 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		LienHe = newSection(getResources().getString(R.string.manager_lienhe),
 				R.drawable.menu_lienhe_material, new LienheFragment());
 
-		// DongBo =
-		// newSection(getResources().getString(R.string.manager_dongbo),
-		// R.drawable.menu_dongbo_material, new SotayFragment());
-
-		CaiDat = newSection(getResources().getString(R.string.manager_caidat),
-				R.drawable.menu_caidat_material, new SotayFragment());
-
-		// ThongTin = newSection(
-		// getResources().getString(R.string.manager_thongtin),
-		// R.drawable.menu_thongtin_material, new SotayFragment());
-
 		ThongTinCanBo = newSection(
 				getResources().getString(R.string.manager_thongtincanbo),
 				R.drawable.menu_thongtin_material, new ThongTinCanBoFragment());
+		
+		CaiDat = newSection(getResources().getString(R.string.manager_caidat),
+				R.drawable.menu_caidat_material, new SettingFragment());
 
 		this.addSection(GhiChu);
 		this.addSection(SoTay);
@@ -131,9 +122,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		this.addSection(LichTuan);
 		this.addSection(LienHe);
 		this.addSection(ThongTinCanBo);
-		// this.addSection(DongBo);
 		this.addBottomSection(CaiDat);
-		// this.addSection(ThongTin);
 
 		if (Global.hasNetworkConnection(getApplicationContext())) {
 			getSukienFromServer();
