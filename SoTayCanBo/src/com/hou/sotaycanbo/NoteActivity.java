@@ -150,8 +150,8 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	        }
 	        final Ringtone ringtone = RingtoneManager.getRingtone(this, alarmUri);
 	        ringtone.play();
-	        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-			vibrator.vibrate(3000);
+//	        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+//			vibrator.vibrate(3000);
 	        new Timer().schedule(new TimerTask() {
 				
 				@Override
