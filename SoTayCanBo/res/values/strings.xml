@@ -4,8 +4,8 @@
     <string name="app_name">HOU Note</string>
     <string name="action_settings"></string>
     <string name="description"></string>
-	<string name="default_email">webmaster@hou.edu.vn</string>
-    
+    <string name="default_email">webmaster@hou.edu.vn</string>
+
     <!-- SERVER -->
     <string name="check_internet">Kiểm tra lại dịch vụ mạng</string>
     <string name="database_error">Hệ thống đang sửa chữa :(</string>
@@ -100,14 +100,14 @@
     <string name="dialogTitleContents">Nội dung</string>
     <string name="toastGetEvent">Sự kiện được thêm vào lịch</string>
     <string name="toastDropEvent">Sự kiện được gỡ khỏi lịch</string>
-	<string name="lichtuan_sang">Sáng</string>
-	<string name="lichtuan_chieu">Chiều</string>
+    <string name="lichtuan_sang">Sáng</string>
+    <string name="lichtuan_chieu">Chiều</string>
     <string name="dialog_lichtuan_thoigian">Thời gian:</string>
     <string name="dialog_lichtuan_diadiem">Địa điểm:</string>
     <string name="dialog_lichtuan_thanhphan">Thành phần:</string>
     <string name="dialog_lichtuan_ghichu">Ghi chú:</string>
     <string name="dialog_lichtuan_noidung">Nội dung:</string>
-	
+
     <!-- DIALOG SOTAY FRAGMENT - ADD NEW SOTAY -->
     <string name="dialog_sotay_addnew_title">Sổ tay mới</string>
     <string name="dialog_sotay_addnew_cancel">HỦY BỎ</string>
@@ -132,7 +132,7 @@
 
     <!-- CANBO ACTIVITY -->
     <string name="canboActivity_title">Thông tin cán bộ</string>
-    
+
     <!-- DOIMATKHAU ACTIVITY -->
     <string name="title_activity_doi_matkhau">Đổi mật khẩu</string>
     <string name="doimatkhau_isfirst">Bạn phải đổi mật khẩu ở lần đăng nhập đầu tiên</string>
@@ -141,16 +141,18 @@
     <string name="doimatkhau_passshort">Mật khẩu phải lớn hơn 8 ký tự</string>
     <string name="doimatkhau_success">Đổi mật khẩu thành công</string>
     <string name="doimatkhau_false">Tên đăng nhập hoặc mật khẩu không hợp lệ</string>
-	<string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
-	<string name="doimatkhau_passcu">Mật khẩu cũ</string>
-	<string name="doimatkhau_passmoi">Mật khẩu mới</string>
-    
-	<!-- LIENHE FRAGMENT -->
-	<string name="lienhe_title_phong">Phòng</string>
-	<string name="lienhe_title_khoa">Khoa</string>
-	<string name="lienhe_title_trungtam">Trung tâm</string>
-	
-	<!-- GCM -->
-	<string name="gcm_title">Lịch hoạt động HOU</string>
-	<string name="gcm_message">Lịch tuần được cập nhật</string>
+    <string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
+    <string name="doimatkhau_passcu">Mật khẩu cũ</string>
+    <string name="doimatkhau_passmoi">Mật khẩu mới</string>
+
+    <!-- LIENHE FRAGMENT -->
+    <string name="lienhe_title_phong">Phòng</string>
+    <string name="lienhe_title_khoa">Khoa</string>
+    <string name="lienhe_title_trungtam">Trung tâm</string>
+
+    <!-- GCM -->
+    <string name="gcm_title">Lịch hoạt động HOU</string>
+    <string name="gcm_message">Lịch tuần được cập nhật</string>
+    <string name="title_activity_lienhe">LienheActivity</string>
+
 </resources>

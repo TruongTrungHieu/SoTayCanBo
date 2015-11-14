@@ -1,6 +1,7 @@
 package com.hou.sotaycanbo;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -24,9 +25,11 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.media.MediaPlayer.TrackInfo;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -36,6 +39,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
@@ -76,6 +80,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	private boolean isRecording = false;
 	public MediaRecorder recorder;
 	private Point screenSize;
+	boolean isSave = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -127,39 +132,14 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 					long arg3) {
 				// TODO Auto-generated method stub
 				String url = listAttachment.get(arg2).getUrl();
-				String type = "*/*";
-				if (url.contains(".mp4")) {
-//					MediaPlayer mediaPlayer = new MediaPlayer();
-//					mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//					try {
-//						mediaPlayer.setDataSource(url);
-//						mediaPlayer.prepare(); // must call prepare first
-//						mediaPlayer.start(); // then start
-//					} catch (IllegalArgumentException | SecurityException
-//							| IllegalStateException | IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-					MediaPlayer mediaPlayer = MediaPlayer.create(NoteActivity.this, Uri.fromFile(new File(url)));
-					mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
-						
-						@Override
-						public void onPrepared(MediaPlayer mp) {
-							// TODO Auto-generated method stub
-							mp.start();
-						}
-					});
-				} else {
-					if (url.contains(".jpg") || url.contains(".png")
-							|| url.contains(".bmp")) {
-						type = "image/*";
-					}
-					File f = new File(url);
-					Intent t = new Intent();
-					t.setAction(Intent.ACTION_VIEW);
-					t.setDataAndType(Uri.fromFile(f), type);
-					startActivity(t);
+				String type = getMimeType(url);
+				if (type.equals("video/3gpp")) {
+					type = "audio/*";
 				}
+				Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+				File file = new File(url);
+				viewIntent.setDataAndType(Uri.fromFile(file), type);
+				startActivity(Intent.createChooser(viewIntent, null));
 			}
 		});
 		imgClock.setOnClickListener(this);
@@ -168,6 +148,15 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			screenSize = new Point();
 			getWindowManager().getDefaultDisplay().getSize(screenSize);
 		}
+	}
+	
+	public static String getMimeType(String url) {
+	    String type = null;
+	    String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+	    if (extension != null) {
+	        type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+	    }
+	    return type;
 	}
 
 	@Override
@@ -322,6 +311,20 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		changeMode();
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		if (!isSave) {
+			for (DinhKem dinhKem : listAttachment) {
+				if (dinhKem.getLoaifile().equals(Const.ATTACHMENT_VOICE)) {
+					File file = new File(dinhKem.getUrl());
+					file.delete();
+				}
+			}
+		}		
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -356,6 +359,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 				Toast.makeText(getApplicationContext(), "UPDATE",
 						Toast.LENGTH_SHORT).show();
 			}
+			isSave = true;
 			break;
 
 		// case R.id.action_note_message:
@@ -524,8 +528,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		TextView tvTimeCounter, tvSave;
 		ImageView ivRecording;
 		NoteActivity activity;
-		AudioRecording recording;
+		MediaRecorder myAudioRecorder;
 		CountDownTimer timer;
+		String outputFile, name;
 
 		public DialogRecording(Context context) {
 			super(context);
@@ -540,7 +545,16 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			WindowManager.LayoutParams attributes = getWindow().getAttributes();
 			attributes.gravity = Gravity.CENTER;
 			initView();
-			recording = new AudioRecording(activity, recorder);
+			name = Calendar.getInstance().getTimeInMillis() + "_record.3gp";
+			outputFile = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/" + name;
+
+			myAudioRecorder = new MediaRecorder();
+			myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+			myAudioRecorder
+					.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+			myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+			myAudioRecorder.setOutputFile(outputFile);
 			timer = new CountDownTimer(TimeUnit.MINUTES.toMillis(1000),
 					TimeUnit.SECONDS.toMillis(1), activity, tvTimeCounter);
 		}
@@ -559,18 +573,25 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			case R.id.ivRecording:
 				if (isRecording) {
 					timer.cancel();
-					recording.stopRecording();
-					dismiss();
-					String path = recording.getFilename();
-					String[] temp = path.split("/");
-					String name = temp[temp.length - 1];
+					myAudioRecorder.stop();
+					myAudioRecorder.release();
+					dismiss();					
 					listAttachment.add(new DinhKem("1", "1",
-							Const.ATTACHMENT_VOICE, path, name));
+							Const.ATTACHMENT_VOICE, outputFile, name));
 					adapter.notifyDataSetChanged();
 				} else {
 					ivRecording.setImageResource(R.drawable.pause);
 					timer.start();
-					recording.startRecording();
+					try {
+						myAudioRecorder.prepare();
+						myAudioRecorder.start();
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}					
 				}
 				isRecording = !isRecording;
 				break;

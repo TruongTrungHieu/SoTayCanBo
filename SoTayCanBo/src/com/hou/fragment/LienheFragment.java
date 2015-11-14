@@ -45,15 +45,10 @@ public class LienheFragment extends Fragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		setupTabs();
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+
 		View view = inflater
 				.inflate(R.layout.fragment_lienhe, container, false);
 		initView(view);
@@ -73,12 +68,7 @@ public class LienheFragment extends Fragment {
 						getString(R.string.check_internet), Toast.LENGTH_SHORT)
 						.show();
 			}
-		}
-		if (Global.listDvKhoa.size() <= 0 || Global.listDvKhoa.size() <= 0 || Global.listDvTrungtam.size() <= 0) {
-			Global.listDvPhong = new ArrayList<DonVi>();
-			Global.listDvKhoa = new ArrayList<DonVi>();
-			Global.listDvTrungtam = new ArrayList<DonVi>();
-
+		} else {
 			for (DonVi dv : listDonvi) {
 				String maNhomDonvi = dv.getMaNhomdonvi();
 				switch (maNhomDonvi) {
@@ -93,10 +83,11 @@ public class LienheFragment extends Fragment {
 					break;
 				default:
 					break;
+
 				}
 			}
-		}		
-		setupTabs();
+			setupTabs();
+		}
 		return view;
 	}
 
@@ -107,11 +98,7 @@ public class LienheFragment extends Fragment {
 	}
 
 	public void setupTabs() {
-		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager());
-		int pagerMargin = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
-						.getDisplayMetrics());
-		pager.setPageMargin(pagerMargin);
+		adapter = new MyPagerAdapter(getChildFragmentManager());
 		pager.setAdapter(adapter);
 		pstWalletTabs.setShouldExpand(true);
 		pstWalletTabs.setViewPager(pager);
@@ -140,16 +127,19 @@ public class LienheFragment extends Fragment {
 
 		@Override
 		public Fragment getItem(int position) {
-			Fragment fragment = new Fragment();
+			Fragment fragment;
 			switch (position) {
 			case 0:
-				fragment = new LienheFragment_Khoa();
+				fragment = new LienheFragment_Khoa(Global.listDvKhoa, true);
 				break;
 			case 1:
-				fragment = new LienheFragment_Phong();
+				fragment = new LienheFragment_Khoa(Global.listDvPhong, false);
 				break;
 			case 2:
-				fragment = new LienheFragment_Trungtam();
+				fragment = new LienheFragment_Khoa(Global.listDvTrungtam, false);
+				break;
+			default:
+				fragment = new LienheFragment_Khoa(Global.listDvKhoa, true);
 				break;
 			}
 			return fragment;
@@ -162,6 +152,7 @@ public class LienheFragment extends Fragment {
 		client.get(Const.URL_DONVI, params, new AsyncHttpResponseHandler() {
 			public void onSuccess(String response) {
 				saveDonviIntoSQLite(response);
+				setupTabs();
 			}
 
 			@Override
@@ -186,7 +177,7 @@ public class LienheFragment extends Fragment {
 			}
 		});
 	}
-	
+
 	private void saveDonviIntoSQLite(String response) {
 		exeQ.delete_tblDonvi_allrecord();
 		try {
@@ -197,7 +188,9 @@ public class LienheFragment extends Fragment {
 				String ma_dv = donvi.optString("ma_dv", "");
 				String ten_dv = donvi.optString("ten_dv", "");
 				String diachi_dv = donvi.optString("diachi_dv", "");
-				String sdt_dv = donvi.optString("sdt_dv", "").replace("_", "").trim();;
+				String sdt_dv = donvi.optString("sdt_dv", "").replace("_", "")
+						.trim();
+				;
 
 				String email = "";
 				String website = "";
@@ -207,20 +200,19 @@ public class LienheFragment extends Fragment {
 				String temp = maNhomArr[0];
 				if (temp.equalsIgnoreCase(getString(R.string.lienhe_title_khoa))) {
 					maNhom = "khoa";
-				} else if (temp.equalsIgnoreCase(getString(R.string.lienhe_title_phong))) {
+				} else if (temp
+						.equalsIgnoreCase(getString(R.string.lienhe_title_phong))) {
 					maNhom = "phong";
 				} else {
 					maNhom = "trungtam";
 				}
-				
-				DonVi dv = new DonVi(ma_dv, ten_dv, sdt_dv, email, website, fax, diachi_dv, maNhom);
-				
+
+				DonVi dv = new DonVi(ma_dv, ten_dv, sdt_dv, email, website,
+						fax, diachi_dv, maNhom);
+
 				exeQ.insert_tblDonvi_single(dv);
 				listDonvi.add(dv);
 			}
-			Global.listDvPhong = new ArrayList<DonVi>();
-			Global.listDvKhoa = new ArrayList<DonVi>();
-			Global.listDvTrungtam = new ArrayList<DonVi>();
 
 			for (DonVi dv : listDonvi) {
 				String maNhomDonvi = dv.getMaNhomdonvi();
@@ -241,5 +233,12 @@ public class LienheFragment extends Fragment {
 		} catch (JSONException e) {
 			Log.e("saveSukienIntoSQL", e.getMessage());
 		}
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		adapter.notifyDataSetChanged();
+		super.onResume();
 	}
 }
