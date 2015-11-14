@@ -33,13 +33,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-@SuppressLint("InflateParams")
 public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 
 	private EditText edtFullName, edtSdt, edtEmail, edtDiachi;
 	private TextView tvUsername, tvDonvi;
-	private CircularImageView imgAvatar;
-	public static Point screenSize = new Point();
+	private CircularImageView imgAvatar;	
 	private ExecuteQuery exeQ;
 	private Menu mMenu;
 	
@@ -69,7 +67,10 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		exeQ.open();
 		
 		initData();
-		
+//		if (screenSize == null) {
+//			screenSize = new Point();
+//			getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
+//		}
 		return view;
 	}
 
@@ -152,7 +153,7 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 
 		public ImageDialog(Context context, int resource) {
 			super(context);
-			mContext = context;
+			this.mContext = context;
 			requestWindowFeature(Window.FEATURE_NO_TITLE);
 			setCancelable(true);
 			setContentView(resource);
@@ -160,14 +161,14 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 			tvFromGallery = (TextView) findViewById(R.id.tvFromGallery);
 			tvFromCamera.setOnClickListener(this);
 			tvFromGallery.setOnClickListener(this);
-			getWindow().setLayout((int) (screenSize.x * 0.95),
-					ViewGroup.LayoutParams.WRAP_CONTENT);
+//			getWindow().setLayout((int) (screenSize.x * 0.95),
+//					ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			WindowManager.LayoutParams wmlp = getWindow().getAttributes();
 
-			wmlp.gravity = Gravity.TOP | Gravity.LEFT;
-			wmlp.x = 100; // x position
-			wmlp.y = 100; // y position
+			wmlp.gravity = Gravity.CENTER;
+//			wmlp.x = 100; // x position
+//			wmlp.y = 100; // y position
 		}
 
 		@Override
