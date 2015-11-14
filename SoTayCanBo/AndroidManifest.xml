@@ -40,6 +40,12 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".AlarmService"
+            android:enabled="true" />
+
+        <receiver android:name=".AlarmReceiver" />
+
         <!-- .FragmentManagerActivity -->
         <activity
             android:name=".FragmentManagerActivity"
@@ -91,7 +97,7 @@
             android:name=".DoiMatkhauActivity"
             android:label="@string/title_activity_doi_matkhau"
             android:theme="@style/CustomActionBarTheme" >
-        </activity>       
+        </activity>
     </application>
 
 </manifest>

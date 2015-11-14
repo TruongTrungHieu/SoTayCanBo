@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import com.hou.adapters.AttachmentAdapter;
@@ -18,19 +20,37 @@ import com.hou.models.SoTay;
 import com.hou.ultis.AudioRecording;
 import com.hou.ultis.IntentUtils;
 
+
+
+
+
+
+
+
+
+
+
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaPlayer.TrackInfo;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +67,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class NoteActivity extends ActionBarActivity implements OnClickListener {
@@ -72,7 +93,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 
 	private ExecuteQuery exeQ;
 	private DatePickerDialog datePickerDialog;
-	private long datePicked;
+	private long datePicked = 0;
 	private SoTay sotay = new SoTay();
 	String MACANBO, CURRENTTIME;
 	List<SoTay> listSotay;
@@ -81,6 +102,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	public MediaRecorder recorder;
 	private Point screenSize;
 	boolean isSave = false;
+	TimePickerDialog timePickerDialog;
+	private PendingIntent pendingIntent;
+	private AlarmManager alarmManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +143,25 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			mNoteMode = NoteMode.EDIT;
 			isCreatNew = true;
 		}
+		if (getIntent().getBooleanExtra("from_alarm", false)) {
+			Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+	        if (alarmUri == null) {
+	            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+	        }
+	        final Ringtone ringtone = RingtoneManager.getRingtone(this, alarmUri);
+	        ringtone.play();
+	        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+			vibrator.vibrate(3000);
+	        new Timer().schedule(new TimerTask() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					ringtone.stop();
+				}
+			}, 3000);
+			
+		}
 		// Listview attachment
 		lvAttachment = (ListView) findViewById(R.id.lvAttachment);
 		listAttachment = exeQ.getAllDinhKemByMaGhiChu(mGhichu.getMaGhiChu());
@@ -148,15 +191,19 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			screenSize = new Point();
 			getWindowManager().getDefaultDisplay().getSize(screenSize);
 		}
+		
+		pendingIntent = setupPendingIntent();
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 	}
-	
+
 	public static String getMimeType(String url) {
-	    String type = null;
-	    String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-	    if (extension != null) {
-	        type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-	    }
-	    return type;
+		String type = null;
+		String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+		if (extension != null) {
+			type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+					extension);
+		}
+		return type;
 	}
 
 	@Override
@@ -228,16 +275,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		filePath = IntentUtils.getPath(this, data.getData());
 		String[] temp = filePath.split("/");
 		fileName = temp[temp.length - 1];
-		//
-		// if (data.getDataString().contains("context")) {
-		// filePath = ImageUltiFunctions.getRealPathFromURI(data.getData()
-		// .toString(), NoteActivity.this);
-		// String[] temp = filePath.split("/");
-		// fileName = temp[temp.length - 1];
-		// } else {
-		// filePath = data.getData().getPath();
-		// fileName = data.getData().getLastPathSegment();
-		// }
 		listAttachment.add(new DinhKem("1", "1", type, filePath, fileName));
 
 		adapter.notifyDataSetChanged();
@@ -311,7 +348,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		changeMode();
 		return true;
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
@@ -323,7 +360,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 					file.delete();
 				}
 			}
-		}		
+		}
 	}
 
 	@Override
@@ -360,6 +397,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 						Toast.LENGTH_SHORT).show();
 			}
 			isSave = true;
+			if (datePicked > Calendar.getInstance().getTimeInMillis()) {
+				alarmManager.set(AlarmManager.RTC, datePicked, pendingIntent);	
+			}			
 			break;
 
 		// case R.id.action_note_message:
@@ -397,20 +437,48 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 
 	public void setUpDateTimePicker() {
 		Calendar newCalendar = Calendar.getInstance();
+		final int hourSelected = 0;
+		final int minuteSelected = 0;
+		final Calendar newDate = Calendar.getInstance();
+		
+		timePickerDialog = new TimePickerDialog(NoteActivity.this,
+				new OnTimeSetListener() {
+
+					@Override
+					public void onTimeSet(TimePicker timePicker, int hour,
+							int minute) {
+						// TODO Auto-generated method stub
+						newDate.set(Calendar.HOUR_OF_DAY, hour);
+						newDate.set(Calendar.MINUTE, minute);						
+						datePicked = newDate.getTimeInMillis();
+						Log.d("Date Select", newDate.get(Calendar.DAY_OF_MONTH) + " " + newDate.get(Calendar.MONTH) + " " + newDate.get(Calendar.YEAR) + " " + newDate.get(Calendar.HOUR_OF_DAY) + " " + newDate.get(Calendar.MINUTE));
+						Log.d("Date Select", datePicked + "");
+						Log.d("Date Select", newDate.getTime().toString());					
+						
+					}
+				}, newCalendar.get(Calendar.HOUR_OF_DAY),
+				newCalendar.get(Calendar.MINUTE), false);
 		datePickerDialog = new DatePickerDialog(NoteActivity.this,
 				new DatePickerDialog.OnDateSetListener() {
 
 					public void onDateSet(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
-						Calendar newDate = Calendar.getInstance();
 						newDate.set(year, monthOfYear, dayOfMonth);
-						datePicked = newDate.getTimeInMillis();
+						timePickerDialog.show();						
 					}
 
 				}, newCalendar.get(Calendar.YEAR),
 				newCalendar.get(Calendar.MONTH),
 				newCalendar.get(Calendar.DAY_OF_MONTH));
+
 	}
+	
+	public PendingIntent setupPendingIntent(){
+    	Intent myIntent = new Intent(NoteActivity.this, AlarmReceiver.class);
+    	myIntent.putExtra("note", mGhichu);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
+        return pendingIntent;
+    }
 
 	public void createNewNote() {
 		if ((edtNoidung.toString().trim().length() <= 0)
@@ -483,8 +551,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			currentMenu.getItem(1).setVisible(false);
 			currentMenu.getItem(2).setVisible(true);
 			currentMenu.getItem(3).setVisible(true);
-			// currentMenu.getItem(4).setVisible(true);
-			// currentMenu.getItem(5).setVisible(true);
 
 			edtTenghichu.setEnabled(false);
 			edtNoidung.setEnabled(false);
@@ -494,8 +560,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			currentMenu.getItem(1).setVisible(true);
 			currentMenu.getItem(2).setVisible(false);
 			currentMenu.getItem(3).setVisible(false);
-			// currentMenu.getItem(4).setVisible(false);
-			// currentMenu.getItem(5).setVisible(false);
 
 			edtTenghichu.setEnabled(true);
 			edtNoidung.setEnabled(true);
@@ -575,7 +639,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 					timer.cancel();
 					myAudioRecorder.stop();
 					myAudioRecorder.release();
-					dismiss();					
+					dismiss();
 					listAttachment.add(new DinhKem("1", "1",
 							Const.ATTACHMENT_VOICE, outputFile, name));
 					adapter.notifyDataSetChanged();
@@ -591,7 +655,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}					
+					}
 				}
 				isRecording = !isRecording;
 				break;
