@@ -83,8 +83,17 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		} else {
 			account = new MaterialAccount(this.getResources(), tenCanbo,
 					tenDonvi, R.drawable.account_ava, R.drawable.bg);
-			DownloadProfileAvatarAsync download = new DownloadProfileAvatarAsync();
-			download.execute();
+			try {
+				DownloadProfileAvatarAsync download = new DownloadProfileAvatarAsync();
+				download.execute();
+				File f1 = ImageUltiFunctions.getFileFromUri(Global.getURI(anh));
+				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f1, 500,
+						500);
+				account = new MaterialAccount(this.getResources(), tenCanbo,
+						tenDonvi, b, R.drawable.bg);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 
 		this.addAccount(account);

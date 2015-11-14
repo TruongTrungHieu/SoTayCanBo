@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,6 @@ public class LienheFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
 		setHasOptionsMenu(true);
 	}
 
@@ -83,7 +81,6 @@ public class LienheFragment extends Fragment {
 					break;
 				default:
 					break;
-
 				}
 			}
 			setupTabs();
@@ -190,7 +187,6 @@ public class LienheFragment extends Fragment {
 				String diachi_dv = donvi.optString("diachi_dv", "");
 				String sdt_dv = donvi.optString("sdt_dv", "").replace("_", "")
 						.trim();
-				;
 
 				String email = "";
 				String website = "";

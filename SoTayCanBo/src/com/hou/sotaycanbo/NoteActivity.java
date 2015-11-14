@@ -17,19 +17,7 @@ import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.DinhKem;
 import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
-import com.hou.ultis.AudioRecording;
 import com.hou.ultis.IntentUtils;
-
-
-
-
-
-
-
-
-
-
-
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -39,16 +27,12 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.media.MediaPlayer.TrackInfo;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -435,6 +419,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@SuppressWarnings("unused")
 	public void setUpDateTimePicker() {
 		Calendar newCalendar = Calendar.getInstance();
 		final int hourSelected = 0;

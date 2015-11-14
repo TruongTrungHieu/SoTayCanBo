@@ -14,7 +14,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,7 +46,7 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		setHasOptionsMenu(true);
 	}
 	
-	@Override
+	@SuppressLint("InflateParams") @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -67,10 +66,7 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		exeQ.open();
 		
 		initData();
-//		if (screenSize == null) {
-//			screenSize = new Point();
-//			getActivity().getWindowManager().getDefaultDisplay().getSize(screenSize);
-//		}
+		
 		return view;
 	}
 
@@ -161,14 +157,9 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 			tvFromGallery = (TextView) findViewById(R.id.tvFromGallery);
 			tvFromCamera.setOnClickListener(this);
 			tvFromGallery.setOnClickListener(this);
-//			getWindow().setLayout((int) (screenSize.x * 0.95),
-//					ViewGroup.LayoutParams.WRAP_CONTENT);
 
 			WindowManager.LayoutParams wmlp = getWindow().getAttributes();
-
 			wmlp.gravity = Gravity.CENTER;
-//			wmlp.x = 100; // x position
-//			wmlp.y = 100; // y position
 		}
 
 		@Override
