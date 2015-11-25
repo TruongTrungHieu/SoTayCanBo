@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="25dp"
-        android:text="From Camera"
+        android:text="@string/imagedialog_capture"
         android:textSize="20dp" />
 
     <View
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="25dp"
-        android:text="From Gallery"
+        android:text="@string/imagedialog_album"
         android:textSize="20dp" />
 
 </LinearLayout>

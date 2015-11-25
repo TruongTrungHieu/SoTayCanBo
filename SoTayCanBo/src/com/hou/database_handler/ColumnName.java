@@ -200,18 +200,4 @@ public class ColumnName {
 	public static String TKNGANHANG_MACANBO = "maCanbo";
 	public static String TKNGANHANG_MANGANHANG = "maNganhang";
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -86,7 +86,7 @@ public class Global {
 	 * @return date as a String
 	 */
 	public static String getFormattedDateTime(long timeInSeconds) {
-		Date dateTime = new Date(timeInSeconds * 1000);
+		Date dateTime = new Date(timeInSeconds);
 		StringBuilder date = new StringBuilder(DATE_FORMAT.format(dateTime));
 		return date.toString();
 	}

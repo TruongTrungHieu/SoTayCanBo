@@ -234,7 +234,7 @@ public class LienheFragment extends Fragment {
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-		adapter.notifyDataSetChanged();
+//		adapter.notifyDataSetChanged();
 		super.onResume();
 	}
 }

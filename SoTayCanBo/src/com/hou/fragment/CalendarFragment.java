@@ -1,12 +1,17 @@
 package com.hou.fragment;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -23,40 +28,43 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.hou.database_handler.ExecuteQuery;
-import com.hou.models.GhiChu;
-import com.hou.sotaycanbo.NoteActivity;
+import com.hou.models.Event;
+import com.hou.sotaycanbo.CreateEventActivity;
 import com.hou.sotaycanbo.R;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 public class CalendarFragment extends Fragment {
 
-	CaldroidFragment caldroidFragment;
+	private CaldroidFragment caldroidFragment;
 	private Calendar cal;
-	Date currentDate;
+	private Date currentDate;
 	private final SimpleDateFormat formatter = new SimpleDateFormat(
-			"dd MM yyyy");
+			"dd/MM/yyyy");
 	private ExecuteQuery exeQ;
-	List<GhiChu> listGC;
-	ListView listEvent;
+	private List<Event> listEvent;
+	private ListView lvEvent;
 	boolean isFirstTimeSelect = true;
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
 		cal = Calendar.getInstance();
+		currentDate = new Date();
 		caldroidFragment = new CaldroidFragment();
+
 		exeQ = new ExecuteQuery(getActivity());
 		exeQ.createDatabase();
 		exeQ.open();
-		listGC = exeQ.getAllGhichu();
+		listEvent = exeQ.getAllEvent();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_main, container, false);
-		listEvent = (ListView) view.findViewById(R.id.listEvent);
+		lvEvent = (ListView) view.findViewById(R.id.lvEvent);
 		// If Activity is created after rotation
 		if (savedInstanceState != null) {
 			caldroidFragment.restoreStatesFromKey(savedInstanceState,
@@ -74,7 +82,12 @@ public class CalendarFragment extends Fragment {
 			caldroidFragment.setArguments(args);
 		}
 
-		setCustomResourceForDates();
+		try {
+			setCustomResourceForDates();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		// Attach to the activity
 		FragmentTransaction t = getChildFragmentManager().beginTransaction();
@@ -102,25 +115,40 @@ public class CalendarFragment extends Fragment {
 					if (isDateEqual(currentDate, new Date())) {
 						caldroidFragment.setBackgroundResourceForDate(
 								R.drawable.red_border, currentDate);
+						try {
+							if (isEventDate(currentDate)) {
+								caldroidFragment
+										.setBackgroundResourceForDate(
+												R.drawable.red_border_green_bg,
+												currentDate);
+								caldroidFragment.setTextColorForDate(R.color.black,
+										currentDate);
+							}
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					try {
 						if (isEventDate(currentDate)) {
-							caldroidFragment
-									.setBackgroundResourceForDate(
-											R.drawable.red_border_green_bg,
-											currentDate);
+							caldroidFragment.setBackgroundResourceForDate(
+									R.color.green, currentDate);
 							caldroidFragment.setTextColorForDate(R.color.black,
 									currentDate);
 						}
-					}
-					if (isEventDate(currentDate)) {
-						caldroidFragment.setBackgroundResourceForDate(
-								R.color.green, currentDate);
-						caldroidFragment.setTextColorForDate(R.color.black,
-								currentDate);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 					caldroidFragment.setTextColorForDate(R.color.black,
 							new Date());
 				}
-				setListEvent(date);
+				try {
+					setListEvent(date);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				// Toast.makeText(getActivity().getApplicationContext(),
 				// formatter.format(date), Toast.LENGTH_SHORT).show();
@@ -164,10 +192,10 @@ public class CalendarFragment extends Fragment {
 		return false;
 	}
 
-	private void setCustomResourceForDates() {
+	private void setCustomResourceForDates() throws ParseException {
 		if (caldroidFragment != null) {
-			for (GhiChu ghiChu : listGC) {
-				Date date = new Date(ghiChu.getNgaythuchien());
+			for (Event event : listEvent) {
+				Date date = formatter.parse(event.getNgay_event());
 				if (date.compareTo(new Date()) == 0) {
 					caldroidFragment.setBackgroundResourceForDate(
 							R.drawable.red_border_green_bg, date);
@@ -179,10 +207,10 @@ public class CalendarFragment extends Fragment {
 		}
 	}
 
-	private boolean isEventDate(Date date) {
+	private boolean isEventDate(Date date) throws ParseException {
 		boolean isEvent = false;
-		for (GhiChu ghiChu : listGC) {
-			Date eventDate = new Date(ghiChu.getNgaythuchien());
+		for (Event e : listEvent) {
+			Date eventDate = formatter.parse(e.getNgay_event());
 			if (isDateEqual(date, eventDate)) {
 				isEvent = true;
 				break;
@@ -191,31 +219,63 @@ public class CalendarFragment extends Fragment {
 		return isEvent;
 	}
 
-	private List<String> getListEvent(Date date) {
+	private List<String> getListEvent(Date date) throws ParseException {
 		List<String> getListByDate = new ArrayList<String>();
-		for (GhiChu ghiChu : listGC) {
-			if (isDateEqual(date, new Date(ghiChu.getNgaythuchien()))) {
-				getListByDate.add(formatter.format(new Date(ghiChu
-						.getNgaythuchien())) + " - " + ghiChu.getNoidung());
+		for (Event e : listEvent) {
+			if (isDateEqual(date, formatter.parse(e.getNgay_event()))) {
+				getListByDate.add("  " + e.getThoigianbatdau() + "      " + e.getTenEvent());
 			}
 		}
 		return getListByDate;
 	}
 
-	private void setListEvent(final Date date) {
+	private void setListEvent(final Date date) throws ParseException {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, getListEvent(date));
-		listEvent.setAdapter(adapter);
-		listEvent.setOnItemClickListener(new OnItemClickListener() {
+		lvEvent.setAdapter(adapter);
+		lvEvent.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				Intent note = new Intent(getActivity(), NoteActivity.class);
-				note.putExtra("TYPE_NOTE", "READ");
-				note.putExtra("NOTE", getListEvent(date).get(arg2));
-				startActivity(note);
+			}
+		});
+		lvEvent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				final int pos = position;
+				AlertDialog.Builder buider = new Builder(getActivity());
+				buider.setMessage(getActivity()
+						.getString(R.string.calendar_delete_confirm));
+				buider.setNegativeButton(getString(R.string.forgotpass_cancel), new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				});
+				buider.setNeutralButton(getString(R.string.forgotpass_ok), new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						exeQ.delete_tblEvent_byMaEvent(listEvent.get(pos).getMaEvent());
+						try {
+							setListEvent(formatter.parse(listEvent.get(pos).getNgay_event()));
+							setCustomResourceForDates();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				buider.create().show();
+				
+				return false;
 			}
 		});
 	}
@@ -227,18 +287,15 @@ public class CalendarFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
-
 		if (caldroidFragment != null) {
 			caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
 		}
-
 	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
 		inflater.inflate(R.menu.fragment_calendar, menu);
-
 	}
 
 	@Override
@@ -267,19 +324,36 @@ public class CalendarFragment extends Fragment {
 			caldroidFragment.setBackgroundResourceForDate(R.color.blue, today);
 			caldroidFragment.setTextColorForDate(R.color.white, today);
 			currentDate = today;
+			try {
+				setListEvent(currentDate);
+				setCustomResourceForDates();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 
 		case R.id.action_calendar_add:
 			// create a new event
-			Intent createNote = new Intent(getActivity()
-					.getApplicationContext(), NoteActivity.class);
-			createNote.putExtra("TYPE_NOTE", "CREATE_NEW");
-			startActivity(createNote);
+			Intent createEvent = new Intent(getActivity()
+					.getApplicationContext(), CreateEventActivity.class);
+			createEvent.putExtra("currentDay", formatter.format(currentDate));
+			startActivity(createEvent);
 			break;
 
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void onResume() {
+		super.onResume();
+		try {
+			setCustomResourceForDates();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

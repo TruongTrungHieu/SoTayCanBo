@@ -135,9 +135,107 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 
 		if (Global.hasNetworkConnection(getApplicationContext())) {
 			getSukienFromServer();
+			String dowloadFirst = Global.getPreference(getApplicationContext(), Const.DOWNLOAD_FIRST);
+			if (dowloadFirst == null || dowloadFirst.equals("")) {
+				getCanBoFromServer();
+			}
 		}
 	}
 
+	private void getCanBoFromServer() {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		client.get(Const.URL_NHANVIEN_ALL, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Global.savePreference(getApplicationContext(), Const.DOWNLOAD_FIRST, "done");
+						saveCanboIntoSQLite(response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						switch (statusCode) {
+						case 0:
+							Toast.makeText(
+									getBaseContext(),
+									getResources().getString(
+											R.string.check_internet)
+											+ " - " + statusCode,
+									Toast.LENGTH_LONG).show();
+							break;
+						default:
+							Toast.makeText(
+									getBaseContext(),
+									getResources().getString(
+											R.string.database_error)
+											+ " - " + statusCode,
+									Toast.LENGTH_LONG).show();
+							break;
+						}
+					}
+				});
+	}
+
+	private void saveCanboIntoSQLite(String response) {
+		try {
+			JSONArray arr = new JSONArray(response);
+			for (int i = 0; i < arr.length(); ++i) {
+				JSONObject cbObj = arr.getJSONObject(i);
+				String ma_nv = cbObj.optString("ma_nv", "");
+				String hoten_nv = cbObj.optString("hoten_nv", "");
+				String chitietdiachihientai = cbObj.optString(
+						"chitietdiachihientai", "");
+				String sdt = cbObj.optString("sdt", "").replace("_", "").trim();
+				String email_nv = cbObj.optString("email_nv", "");
+				String so_cmnd = cbObj.optString("so_cmnd", "");
+				String ten_hocvi = cbObj.optString("ten_hocvi", "");
+				String ten_hocham = cbObj.optString("ten_hocham", "");
+				String ma_dv = cbObj.optString("ma_dv", "");
+				String anh_nv = cbObj.optString("anh_nv", "");
+
+				CanBo cb = new CanBo(ma_nv, ma_dv, hoten_nv,
+						chitietdiachihientai, email_nv, so_cmnd, ten_hocham,
+						ten_hocvi, anh_nv, sdt);
+
+				exeQ.insert_tblCanbo_single(cb);
+				DownloadAvatarAsync downAvatar = new DownloadAvatarAsync(cb);
+				downAvatar.execute();
+			}
+		} catch (JSONException e) {
+			Log.e("saveCanboIntoSQLite", e.getMessage());
+		}
+	}
+	
+	class DownloadAvatarAsync extends AsyncTask<Void, Void, Void> {
+
+		CanBo cb;
+
+		public DownloadAvatarAsync(CanBo cb) {
+			// TODO Auto-generated constructor stub
+			this.cb = cb;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			ImageUltiFunctions.downloadFileFromServer(cb.getAvatar());
+			publishProgress();
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+		}
+	}
+	
 	private void saveInfoCanbo() {
 		CanBo cb;
 		cb = (CanBo) getIntent().getSerializableExtra("canbo");

@@ -132,7 +132,7 @@ public class SotayFragment extends Fragment {
 						}
 					}
 					String pk = Global.getPreference(getActivity(),
-							Const.USER_EMAIL)
+							Const.USER_MACANBO)
 							+ "_"
 							+ Global.getCurrentDateTime();
 					SoTay st = new SoTay(pk, ten, Global.getCurrentDateTime(),

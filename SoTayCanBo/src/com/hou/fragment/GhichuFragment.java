@@ -64,13 +64,14 @@ public class GhichuFragment extends Fragment {
 
 		return view;
 	}
-	
 
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		adapter.notifyDataSetChanged();
+		if (adapter != null) {
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 	public void onClickListener() {
@@ -114,7 +115,6 @@ public class GhichuFragment extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
 		inflater.inflate(R.menu.fragment_ghichu, menu);
-
 	}
 
 	@Override
@@ -132,7 +132,6 @@ public class GhichuFragment extends Fragment {
 		default:
 			break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 }

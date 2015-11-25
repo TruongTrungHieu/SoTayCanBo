@@ -1,6 +1,11 @@
 package com.hou.fragment;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.hou.app.Const;
 import com.hou.app.Global;
@@ -8,13 +13,18 @@ import com.hou.database_handler.ExecuteQuery;
 import com.hou.sotaycanbo.R;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -31,22 +41,33 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 
 	private EditText edtFullName, edtSdt, edtEmail, edtDiachi;
 	private TextView tvUsername, tvDonvi;
-	private CircularImageView imgAvatar;	
+	private CircularImageView imgAvatar;
 	private ExecuteQuery exeQ;
 	private Menu mMenu;
+
+	private String email;
+	private String sdt;
+	private String address;
+
+	private static final int PICK_FROM_CAMERA = 1;
+	private static final int PICK_FROM_FILE = 2;
+	private File fromCameraFile;
+	private Uri mImageCaptureUri;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
-	
-	@SuppressLint("InflateParams") @Override
+
+	@SuppressLint("InflateParams")
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -59,33 +80,66 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		edtEmail = (EditText) view.findViewById(R.id.edtEmailF);
 		edtDiachi = (EditText) view.findViewById(R.id.edtDiachiF);
 		imgAvatar = (CircularImageView) view.findViewById(R.id.imgAvatarF);
+		imgAvatar.setEnabled(false);
 		imgAvatar.setOnClickListener(this);
 
 		exeQ = new ExecuteQuery(getActivity());
 		exeQ.createDatabase();
 		exeQ.open();
-		
+
 		initData();
-		
+
 		return view;
 	}
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		String maDonvi = Global.getPreference(getActivity(), Const.USER_MADONVI);
+		String maDonvi = Global
+				.getPreference(getActivity(), Const.USER_MADONVI);
 		String tenDonvi = exeQ.getTendonviByMadonvi(maDonvi);
 		tvDonvi.setText(tenDonvi);
-		tvUsername.setText(Global.getPreference(getActivity(), Const.USER_HOTEN));
-		edtFullName.setText(Global.getPreference(getActivity(), Const.USER_HOTEN));
-		edtSdt.setText(Global.getPreference(getActivity(), Const.USER_SDT));
-		edtEmail.setText(Global.getPreference(getActivity(), Const.USER_EMAIL));
-		edtDiachi.setText(Global.getPreference(getActivity(), Const.USER_DIACHI));
-		
-		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(Global.getPreference(getActivity(), Const.USER_ANH)));
+
+		String hoten = Global.getPreference(getActivity(), Const.USER_HOTEN);
+		String sdt = Global.getPreference(getActivity(), Const.USER_SDT);
+		String diachi = Global.getPreference(getActivity(), Const.USER_DIACHI);
+		String email = Global.getPreference(getActivity(), Const.USER_EMAIL);
+
+		if (hoten == null || hoten.equals("null")) {
+			tvUsername.setText("");
+			edtFullName.setText("");
+		} else {
+			tvUsername.setText(hoten);
+			edtFullName.setText(hoten);
+		}
+
+		if (sdt == null || sdt.equals("null")) {
+			edtSdt.setText("");
+		} else {
+			edtSdt.setText(sdt);
+		}
+
+		if (email == null || email.equals("null")) {
+			edtEmail.setText("");
+		} else {
+			edtEmail.setText(email);
+		}
+		if (diachi == null || diachi.equals("null")) {
+			edtDiachi.setText("");
+		} else {
+			edtDiachi.setText(diachi);
+		}
+
+		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(Global
+				.getPreference(getActivity(), Const.USER_ANH)));
 		if (f != null) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
 			imgAvatar.setImageBitmap(b);
+		} else {
+			DownloadAvatarAsync down = new DownloadAvatarAsync(
+					Global.getURI(Global.getPreference(getActivity(),
+							Const.USER_ANH)));
+			down.execute();
 		}
 	}
 
@@ -108,7 +162,10 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 			setEnable(true);
 			break;
 		case R.id.action_thongtin_done:
-			setEnable(false);
+			if (checkValidate()) {
+				setEnable(false);
+				updateProfile();
+			}
 			break;
 		default:
 			break;
@@ -119,11 +176,102 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 	public void setEnable(boolean isEnable) {
 		mMenu.getItem(0).setVisible(!isEnable);
 		mMenu.getItem(1).setVisible(isEnable);
-		edtFullName.setEnabled(isEnable);
 		edtSdt.setEnabled(isEnable);
 		edtEmail.setEnabled(isEnable);
 		edtDiachi.setEnabled(isEnable);
 		imgAvatar.setEnabled(isEnable);
+	}
+
+	private boolean checkValidate() {
+		sdt = edtSdt.getText().toString().trim();
+		email = edtEmail.getText().toString().trim();
+		address = edtDiachi.getText().toString().trim();
+		if (sdt.equals("") || email.equals("") || address.equals("")) {
+			Toast.makeText(getActivity().getBaseContext(),
+					getString(R.string.profile_validate), Toast.LENGTH_LONG)
+					.show();
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private void updateProfile() {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("ma_nv",
+				Global.getPreference(getActivity(), Const.USER_MACANBO));
+		params.put("email_nv", email);
+		params.put("sdt_nv", sdt);
+		params.put("dc_nv", address);
+		client.post(Const.URL_UPDATE_PROFILE, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						updateSuccess(response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						switch (statusCode) {
+						case 0:
+							Toast.makeText(
+									getActivity().getBaseContext(),
+									getResources().getString(
+											R.string.check_internet)
+											+ " - " + statusCode,
+									Toast.LENGTH_LONG).show();
+							break;
+						default:
+							Toast.makeText(
+									getActivity().getBaseContext(),
+									getResources().getString(
+											R.string.database_error)
+											+ " - " + statusCode,
+									Toast.LENGTH_LONG).show();
+							break;
+						}
+					}
+				});
+	}
+
+	private void updateSuccess(String respone) {
+		try {
+			JSONObject obj = new JSONObject(respone);
+			String status = obj.optString("status", "");
+			if (!status.equals("false")) {
+				// succes
+				if (status.equals("true")) {
+					JSONArray arr = obj.getJSONArray("ttnhanvien");
+					JSONObject ttnhanvien = arr.getJSONObject(0);
+					String email = ttnhanvien.optString("email_nv", "");
+					String sdt = ttnhanvien.optString("sdt", "");
+					String add = ttnhanvien.optString("chitietdiachihientai",
+							"");
+
+					Global.savePreference(getActivity(), Const.USER_EMAIL,
+							email);
+					Global.savePreference(getActivity(), Const.USER_SDT, sdt);
+					Global.savePreference(getActivity(), Const.USER_DIACHI, add);
+
+					Toast.makeText(getActivity().getBaseContext(),
+							getString(R.string.profile_update_success),
+							Toast.LENGTH_LONG).show();
+				} else {
+					// nothing
+					Toast.makeText(getActivity().getBaseContext(),
+							getString(R.string.profile_update_success),
+							Toast.LENGTH_LONG).show();
+				}
+			} else {
+				// false
+				Toast.makeText(getActivity().getBaseContext(),
+						getString(R.string.profile_update_fail),
+						Toast.LENGTH_LONG).show();
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -138,14 +286,46 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	class DownloadAvatarAsync extends AsyncTask<Void, Void, Void> {
+
+		String fileName;
+
+		public DownloadAvatarAsync(String fileName) {
+			// TODO Auto-generated constructor stub
+			this.fileName = fileName;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			ImageUltiFunctions.downloadFileFromServer(fileName);
+			publishProgress();
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(Global
+					.getPreference(getActivity(), Const.USER_ANH)));
+			if (f != null) {
+				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
+						500, 500);
+				imgAvatar.setImageBitmap(b);
+			}
+		}
+	}
+
 	public class ImageDialog extends Dialog implements View.OnClickListener {
-		private static final int PICK_FROM_FILE = 0;
-		private static final int PICK_FROM_CAMERA = 1;
 		private final TextView tvFromCamera;
 		private final TextView tvFromGallery;
 		Context mContext;
-		private File fromCameraFile;
-		private Uri mImageCaptureUri;
 
 		public ImageDialog(Context context, int resource) {
 			super(context);
@@ -196,4 +376,87 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	private String getFileName(String path) {
+		String[] temp = path.split("/");
+		return temp[temp.length - 1];
+	}
+	
+	@SuppressWarnings("static-access")
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == getActivity().RESULT_OK) {
+			if (requestCode == PICK_FROM_FILE) {
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+				// Get the cursor
+				Cursor cursor = getActivity().getContentResolver().query(
+						selectedImage, filePathColumn, null, null, null);
+				// Move to first row
+				cursor.moveToFirst();
+
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				String imgDecodableString = cursor.getString(columnIndex);
+				cursor.close();
+				// Set the Image in ImageView after decoding the String
+				String fileName = getFileName(imgDecodableString);
+				fromCameraFile = ImageUltiFunctions.getFileFromUri(Global
+						.getURI(fileName));
+			} else {
+//				path = mImageCaptureUri.getPath();
+			}
+			if (fromCameraFile != null) {
+				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
+						fromCameraFile, 500, 500);
+				imgAvatar.setImageBitmap(bm);
+				updateAva();
+			}
+		}
+	}
+
+	public void updateAva() {
+		AsyncHttpClient client = new AsyncHttpClient();
+		RequestParams params = new RequestParams();
+		params.put("ma_nv", Global.getPreference(getActivity(), Const.USER_MACANBO));
+		try {
+			params.put("anhnhanvien", fromCameraFile);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		client.post(Const.URL_UPLOAD_AVATAR, params,
+				new AsyncHttpResponseHandler() {
+					public void onSuccess(String response) {
+						Toast.makeText(
+								getActivity(),
+								getActivity().getResources().getString(
+										R.string.profile_update_ava_success),
+								Toast.LENGTH_LONG).show();
+					}
+
+					@Override
+					public void onFailure(int statusCode, Throwable error,
+							String content) {
+						switch (statusCode) {
+						case 0:
+							Toast.makeText(
+									getActivity().getBaseContext(),
+									getResources().getString(
+											R.string.check_internet)
+											+ " - " + statusCode,
+									Toast.LENGTH_LONG).show();
+							break;
+						default:
+							Toast.makeText(
+									getActivity().getBaseContext(),
+									getResources().getString(
+											R.string.database_error)
+											+ " - " + statusCode,
+									Toast.LENGTH_LONG).show();
+							break;
+						}
+					}
+				});
+	}
 }

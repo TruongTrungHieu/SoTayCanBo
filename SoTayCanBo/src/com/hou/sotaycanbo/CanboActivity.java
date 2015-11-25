@@ -8,36 +8,42 @@ import com.hou.models.CanBo;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CanboActivity extends ActionBarActivity {
 
 	private CanBo mCanbo;
-	
+
 	private CircularImageView imgAvatar;
 	private TextView tvTenCanbo, tvTenDonvi;
 	private EditText edtFullname, edtSdt, edtEmail, edtDiachi;
-	
+
 	private ExecuteQuery exeQ;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_canbo);
-		
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
-		
+
 		exeQ = new ExecuteQuery(getApplicationContext());
 		exeQ.createDatabase();
 		exeQ.open();
-		
+
 		imgAvatar = (CircularImageView) findViewById(R.id.imgAvatar);
 		tvTenCanbo = (TextView) findViewById(R.id.tvUserName);
 		tvTenDonvi = (TextView) findViewById(R.id.tvDonvi);
@@ -45,11 +51,46 @@ public class CanboActivity extends ActionBarActivity {
 		edtSdt = (EditText) findViewById(R.id.edtSdt);
 		edtEmail = (EditText) findViewById(R.id.edtEmail);
 		edtDiachi = (EditText) findViewById(R.id.edtDiachi);
-		
+
 		mCanbo = (CanBo) getIntent().getSerializableExtra("canbo_details");
 		if (mCanbo != null) {
 			initData();
 		}
+		edtSdt.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String sdt = edtSdt.getText().toString().trim();
+				if (sdt.length() > 0) {
+					Intent callIntent = new Intent(Intent.ACTION_CALL);
+					callIntent.setData(Uri.parse("tel:" + sdt));
+					startActivity(callIntent);
+				}
+			}
+		});
+
+		edtEmail.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String email = edtEmail.getText().toString().trim();
+				if (email.length() > 0) {
+					if (Global.hasNetworkConnection(getApplicationContext())) {
+						Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.setType("text/html");
+						intent.putExtra(Intent.EXTRA_EMAIL, email);
+						startActivity(Intent.createChooser(intent,
+								getString(R.string.title_share)));
+					} else {
+						Toast.makeText(getBaseContext(),
+								getString(R.string.no_internet),
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
 	}
 
 	private void initData() {
@@ -61,18 +102,60 @@ public class CanboActivity extends ActionBarActivity {
 		edtEmail.setText(mCanbo.getEmail().toString());
 		edtDiachi.setText(mCanbo.getDiachi().toString());
 		String urlAvatar = mCanbo.getAvatar();
-		File f = ImageUltiFunctions
-				.getFileFromUri(Global.getURI(urlAvatar));
+		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(urlAvatar));
 		if (f != null) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
 			imgAvatar.setImageBitmap(b);
-			
+
 		} else {
 			imgAvatar.setImageResource(R.drawable.test1);
+			if (Global.hasNetworkConnection(getApplicationContext())) {
+				DownloadAvatarAsync download = new DownloadAvatarAsync(mCanbo);
+				download.execute();
+			}
 		}
 	}
-	
+
+	class DownloadAvatarAsync extends AsyncTask<Void, Void, Void> {
+
+		CanBo cb;
+
+		public DownloadAvatarAsync(CanBo cb) {
+			// TODO Auto-generated constructor stub
+			this.cb = cb;
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			ImageUltiFunctions.downloadFileFromServer(cb.getAvatar());
+			publishProgress();
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(mCanbo
+					.getAvatar()));
+			if (f != null) {
+				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
+						500, 500);
+				imgAvatar.setImageBitmap(b);
+
+			} else {
+				imgAvatar.setImageResource(R.drawable.test1);
+			}
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

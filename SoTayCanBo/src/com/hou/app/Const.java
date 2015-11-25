@@ -8,6 +8,11 @@ public class Const {
 	public static String PROJECT_NUMBER = "1081248289063";
 	
 	/*
+	 * DOWNLOAD DATA
+	 */
+	public static final String DOWNLOAD_FIRST = "downloa_first";
+	
+	/*
 	 * URL
 	 */
 	public static final String URL_BASE = "http://nhansu.hou.edu.vn";
@@ -19,7 +24,8 @@ public class Const {
 	public static final String URL_DOIMATKHAU = "http://nhansu.hou.edu.vn/API/changepass.php";
 	public static final String URL_QUENMATKHAU = "http://nhansu.hou.edu.vn/API/capi/quenmatkhau";
 	public static final String URL_DOWNLOAD_AVATAR = "http://nhansu.hou.edu.vn/anhnhanvien/";
-	
+	public static final String URL_UPLOAD_AVATAR = "http://nhansu.hou.edu.vn/API/capi/UploadAnh";
+	public static final String URL_UPDATE_PROFILE = "http://nhansu.hou.edu.vn/API/capi/suathongtin";
 	/*
 	 * Share References
 	 */

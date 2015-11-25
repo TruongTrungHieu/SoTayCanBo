@@ -36,11 +36,11 @@ public class ListNoteActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_note);
-		
+
 		exeQ = new ExecuteQuery(getApplicationContext());
 		exeQ.createDatabase();
 		exeQ.open();
-		
+
 		actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 		actionbar.setHomeButtonEnabled(true);
@@ -56,15 +56,6 @@ public class ListNoteActivity extends ActionBarActivity {
 		lvGhichu = (ListView) findViewById(R.id.lvGhichu);
 
 		listGhichu = new ArrayList<GhiChu>();
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-//		listGhichu.add(new GhiChu("1", "DB", 1436207202, "khẩn trương", 1436207202, 0, 0, 0, 1, "st1"));
-		
 		listGhichu = exeQ.getAllGhichuByMasotay(mSoTay.getMaSoTay());
 
 		adapter = new GhichuAdapter(getApplicationContext(),
@@ -73,7 +64,6 @@ public class ListNoteActivity extends ActionBarActivity {
 		lvGhichu.setAdapter(adapter);
 
 		onClickListener();
-
 	}
 
 	public void onClickListener() {
@@ -86,7 +76,7 @@ public class ListNoteActivity extends ActionBarActivity {
 						NoteActivity.class);
 				note.putExtra("TYPE_NOTE", "READ");
 				note.putExtra("NOTE", listGhichu.get(position));
-				note.putExtra(Const.KEY_SOTAY, mSoTay);			
+				note.putExtra(Const.KEY_SOTAY, mSoTay);
 				startActivity(note);
 			}
 		});
@@ -132,13 +122,11 @@ public class ListNoteActivity extends ActionBarActivity {
 							adapter.remove(selecteditem);
 						}
 					}
-
 					mode.finish();
 					return true;
 				default:
 					return false;
 				}
-
 			}
 
 			@Override
@@ -151,7 +139,6 @@ public class ListNoteActivity extends ActionBarActivity {
 				adapter.toggleSelection(position);
 			}
 		});
-
 	}
 
 	@Override
@@ -172,12 +159,19 @@ public class ListNoteActivity extends ActionBarActivity {
 			onBackPressed();
 			break;
 
-		case R.id.action_listnote_share:
-			if (tvSubTitle.isShown()) {
-				tvSubTitle.setVisibility(View.GONE);
-			} else {
-				tvSubTitle.setVisibility(View.VISIBLE);
-			}
+		// case R.id.action_listnote_share:
+		// if (tvSubTitle.isShown()) {
+		// tvSubTitle.setVisibility(View.GONE);
+		// } else {
+		// tvSubTitle.setVisibility(View.VISIBLE);
+		// }
+		// break;
+
+		case R.id.action_listnote_add:
+			Intent createNote = new Intent(getApplicationContext(),
+					NoteActivity.class);
+			createNote.putExtra("TYPE_NOTE", "CREATE_NEW");
+			startActivity(createNote);
 			break;
 
 		default:

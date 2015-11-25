@@ -4,9 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.hou.sotaycanbo.ListNoteActivity" >
 
-    <item
+    <!--
+         <item
         android:id="@+id/action_listnote_share"
         android:icon="@drawable/ic_share_white_36dp"
+        android:orderInCategory="100"
+        android:title="@string/menu_note_share"
+        app:showAsAction="always"/>
+    -->
+
+    <item
+        android:id="@+id/action_listnote_add"
+        android:icon="@drawable/ic_add_white_48dp"
         android:orderInCategory="100"
         android:title="@string/menu_note_share"
         app:showAsAction="always"/>

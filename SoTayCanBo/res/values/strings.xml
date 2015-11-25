@@ -56,6 +56,7 @@
     <string name="title_share">Chia sẻ qua</string>
     <string name="cant_insert">Không thể lưu ghi chú rỗng</string>
     <string name="save_sucessful">Đã lưu ghi chú</string>
+    <string name="note_sotay">CHỌN SỔ TAY</string>
 
     <!-- DIALOG NOTE ACTIVITY -->
     <string name="dialog_note_dinhkem">Đính kèm</string>
@@ -72,6 +73,7 @@
     <string name="undo">Undo</string>
     <string name="calendar_add">Tạo mới</string>
     <string name="calendar_today">Hôm nay</string>
+    <string name="calendar_delete_confirm">Bạn có chắc chắn muốn xóa sự kiện này ?</string>
 
     <!-- SOTAY FRAGMENT -->
     <string name="menu_sotay_addnew">Tạo mới sổ tay</string>
@@ -86,7 +88,7 @@
     <string name="dialog_sotay_sort_nonote">Số ghi chú</string>
     <string name="dialog_sotay_sort_time">Thời gian</string>
 
-    <!-- List lich tuan -->
+    <!-- LICHTUAN FRAGMENT -->
     <string name="Mon">Thứ hai</string>
     <string name="Tue">Thứ ba</string>
     <string name="Wed">Thứ tư</string>
@@ -107,6 +109,7 @@
     <string name="dialog_lichtuan_thanhphan">Thành phần:</string>
     <string name="dialog_lichtuan_ghichu">Ghi chú:</string>
     <string name="dialog_lichtuan_noidung">Nội dung:</string>
+    <string name="dialog_lichtuan_insert_success">Đã lưu sự kiện vào lịch cá nhân</string>
 
     <!-- DIALOG SOTAY FRAGMENT - ADD NEW SOTAY -->
     <string name="dialog_sotay_addnew_title">Sổ tay mới</string>
@@ -141,28 +144,52 @@
     <string name="doimatkhau_passshort">Mật khẩu phải lớn hơn 8 ký tự</string>
     <string name="doimatkhau_success">Đổi mật khẩu thành công</string>
     <string name="doimatkhau_false">Tên đăng nhập hoặc mật khẩu không hợp lệ</string>
-	<string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
-	<string name="doimatkhau_passcu">Mật khẩu cũ</string>
-	<string name="doimatkhau_passmoi">Mật khẩu mới</string>
-    
-	<!-- LIENHE FRAGMENT -->
-	<string name="lienhe_title_phong">Phòng</string>
-	<string name="lienhe_title_khoa">Khoa</string>
-	<string name="lienhe_title_trungtam">Trung tâm</string>
-	
-	<!-- SETTING FRAGMENT -->
-	<string name="setting_account">CÀI ĐẶT TÀI KHOẢN</string>
-	<string name="setting_acc_changepass">Đổi mật khẩu</string>
-	<string name="setting_acc_savelogin">Đăng nhập tự động</string>
-	<string name="setting_acc_logout">Đăng xuất</string>
-	<string name="setting_application">CÀI ĐẶT ỨNG DỤNG</string>
-	<string name="setting_app_getnotif">Nhận thông báo</string>
-	<string name="setting_app_update">Cập nhật dữ liệu</string>
-	<string name="setting_app_help">Trung tâm hỗ trợ</string>
-	
+    <string name="doimatkhau_tendangnhap">Tên đăng nhập</string>
+    <string name="doimatkhau_passcu">Mật khẩu cũ</string>
+    <string name="doimatkhau_passmoi">Mật khẩu mới</string>
+
+    <!-- LIENHE FRAGMENT -->
+    <string name="lienhe_title_phong">Phòng</string>
+    <string name="lienhe_title_khoa">Khoa</string>
+    <string name="lienhe_title_trungtam">Trung tâm</string>
+
+    <!-- SETTING FRAGMENT -->
+    <string name="setting_account">CÀI ĐẶT TÀI KHOẢN</string>
+    <string name="setting_acc_changepass">Đổi mật khẩu</string>
+    <string name="setting_acc_savelogin">Đăng nhập tự động</string>
+    <string name="setting_acc_logout">Đăng xuất</string>
+    <string name="setting_application">CÀI ĐẶT ỨNG DỤNG</string>
+    <string name="setting_app_getnotif">Nhận thông báo</string>
+    <string name="setting_app_update">Cập nhật dữ liệu</string>
+    <string name="setting_app_help">Trung tâm hỗ trợ</string>
+    <string name="setting_app_update_success">Hoàn tất cập nhật</string>
+
     <!-- GCM -->
     <string name="gcm_title">Lịch hoạt động HOU</string>
     <string name="gcm_message">Lịch tuần được cập nhật</string>
-	<string name="gcm_notif_ticker">Viện Đại học Mở Hà Nội</string>
-	
+    <string name="gcm_notif_ticker">Viện Đại học Mở Hà Nội</string>
+
+    <!-- EVENT ACTIVITY -->
+    <string name="title_activity_sukien">Thêm sự kiện</string>
+    <string name="menu_event_save">Lưu sự kiện</string>
+    <string name="createevent_title">Tiêu đề</string>
+    <string name="createevent_address">Địa điểm</string>
+    <string name="createevent_time">Thời gian</string>
+    <string name="createevent_details">Mô tả</string>
+    <string name="createevent_alarm">Báo thức</string>
+    <string name="createevent_default_time">09:00</string>
+    <string name="createevent_validate">Bạn cần điền tiêu đề sự kiện</string>
+    <string name="createevent_success">Sự kiện được tạo mới</string>
+    <string name="createevent_fail">Xảy ra lỗi, vui lòng thử lại</string>
+
+    <!-- THONG TIN CAN BO FRAGMENT -->
+    <string name="profile_validate">Bạn phải điền đầy đủ thông tin</string>
+    <string name="profile_update_fail">Xảy ra lỗi, vui lòng thử lại</string>
+    <string name="profile_update_success">Cập nhật thành công</string>
+    <string name="profile_update_ava_success">Cập nhật ảnh đại diện thành công</string>
+    
+    <!-- IMAGE DIALOG -->
+    <string name="imagedialog_capture">Chụp ảnh</string>
+    <string name="imagedialog_album">Thư viện ảnh</string>
+    
 </resources>

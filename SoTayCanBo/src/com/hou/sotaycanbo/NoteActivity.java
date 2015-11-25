@@ -372,13 +372,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			changeMode();
 			createNewNote();
 			if (isCreatNew) {
-				Toast.makeText(getApplicationContext(), "INSERT",
-						Toast.LENGTH_SHORT).show();
 				isCreatNew = !isCreatNew;
-
 			} else {
-				Toast.makeText(getApplicationContext(), "UPDATE",
-						Toast.LENGTH_SHORT).show();
+				
 			}
 			isSave = true;
 			if (datePicked > Calendar.getInstance().getTimeInMillis()) {
@@ -468,7 +464,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	public void createNewNote() {
 		if ((edtNoidung.toString().trim().length() <= 0)
 				&& (edtTenghichu.toString().trim().length() <= 0)) {
-			Toast.makeText(getApplicationContext(),
+			Toast.makeText(getBaseContext(),
 					getResources().getString(R.string.cant_insert),
 					Toast.LENGTH_SHORT).show();
 			Intent home = new Intent(NoteActivity.this,
@@ -486,10 +482,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			int trangthai = 0;
 			int bookmark = 0;
 			String maSotay = sotay.getMaSoTay();
-			// String maSotay = mSotay.getMaSoTay();
-
-			// mGhichu.setMaGhiChu(maGhichu);
+			
 			mGhichu.setTenGhiChu(tenGhichu);
+			mGhichu.setNgaytao(ngaytao);
 			mGhichu.setNoidung(noidung);
 			mGhichu.setNgaysua(ngaysua);
 			mGhichu.setTrangthai(trangthai);
@@ -497,17 +492,19 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			mGhichu.setNgaythuchien(ngaythuchien);
 			mGhichu.setBookmark(bookmark);
 			mGhichu.setMaSotay(maSotay);
+			
 			if (isCreatNew) {
 				mGhichu.setMaGhiChu("NT" + CURRENTTIME);
 				mGhichu.setNgaytao(ngaytao);
 				if (exeQ.insert_tblGhichu_single(mGhichu)) {
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(getBaseContext(),
 							getResources().getString(R.string.save_sucessful),
 							Toast.LENGTH_SHORT).show();
+					exeQ.update_tblSotay_soGhichu(mGhichu.getMaSotay(), true);
 				}
 			} else {
 				if (exeQ.update_tblGhichu(mGhichu)) {
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(getBaseContext(),
 							getResources().getString(R.string.save_sucessful),
 							Toast.LENGTH_SHORT).show();
 				}

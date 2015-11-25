@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hou.sotaycanbo"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.0.1" >
 
     <uses-sdk
-        android:minSdkVersion="19"
+        android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -74,7 +74,7 @@
         <activity
             android:name=".CanboActivity"
             android:label="@string/canboActivity_title"
-            android:theme="@style/CustomActionBarTheme" >
+            android:theme="@style/NoShadowActionBarTheme" >
         </activity>
 
         <receiver
@@ -96,6 +96,11 @@
         <activity
             android:name=".DoiMatkhauActivity"
             android:label="@string/title_activity_doi_matkhau"
+            android:theme="@style/CustomActionBarTheme" >
+        </activity>
+        <activity
+            android:name=".CreateEventActivity"
+            android:label="@string/title_activity_sukien"
             android:theme="@style/CustomActionBarTheme" >
         </activity>
     </application>

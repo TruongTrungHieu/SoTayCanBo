@@ -2,7 +2,10 @@ package com.hou.adapters;
 
 import java.util.ArrayList;
 
+import com.hou.app.Global;
+import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.DayNumberOfContents;
+import com.hou.models.Event;
 import com.hou.models.SuKien;
 import com.hou.sotaycanbo.R;
 
@@ -18,6 +21,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LichNgayAdapter extends BaseExpandableListAdapter {
 
@@ -26,8 +30,10 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 	private LayoutInflater inflater;
 	private ArrayList<DayNumberOfContents> parentItems;
 	private ArrayList<SuKien> child;
+	private ExecuteQuery exeQ;
 
-	public LichNgayAdapter(ArrayList<DayNumberOfContents> parents, ArrayList<Object> childern) {
+	public LichNgayAdapter(ArrayList<DayNumberOfContents> parents,
+			ArrayList<Object> childern) {
 		this.parentItems = parents;
 		this.childtems = childern;
 	}
@@ -35,12 +41,16 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 	public void setInflater(LayoutInflater inflater, Activity activity) {
 		this.inflater = inflater;
 		this.activity = activity;
+		exeQ = new ExecuteQuery(activity);
+		exeQ.createDatabase();
+		exeQ.open();
 	}
 
 	@SuppressWarnings("unchecked")
-	@SuppressLint("InflateParams") @Override
-	public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView,
-			ViewGroup parent) {
+	@SuppressLint("InflateParams")
+	@Override
+	public View getChildView(int groupPosition, final int childPosition,
+			boolean isLastChild, View convertView, ViewGroup parent) {
 
 		child = (ArrayList<SuKien>) childtems.get(groupPosition);
 
@@ -56,15 +66,15 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		tvTime = (TextView) convertView.findViewById(R.id.sukienTime);
 		tvTime.setText(child.get(childPosition).getThoigianbatdau());
 		ivBuoi = (ImageView) convertView.findViewById(R.id.ivBuoi);
-		
+
 		String buoi = child.get(childPosition).getBuoi().toString().trim();
-		if(buoi.equalsIgnoreCase(this.activity.getResources().getString(R.string.lichtuan_sang))){
+		if (buoi.equalsIgnoreCase(this.activity.getResources().getString(
+				R.string.lichtuan_sang))) {
 			ivBuoi.setBackgroundResource(R.drawable.ic_morning);
-		}
-		else{
+		} else {
 			ivBuoi.setBackgroundResource(R.drawable.ic_afternoon);
 		}
-		
+
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -76,21 +86,23 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
-	@SuppressLint("InflateParams") 
+	@SuppressLint("InflateParams")
 	public void sukienDetailDialog(final Context c, SuKien sk) {
 		LayoutInflater inflater = this.activity.getLayoutInflater();
-		View alertLayout = inflater.inflate(R.layout.dialog_chitiet_sukien, null);
-		
+		View alertLayout = inflater.inflate(R.layout.dialog_chitiet_sukien,
+				null);
+
 		AlertDialog.Builder alert = new AlertDialog.Builder(this.activity);
 		alert.setView(alertLayout);
 		final AlertDialog dialog = alert.create();
-		
+
 		TextView tvTensukien, tvThoigian, tvDiadiem, tvThanhphan, tvThanhphan_khac, tvNoidung;
 		tvTensukien = (TextView) alertLayout.findViewById(R.id.tvTensukien);
 		tvThoigian = (TextView) alertLayout.findViewById(R.id.tvThoigian);
 		tvDiadiem = (TextView) alertLayout.findViewById(R.id.tvDiadiem);
 		tvThanhphan = (TextView) alertLayout.findViewById(R.id.tvThanhphan);
-		tvThanhphan_khac = (TextView) alertLayout.findViewById(R.id.tvThanhphan_khac);
+		tvThanhphan_khac = (TextView) alertLayout
+				.findViewById(R.id.tvThanhphan_khac);
 		tvNoidung = (TextView) alertLayout.findViewById(R.id.tvNoidung);
 
 		tvTensukien.setText(sk.getTenSukien());
@@ -104,13 +116,32 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		tvThanhphan.setText(tpThamgia[0]);
 		tvThanhphan_khac.setText(tpThamgia[1]);
 		tvNoidung.setText(sk.getNoidung());
-		
-		final ImageView btnAddEvent = (ImageView) alertLayout.findViewById(R.id.btnAddEvent);
+
+		final ImageView btnAddEvent = (ImageView) alertLayout
+				.findViewById(R.id.btnAddEvent);
+		final SuKien sukienTuan = sk;
 		btnAddEvent.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
+				Event e = new Event();
+				e.setMaEvent(Global.getMaCanBo(activity) + "_E_"
+						+ Global.getCurrentDateTime());
+				e.setTenEvent(sukienTuan.getTenSukien());
+				e.setDiadiem(sukienTuan.getDiadiem() + " - "
+						+ sukienTuan.getPhong());
+				e.setThoigianbatdau(sukienTuan.getThoigianbatdau());
+				e.setMaLaplai("");
+				e.setMaLoinhac("0");
+				e.setNgay_event(sukienTuan.getNgay());
+				e.setMaCanbo(Global.getMaCanBo(activity));
+				e.setMota(sukienTuan.getNoidung());
+				if (exeQ.insert_tblEvent_single(e)) {
+					Toast.makeText(
+							activity,
+							activity.getString(R.string.dialog_lichtuan_insert_success),
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
@@ -127,8 +158,10 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		dialog.show();
 	}
 
-	@SuppressLint("InflateParams") @Override
-	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+	@SuppressLint("InflateParams")
+	@Override
+	public View getGroupView(int groupPosition, boolean isExpanded,
+			View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.day_group_layout, null);
 		}
@@ -136,8 +169,9 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		TextView tvName = (TextView) convertView.findViewById(R.id.dayName);
 		tvName.setText("" + parentItems.get(groupPosition).getDayname());
 
-		TextView tvNumber = (TextView) convertView.findViewById(R.id.numberOfContents);
-		tvNumber.setText("(" + parentItems.get(groupPosition).getNumber() +")");
+		TextView tvNumber = (TextView) convertView
+				.findViewById(R.id.numberOfContents);
+		tvNumber.setText("(" + parentItems.get(groupPosition).getNumber() + ")");
 
 		return convertView;
 	}

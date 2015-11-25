@@ -6,8 +6,10 @@ import com.hou.sotaycanbo.DoiMatkhauActivity;
 import com.hou.sotaycanbo.LoginActivity;
 import com.hou.sotaycanbo.R;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class SettingFragment extends Fragment {
 
@@ -22,6 +25,7 @@ public class SettingFragment extends Fragment {
 			llAutoUpdate, llHelp;
 	private Switch swSaveLogin, swGetNotif;
 	private Boolean isSaveLogin, isGetNotif;
+	private ProgressDialog pbUpdate;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,19 +76,19 @@ public class SettingFragment extends Fragment {
 				});
 
 		swGetNotif
-		.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				isGetNotif = !isGetNotif;
-				swGetNotif.setChecked(isGetNotif);
-				Global.savePreference(getActivity(), Const.GET_NOTIF,
-						isGetNotif ? Const.GET_NOTIF_TRUE
-								: Const.GET_NOTIF_FALSE);
-			}
-		});
-		
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						isGetNotif = !isGetNotif;
+						swGetNotif.setChecked(isGetNotif);
+						Global.savePreference(getActivity(), Const.GET_NOTIF,
+								isGetNotif ? Const.GET_NOTIF_TRUE
+										: Const.GET_NOTIF_FALSE);
+					}
+				});
+
 		llChangePass.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -111,11 +115,16 @@ public class SettingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Global.savePreference(getActivity().getApplicationContext(), Const.SAVE_LOGIN, Const.SAVE_LOGIN_FALSE);
-				Global.savePreference(getActivity().getApplicationContext(), Const.GET_NOTIF, Const.GET_NOTIF_TRUE);
-				Global.savePreference(getActivity().getApplicationContext(), Const.USER_MACANBO, "");
-				
-				Intent login = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+				Global.savePreference(getActivity().getApplicationContext(),
+						Const.SAVE_LOGIN, Const.SAVE_LOGIN_FALSE);
+				Global.savePreference(getActivity().getApplicationContext(),
+						Const.GET_NOTIF, Const.GET_NOTIF_TRUE);
+				Global.savePreference(getActivity().getApplicationContext(),
+						Const.USER_MACANBO, "");
+
+				Intent login = new Intent(
+						getActivity().getApplicationContext(),
+						LoginActivity.class);
 				startActivity(login);
 			}
 		});
@@ -134,7 +143,26 @@ public class SettingFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+				if (Global.hasNetworkConnection(getActivity())) {
+					pbUpdate = new ProgressDialog(getActivity());
+					pbUpdate.setMessage(getString(R.string.setting_app_update));
+					pbUpdate.setIndeterminate(false);
+					pbUpdate.setCancelable(false);
+					pbUpdate.show();
+					new Handler().postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							pbUpdate.dismiss();
+							Toast.makeText(getActivity().getBaseContext(),
+									getString(R.string.setting_app_update_success), Toast.LENGTH_LONG)
+									.show();
+						}
+					}, 5000);
+				} else {
+					Toast.makeText(getActivity().getBaseContext(),
+							getString(R.string.no_internet), Toast.LENGTH_LONG)
+							.show();
+				}
 			}
 		});
 

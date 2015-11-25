@@ -40,7 +40,7 @@
             android:drawableLeft="@drawable/note_book"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="Sổ tay"
+            android:text="@string/note_sotay"
             android:textAllCaps="true"
             android:textStyle="bold" />
 

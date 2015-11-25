@@ -1,0 +1,104 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical"
+    tools:context="com.hou.sotaycanbo.CreateEventActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/createevent_title"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/edtTenEvent"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/edittext_default_bg"
+        android:inputType="text"
+        android:padding="10dp"
+        android:scrollbars=""
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/createevent_address"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/edtDiadiem"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/edittext_default_bg"
+        android:inputType="text"
+        android:padding="10dp"
+        android:scrollbars=""
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/createevent_time"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/edtThoigian"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/edittext_default_bg"
+        android:focusable="false"
+        android:inputType="text"
+        android:padding="10dp"
+        android:scrollbars=""
+        android:text="@string/createevent_default_time"
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/ckAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:checked="true"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/createevent_alarm"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/createevent_details"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/edtMota"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/edittext_default_bg"
+        android:inputType="text"
+        android:padding="10dp"
+        android:scrollbars=""
+        android:textColorHint="#bbbbbb"
+        android:textSize="14sp" />
+
+</LinearLayout>

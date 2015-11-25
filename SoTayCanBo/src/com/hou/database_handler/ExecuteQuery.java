@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.hou.models.CanBo;
 import com.hou.models.DinhKem;
 import com.hou.models.DonVi;
+import com.hou.models.Event;
 import com.hou.models.GhiChu;
 import com.hou.models.Group;
 import com.hou.models.SoTay;
@@ -305,6 +306,58 @@ public class ExecuteQuery {
 		} catch (SQLiteException e) {
 			Log.e("update_tblSotay_tenSotay", e.getMessage());
 			return false;
+		}
+	}
+
+	// update soGhichu in tbl_sotay
+	public boolean update_tblSotay_soGhichu(String maSotay, boolean status) {
+		int soGhichu = 0;
+		database = mDbHelper.getReadableDatabase();
+		String selQ = "SELECT " + ColumnName.SOTAY_SOGHICHU + " FROM "
+				+ ColumnName.SOTAY_TABLE + " WHERE " + ColumnName.SOTAY_MASOTAY
+				+ " = '" + maSotay + "' ";
+		Cursor c = database.rawQuery(selQ, null);
+		if (c.moveToFirst()) {
+			soGhichu = c.getInt(0);
+		}
+		if (status) {
+			// add new note
+			try {
+				database = mDbHelper.getWritableDatabase();
+
+				ContentValues cv = new ContentValues();
+				cv.put(ColumnName.SOTAY_SOGHICHU, (soGhichu + 1));
+
+				String where = ColumnName.SOTAY_MASOTAY + " = ? ";
+
+				if (database.update(ColumnName.SOTAY_TABLE, cv, where,
+						new String[] { maSotay }) > 0) {
+					return true;
+				}
+				return false;
+			} catch (SQLiteException e) {
+				Log.e("update_tblSotay_soGhichu", e.getMessage());
+				return false;
+			}
+		} else {
+			// delete note
+			try {
+				database = mDbHelper.getWritableDatabase();
+
+				ContentValues cv = new ContentValues();
+				cv.put(ColumnName.SOTAY_SOGHICHU, (soGhichu - 1));
+
+				String where = ColumnName.SOTAY_MASOTAY + " = ? ";
+
+				if (database.update(ColumnName.SOTAY_TABLE, cv, where,
+						new String[] { maSotay }) > 0) {
+					return true;
+				}
+				return false;
+			} catch (SQLiteException e) {
+				Log.e("update_tblSotay_soGhichu", e.getMessage());
+				return false;
+			}
 		}
 	}
 
@@ -736,14 +789,130 @@ public class ExecuteQuery {
 	 */
 
 	/*
-	 * tbl_canbo
+	 * tbl_event
+	 */
+	// select * from tbl_event
+	public ArrayList<Event> getAllEvent() {
+		ArrayList<Event> listEvent = new ArrayList<Event>();
+		String selQuery = " SELECT * FROM " + ColumnName.EVENT_TABLE;
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Event e = new Event();
+
+				e.setMaEvent(cursor.getString(0));
+				e.setTenEvent(cursor.getString(1));
+				e.setDiadiem(cursor.getString(2));
+				e.setThoigianbatdau(cursor.getString(3));
+				e.setMaLaplai(cursor.getString(4));
+				e.setMaLoinhac(cursor.getString(5));
+				e.setNgay_event(cursor.getString(6));
+				e.setMaCanbo(cursor.getString(7));
+				e.setMota(cursor.getString(8));
+
+				listEvent.add(e);
+			} while (cursor.moveToNext());
+		}
+		return listEvent;
+	}
+
+	// select * from tbl_event where ngay_event
+	public ArrayList<Event> getAllEventByNgayevent(String ngay_event) {
+		ArrayList<Event> listEvent = new ArrayList<Event>();
+		String selQuery = " SELECT * FROM " + ColumnName.EVENT_TABLE
+				+ " WHERE " + ColumnName.EVENT_NGAYEVENT + " = '" + ngay_event
+				+ "' ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor cursor = database.rawQuery(selQuery, null);
+		if (cursor.moveToFirst()) {
+			do {
+				Event e = new Event();
+
+				e.setMaEvent(cursor.getString(0));
+				e.setTenEvent(cursor.getString(1));
+				e.setDiadiem(cursor.getString(2));
+				e.setThoigianbatdau(cursor.getString(3));
+				e.setMaLaplai(cursor.getString(4));
+				e.setMaLoinhac(cursor.getString(5));
+				e.setNgay_event(cursor.getString(6));
+				e.setMaCanbo(cursor.getString(7));
+				e.setMota(cursor.getString(8));
+
+				listEvent.add(e);
+			} while (cursor.moveToNext());
+		}
+		return listEvent;
+	}
+
+	// delete all record
+	public boolean delete_tblEvent_allrecord() {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			database.delete(ColumnName.EVENT_TABLE, null, null);
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("delete_tblEvent_allrecord", e.getMessage());
+			return false;
+		}
+	}
+
+	// delete event by maEvent
+	public boolean delete_tblEvent_byMaEvent(String maEvent) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			String where = ColumnName.EVENT_MAEVENT + " = ? ";
+			database.delete(ColumnName.EVENT_TABLE, where,
+					new String[] { maEvent });
+			database.close();
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("delete_tblEvent_allrecord", e.getMessage());
+			database.close();
+			return false;
+		}
+	}
+
+	// insert single record
+	public boolean insert_tblEvent_single(Event e) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+
+			cv.put(ColumnName.EVENT_MAEVENT, e.getMaEvent());
+			cv.put(ColumnName.EVENT_TENEVENT, e.getTenEvent());
+			cv.put(ColumnName.EVENT_DIADIEM, e.getDiadiem());
+			cv.put(ColumnName.EVENT_THOIGIANBATDAU, e.getThoigianbatdau());
+			cv.put(ColumnName.EVENT_MALAPLAI, e.getMaLaplai());
+			cv.put(ColumnName.EVENT_MALOINHAC, e.getMaLoinhac());
+			cv.put(ColumnName.EVENT_NGAYEVENT, e.getNgay_event());
+			cv.put(ColumnName.EVENT_MACANBO, e.getMaCanbo());
+			cv.put(ColumnName.EVENT_MOTA, e.getMota());
+
+			if (database.insert(ColumnName.EVENT_TABLE, null, cv) != -1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLiteException e2) {
+			Log.e("insert_tblEvent_single", e2.getMessage());
+			return false;
+		}
+	}
+
+	/*
+	 * END - tbl_event
 	 */
 
+	/*
+	 * tbl_canbo
+	 */
 	// select * from tbl_canbo where maDonvi
 	public ArrayList<CanBo> getAllCanboFromDV(String maDonvi) {
 		ArrayList<CanBo> listCB = new ArrayList<CanBo>();
 		String selectQuery = "SELECT * FROM " + ColumnName.CANBO_TABLE
-				+ " WHERE " + ColumnName.CANBO_MADONVI + " = '" + maDonvi + "' ";
+				+ " WHERE " + ColumnName.CANBO_MADONVI + " = '" + maDonvi
+				+ "' ";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
@@ -791,8 +960,8 @@ public class ExecuteQuery {
 			Log.e("insert_tblCanbo_single", e.getMessage());
 			return false;
 		}
-	} 
-	
+	}
+
 	/*
 	 * END - tbl_canbo
 	 */
