@@ -2,6 +2,8 @@ package com.hou.fragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +12,7 @@ import org.json.JSONObject;
 import com.hou.app.Const;
 import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
+import com.hou.sotaycanbo.FragmentManagerActivity;
 import com.hou.sotaycanbo.R;
 import com.hou.ultis.CircularImageView;
 import com.hou.ultis.ImageUltiFunctions;
@@ -29,6 +32,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,7 +63,7 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 	private static final int PICK_FROM_FILE = 2;
 	private File fromCameraFile;
 	private Uri mImageCaptureUri;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -129,16 +133,16 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 			edtDiachi.setText(diachi);
 		}
 
-		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(Global
-				.getPreference(getActivity(), Const.USER_ANH)));
+		String name = Global.getPreference(getActivity(), Const.USER_ANH);
+		String uri = Global.getURI(name);
+		File f = ImageUltiFunctions.getFileFromUri(uri);
 		if (f != null) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
 			imgAvatar.setImageBitmap(b);
 		} else {
 			DownloadAvatarAsync down = new DownloadAvatarAsync(
-					Global.getURI(Global.getPreference(getActivity(),
-							Const.USER_ANH)));
+					Global.getPreference(getActivity(), Const.USER_ANH));
 			down.execute();
 		}
 	}
@@ -312,13 +316,13 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(Global
-					.getPreference(getActivity(), Const.USER_ANH)));
+			File f = new File(ImageUltiFunctions.getRealPathFromURI(Global.getURI(fileName), getActivity()));
 			if (f != null) {
 				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
 						500, 500);
 				imgAvatar.setImageBitmap(b);
 			}
+
 		}
 	}
 
@@ -376,11 +380,6 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	private String getFileName(String path) {
-		String[] temp = path.split("/");
-		return temp[temp.length - 1];
-	}
-	
 	@SuppressWarnings("static-access")
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -388,37 +387,25 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == PICK_FROM_FILE) {
 				Uri selectedImage = data.getData();
-				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-				// Get the cursor
-				Cursor cursor = getActivity().getContentResolver().query(
-						selectedImage, filePathColumn, null, null, null);
-				// Move to first row
-				cursor.moveToFirst();
-
-				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				String imgDecodableString = cursor.getString(columnIndex);
-				cursor.close();
-				// Set the Image in ImageView after decoding the String
-				String fileName = getFileName(imgDecodableString);
-				fromCameraFile = ImageUltiFunctions.getFileFromUri(Global
-						.getURI(fileName));
-			} else {
-//				path = mImageCaptureUri.getPath();
+				fromCameraFile = new File(
+						ImageUltiFunctions.getRealPathFromURI(
+								selectedImage.toString(), getActivity()));
 			}
 			if (fromCameraFile != null) {
 				Bitmap bm = ImageUltiFunctions.decodeSampledBitmapFromFile(
 						fromCameraFile, 500, 500);
 				imgAvatar.setImageBitmap(bm);
-				updateAva();
+				updateAva(bm);
 			}
 		}
 	}
 
-	public void updateAva() {
+	public void updateAva(final Bitmap bm) {
 		AsyncHttpClient client = new AsyncHttpClient();
 		RequestParams params = new RequestParams();
-		params.put("ma_nv", Global.getPreference(getActivity(), Const.USER_MACANBO));
+		params.put("ma_nv",
+				Global.getPreference(getActivity(), Const.USER_MACANBO));
 		try {
 			params.put("anhnhanvien", fromCameraFile);
 		} catch (FileNotFoundException e) {
@@ -433,6 +420,9 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 								getActivity().getResources().getString(
 										R.string.profile_update_ava_success),
 								Toast.LENGTH_LONG).show();
+						Global.savePreference(getActivity(), Const.USER_ANH,
+								fileName(fromCameraFile));
+						((FragmentManagerActivity)getActivity()).getAccount().setPhoto(bm);
 					}
 
 					@Override
@@ -458,5 +448,11 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 						}
 					}
 				});
+	}
+
+	public String fileName(File file) {
+		String path = file.getAbsolutePath();
+		String[] temp = path.split("/");
+		return temp[temp.length - 1];
 	}
 }

@@ -63,10 +63,10 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-//				_email = edtEmail.getText().toString();
-//				_pass = edtPass.getText().toString();
-				_email = "hamaibk@gmail.com";
-				_pass = "hamai123";
+				_email = edtEmail.getText().toString();
+				_pass = edtPass.getText().toString();
+//				_email = "hamaibk@gmail.com";
+//				_pass = "hamai123";
 				if ((_email.toString().trim().length() > 0)
 						&& (_pass.toString().trim().length() > 0)) {
 					loginToServer();
