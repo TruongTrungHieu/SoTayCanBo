@@ -4,13 +4,13 @@
     android:layout_height="match_parent" >
 
     <EditText
-        android:id="@+id/edtTenSotay"
+        android:id="@+id/edtEmailConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:ems="10"
-        android:hint="@string/dialog_sotay_addnew_hint"
-        android:inputType="text"
+        android:hint="@string/splash_dialog_message"
+        android:inputType="textEmailAddress"
         android:textColor="@color/colorDarkPrimary" >
     </EditText>
 
@@ -18,26 +18,26 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/edtTenSotay"
+        android:layout_below="@id/edtEmailConfirm"
         android:layout_marginBottom="8dp"
         android:background="@color/transparent" />
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btnCancelD"
         android:layout_width="88dp"
         android:layout_height="36dp"
         android:layout_below="@id/line"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:layout_toLeftOf="@+id/btnOK"
+        android:layout_toLeftOf="@+id/btnOKD"
         android:background="@color/transparent"
         android:gravity="center"
         android:height="36dp"
-        android:text="@string/dialog_sotay_addnew_cancel"
+        android:text="@string/splash_dialog_cancel"
         android:textColor="@color/colorDarkPrimary" />
 
     <Button
-        android:id="@+id/btnOK"
+        android:id="@+id/btnOKD"
         android:layout_width="88dp"
         android:layout_height="36dp"
         android:layout_alignParentRight="true"
@@ -47,7 +47,7 @@
         android:background="@color/transparent"
         android:gravity="center"
         android:height="36dp"
-        android:text="@string/dialog_sotay_addnew_ok"
+        android:text="@string/splash_dialog_ok"
         android:textColor="@color/colorDarkPrimary" />
 
 </RelativeLayout>

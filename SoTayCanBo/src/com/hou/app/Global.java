@@ -25,11 +25,10 @@ import android.os.Environment;
 
 public class Global {
 	
+	public static ArrayList<DonVi> listDvTochuc = new ArrayList<DonVi>();
 	public static ArrayList<DonVi> listDvPhong = new ArrayList<DonVi>();
 	public static ArrayList<DonVi> listDvKhoa = new ArrayList<DonVi>();
 	public static ArrayList<DonVi> listDvTrungtam = new ArrayList<DonVi>();
-	
-	
 	
 	public static void savePreference(Context mContext, String key, String value) {
 		SharedPreferences mSharedPrefences = mContext.getSharedPreferences(

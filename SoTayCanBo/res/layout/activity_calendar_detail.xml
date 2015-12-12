@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.hou.sotaycanbo.CalendarDetailActivity" >
+
+    <TextView
+        android:id="@+id/tvTenEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/titleThoigian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTenEvent"
+        android:paddingBottom="5dp"
+        android:paddingTop="15dp"
+        android:text="@string/calendar_detail_time"
+        android:textColor="@color/blue_dark" />
+
+    <TextView
+        android:id="@+id/tvThoigian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleThoigian"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/titleDiadiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvThoigian"
+        android:paddingBottom="5dp"
+        android:paddingTop="15dp"
+        android:text="@string/calendar_detail_add"
+        android:textColor="@color/blue_dark" />
+
+    <TextView
+        android:id="@+id/tvDiadiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleDiadiem"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/titleMota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDiadiem"
+        android:paddingBottom="5dp"
+        android:paddingTop="15dp"
+        android:text="@string/calendar_detail_detail"
+        android:textColor="@color/blue_dark" />
+
+    <TextView
+        android:id="@+id/tvMota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleMota"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</RelativeLayout>

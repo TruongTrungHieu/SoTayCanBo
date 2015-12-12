@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.hou.models.CanBo;
+import com.hou.models.Chucvu_Canbo;
 import com.hou.models.DinhKem;
 import com.hou.models.DonVi;
 import com.hou.models.Event;
 import com.hou.models.GhiChu;
-import com.hou.models.Group;
 import com.hou.models.SoTay;
 import com.hou.models.SuKien;
 
@@ -366,124 +366,6 @@ public class ExecuteQuery {
 	 */
 
 	/*
-	 * tbl_group
-	 */
-
-	// select * from tbl_group
-	public ArrayList<Group> getAllGroup() {
-		ArrayList<Group> listGroup = new ArrayList<Group>();
-		String selectQuery = "SELECT * FROM " + ColumnName.GROUP_TABLE;
-		database = mDbHelper.getReadableDatabase();
-		Cursor cursor = database.rawQuery(selectQuery, null);
-		if (cursor.moveToFirst()) {
-			do {
-				Group g = new Group();
-
-				g.setMaGroup(cursor.getString(0));
-				g.setTenGroup(cursor.getString(1));
-				g.setMaCanbo_admin(cursor.getString(2));
-
-				listGroup.add(g);
-			} while (cursor.moveToNext());
-		}
-		return listGroup;
-	}
-
-	// insert 1 record
-	public boolean insert_tblGroup_single(Group g) {
-		try {
-			database = mDbHelper.getWritableDatabase();
-			ContentValues cv = new ContentValues();
-
-			cv.put(ColumnName.GROUP_MAGROUP, g.getMaGroup());
-			cv.put(ColumnName.GROUP_TENGROUP, g.getTenGroup());
-			cv.put(ColumnName.GROUP_MACANBO_ADMIN, g.getMaCanbo_admin());
-
-			database.insert(ColumnName.GROUP_TABLE, null, cv);
-			return true;
-		} catch (SQLiteException e) {
-			Log.e("insert_tblGroup_single", e.getMessage());
-			return false;
-		}
-	}
-
-	// insert multi record
-	public boolean insert_tblGroup_multi(ArrayList<Group> listGroup) {
-		try {
-			database = mDbHelper.getWritableDatabase();
-
-			for (Group g : listGroup) {
-				ContentValues cv = new ContentValues();
-
-				cv.put(ColumnName.GROUP_MAGROUP, g.getMaGroup());
-				cv.put(ColumnName.GROUP_TENGROUP, g.getTenGroup());
-				cv.put(ColumnName.GROUP_MACANBO_ADMIN, g.getMaCanbo_admin());
-
-				database.insert(ColumnName.GROUP_TABLE, null, cv);
-			}
-			return true;
-		} catch (SQLiteException e) {
-			Log.e("insert_tblGroup_single", e.getMessage());
-			return false;
-		}
-	}
-
-	// delete 1 record
-	public boolean delete_tblGroup_single(Group g) {
-		try {
-			database = mDbHelper.getWritableDatabase();
-
-			String where = ColumnName.GROUP_MAGROUP + " = ? ";
-
-			database.delete(ColumnName.GROUP_TABLE, where,
-					new String[] { g.getMaGroup() });
-			database.close();
-
-			return true;
-		} catch (SQLiteException e) {
-			Log.e("delete_tblGroup_single", e.getMessage());
-			return false;
-		}
-	}
-
-	// delete all record
-	public boolean delete_tblGroup_allrecord() {
-		try {
-			database = mDbHelper.getWritableDatabase();
-			database.delete(ColumnName.GROUP_TABLE, null, null);
-			return true;
-		} catch (SQLiteException e) {
-			Log.e("delete_tblGroup_allrecord", e.getMessage());
-			return false;
-		}
-	}
-
-	// update tenGroup in tblGroup
-	public boolean update_tblGroup_tenGroup(String tenGroup, String maGroup) {
-		try {
-			database = mDbHelper.getWritableDatabase();
-
-			ContentValues cv = new ContentValues();
-			cv.put(ColumnName.GROUP_TENGROUP, tenGroup);
-
-			String where = ColumnName.GROUP_MAGROUP + " = ? ";
-
-			if (database.update(ColumnName.GROUP_TABLE, cv, where,
-					new String[] { maGroup }) > 0) {
-				return true;
-			}
-			return false;
-		} catch (SQLiteException e) {
-			Log.e("update_tblGroup_tenGroup", e.getMessage());
-			return false;
-		}
-	}
-
-	/*
-	 * END - tbl_group
-	 */
-
-	/*
 	 * tbl_ghichu
 	 */
 
@@ -684,7 +566,8 @@ public class ExecuteQuery {
 	// select * from tbl_donvi
 	public ArrayList<DonVi> getAllDonvi() {
 		ArrayList<DonVi> listDV = new ArrayList<DonVi>();
-		String selectQuery = "SELECT * FROM " + ColumnName.DONVI_TABLE;
+		String selectQuery = "SELECT * FROM " + ColumnName.DONVI_TABLE
+				+ " ORDER BY " + ColumnName.DONVI_MANHOMDONVI + " ASC";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
@@ -900,6 +783,67 @@ public class ExecuteQuery {
 		}
 	}
 
+	// insert event from lichtuan
+	public boolean insert_tblEvent_from_lichtuan(Event e) {
+		try {
+			String query_check = "SELECT " + ColumnName.EVENT_MAEVENT
+					+ " FROM " + ColumnName.EVENT_TABLE + " WHERE "
+					+ ColumnName.EVENT_MASUKIENTUAN + " = '"
+					+ e.getMaSukientuan() + "' AND "
+					+ ColumnName.EVENT_NGAYEVENT + " = '" + e.getNgay_event()
+					+ "' ";
+			database = mDbHelper.getReadableDatabase();
+			Cursor c = database.rawQuery(query_check, null);
+			if (c.moveToFirst()) {
+				// update event
+				database = mDbHelper.getWritableDatabase();
+				ContentValues cv = new ContentValues();
+
+				cv.put(ColumnName.EVENT_TENEVENT, e.getTenEvent());
+				cv.put(ColumnName.EVENT_DIADIEM, e.getDiadiem());
+				cv.put(ColumnName.EVENT_THOIGIANBATDAU, e.getThoigianbatdau());
+				cv.put(ColumnName.EVENT_MALAPLAI, e.getMaLaplai());
+				cv.put(ColumnName.EVENT_MALOINHAC, e.getMaLoinhac());
+				cv.put(ColumnName.EVENT_NGAYEVENT, e.getNgay_event());
+				cv.put(ColumnName.EVENT_MACANBO, e.getMaCanbo());
+				cv.put(ColumnName.EVENT_MOTA, e.getMota());
+
+				String where = ColumnName.EVENT_MAEVENT + " = ? ";
+
+				if (database.update(ColumnName.EVENT_TABLE, cv, where,
+						new String[] { c.getString(0) }) > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				// insert
+				database = mDbHelper.getWritableDatabase();
+				ContentValues cv = new ContentValues();
+
+				cv.put(ColumnName.EVENT_MAEVENT, e.getMaEvent());
+				cv.put(ColumnName.EVENT_TENEVENT, e.getTenEvent());
+				cv.put(ColumnName.EVENT_DIADIEM, e.getDiadiem());
+				cv.put(ColumnName.EVENT_THOIGIANBATDAU, e.getThoigianbatdau());
+				cv.put(ColumnName.EVENT_MALAPLAI, e.getMaLaplai());
+				cv.put(ColumnName.EVENT_MALOINHAC, e.getMaLoinhac());
+				cv.put(ColumnName.EVENT_NGAYEVENT, e.getNgay_event());
+				cv.put(ColumnName.EVENT_MACANBO, e.getMaCanbo());
+				cv.put(ColumnName.EVENT_MOTA, e.getMota());
+				cv.put(ColumnName.EVENT_MASUKIENTUAN, e.getMaSukientuan());
+
+				if (database.insert(ColumnName.EVENT_TABLE, null, cv) != -1) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} catch (SQLiteException e2) {
+			Log.e("insert_tblEvent_from_lichtuan", e2.getMessage());
+			return false;
+		}
+	}
+
 	/*
 	 * END - tbl_event
 	 */
@@ -910,9 +854,8 @@ public class ExecuteQuery {
 	// select * from tbl_canbo where maDonvi
 	public ArrayList<CanBo> getAllCanboFromDV(String maDonvi) {
 		ArrayList<CanBo> listCB = new ArrayList<CanBo>();
-		String selectQuery = "SELECT * FROM " + ColumnName.CANBO_TABLE
-				+ " WHERE " + ColumnName.CANBO_MADONVI + " = '" + maDonvi
-				+ "' ";
+		String selectQuery = "SELECT tbl_canbo.maCanbo, tbl_canbo.tenCanbo, tbl_canbo.diachi, tbl_canbo.email, tbl_canbo.cmnd, tbl_canbo.hocham, tbl_canbo.hocvi, tbl_canbo.avatar, tbl_canbo.sdt, tbl_chucvu_canbo.tenChucvu, tbl_chucvu_canbo.uutien FROM tbl_canbo, tbl_chucvu_canbo WHERE tbl_canbo.maCanbo = tbl_chucvu_canbo.maCanbo AND tbl_chucvu_canbo.maDonvi = '"
+				+ maDonvi + "' ORDER BY tbl_chucvu_canbo.uutien ASC";
 		database = mDbHelper.getReadableDatabase();
 		Cursor cursor = database.rawQuery(selectQuery, null);
 		if (cursor.moveToFirst()) {
@@ -927,8 +870,9 @@ public class ExecuteQuery {
 				cb.setHocham(cursor.getString(5));
 				cb.setHocvi(cursor.getString(6));
 				cb.setAvatar(cursor.getString(7));
-				cb.setMaDonvi(cursor.getString(8));
-				cb.setSdt(cursor.getString(9));
+				cb.setSdt(cursor.getString(8));
+				cb.setTenChucvu(cursor.getString(9));
+				cb.setUutien(cursor.getString(10));
 
 				listCB.add(cb);
 			} while (cursor.moveToNext());
@@ -950,7 +894,6 @@ public class ExecuteQuery {
 			cv.put(ColumnName.CANBO_HOCHAM, d.getHocham());
 			cv.put(ColumnName.CANBO_HOCVI, d.getHocvi());
 			cv.put(ColumnName.CANBO_AVATAR, d.getAvatar());
-			cv.put(ColumnName.CANBO_MADONVI, d.getMaDonvi());
 			cv.put(ColumnName.CANBO_SDT, d.getSdt());
 
 			database.insert(ColumnName.CANBO_TABLE, null, cv);
@@ -962,7 +905,113 @@ public class ExecuteQuery {
 		}
 	}
 
+	// delete all record
+	public boolean delete_tblCanbo_allrecord() {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			database.delete(ColumnName.CANBO_TABLE, null, null);
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("delete_tblCanbo_allrecord", e.getMessage());
+			return false;
+		}
+	}
+
+	// update image 
+	public boolean update_tblCanbo_image(String filename) {
+		String arr[] = filename.split(".");
+		String maCanbo = arr[0];
+		try {
+			database = mDbHelper.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+			cv.put(ColumnName.CANBO_AVATAR, "");
+			String where = ColumnName.CANBO_MACANBO + " = ? ";
+			if (database.update(ColumnName.CANBO_TABLE, cv, where,
+					new String[] { maCanbo }) > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLiteException e) {
+			Log.e("update_tblCanbo_image", e.getMessage());
+			return false;
+		}
+	}
+	
 	/*
 	 * END - tbl_canbo
+	 */
+
+	/*
+	 * tbl_chucvu_canbo
+	 */
+	// insert single record
+	public boolean insert_tbl_chucvu_canbo_single(Chucvu_Canbo cc) {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			ContentValues cv = new ContentValues();
+
+			cv.put(ColumnName.CHUCVU_DONVI_MACANBO, cc.getMaCanbo());
+			cv.put(ColumnName.CHUCVU_DONVI_MADONVI, cc.getMaDonvi());
+			cv.put(ColumnName.CHUCVU_DONVI_TENCHUCVU, cc.getTenChucvu());
+			cv.put(ColumnName.CHUCVU_DONVI_UUTIEN, cc.getUutien());
+
+			if (database.insert(ColumnName.CHUCVU_DONVI_TABLE, null, cv) != -1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLiteException e) {
+			Log.e("insert_tbl_chucvu_canbo_single", e.getMessage());
+			return false;
+		}
+	}
+
+	// get tenDonvi by maCanbo
+	public String getTenDonviByMaCanbo(String maCanbo) {
+		String tenDonvi = "";
+		String query = "SELECT tbl_donvi.tenDonvi, tbl_chucvu_canbo.uutien FROM tbl_donvi, tbl_chucvu_canbo WHERE tbl_chucvu_canbo.maDonvi = tbl_donvi.maDonvi AND tbl_chucvu_canbo.maCanbo = '"
+				+ maCanbo + "' ORDER BY tbl_chucvu_canbo.uutien ASC ";
+		database = mDbHelper.getReadableDatabase();
+		Cursor c = database.rawQuery(query, null);
+		if (c.moveToFirst()) {
+			do {
+				if (c.moveToLast()) {
+					tenDonvi += c.getString(0);
+				} else {
+					tenDonvi += c.getString(0) + "\n";
+				}
+			} while (c.moveToNext());
+		}
+		return tenDonvi;
+	}
+
+	// get tenDonvi by maCanbo
+	public String getChucvuByMaCanbo(String maCanbo) {
+		String tenChucvu = "";
+		String query = "SELECT tbl_chucvu_canbo.tenChucvu, tbl_chucvu_canbo.uutien FROM tbl_chucvu_canbo WHERE tbl_chucvu_canbo.maCanbo = '"
+				+ maCanbo + "' ORDER BY tbl_chucvu_canbo.uutien ASC";
+		database = mDbHelper.getReadableDatabase();
+		Cursor c = database.rawQuery(query, null);
+		if (c.moveToFirst()) {
+			tenChucvu = c.getString(0);
+		}
+		return tenChucvu;
+	}
+
+	// delete all record
+	public boolean delete_tbl_chucvu_canbo_allrecord() {
+		try {
+			database = mDbHelper.getWritableDatabase();
+			database.delete(ColumnName.CHUCVU_DONVI_TABLE, null, null);
+			return true;
+		} catch (SQLiteException e) {
+			Log.e("delete_tbl_chucvu_canbo_allrecord", e.getMessage());
+			return false;
+		}
+	}
+
+	/*
+	 * END - tbl_chucvu_canbo
 	 */
 }

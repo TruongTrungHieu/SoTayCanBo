@@ -69,9 +69,16 @@ public class GhichuFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if (adapter != null) {
-			adapter.notifyDataSetChanged();
+		listGhichu = new ArrayList<GhiChu>();
+		listGhichu = exeQ.getAllGhichu();
+		if (listGhichu.size() > 0) {
+			flNoNote.setVisibility(View.GONE);
+		} else {
+			flNoNote.setVisibility(View.VISIBLE);
 		}
+		adapter = new GhichuAdapter(getActivity().getApplicationContext(),
+				R.layout.itemlist_sotay, listGhichu);
+		lvGhichu.setAdapter(adapter);
 	}
 
 	public void onClickListener() {

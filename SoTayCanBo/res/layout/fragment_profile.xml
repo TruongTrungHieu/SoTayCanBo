@@ -25,8 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:alpha="50"
-                android:src="@drawable/account_ava" />
+                android:src="@drawable/test1" />
 
             <TextView
                 android:id="@+id/tvUserNameF"

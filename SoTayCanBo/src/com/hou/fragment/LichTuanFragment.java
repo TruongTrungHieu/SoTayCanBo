@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.hou.adapters.LichNgayAdapter;
+import com.hou.app.Const;
+import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.DayNumberOfContents;
 import com.hou.models.SuKien;
@@ -15,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.Toast;
 
 public class LichTuanFragment extends Fragment {
 	private ArrayList<SuKien> listLichtuan;
@@ -30,7 +34,7 @@ public class LichTuanFragment extends Fragment {
 
 	private ExpandableListView expandableList;
 	private LichNgayAdapter adapter;
-	
+
 	// 2 is Monday
 	private int posOpened = 2;
 	private ExecuteQuery exeQ;
@@ -41,6 +45,12 @@ public class LichTuanFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 
+		getActivity().setTitle(
+				getActivity().getResources().getString(
+						R.string.manager_lichtuan)
+						+ " "
+						+ Global.getPreference(getActivity(), Const.LICHTUAN));
+
 		Calendar calendar = Calendar.getInstance();
 		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 		if (dayOfWeek > 1) {
@@ -48,7 +58,7 @@ public class LichTuanFragment extends Fragment {
 		} else {
 			posOpened = 6;
 		}
-		
+
 	}
 
 	public void setGroupParents() {
@@ -71,7 +81,7 @@ public class LichTuanFragment extends Fragment {
 				getString(R.string.Sat), child7s.size());
 		parentItems.add(day7);
 		DayNumberOfContents day8 = new DayNumberOfContents(
-				getString(R.string.Sun), child7s.size());
+				getString(R.string.Sun), child8s.size());
 		parentItems.add(day8);
 	}
 
@@ -105,7 +115,7 @@ public class LichTuanFragment extends Fragment {
 		case "7":
 			child7s.add(sk);
 			break;
-		case "8":
+		case "CN":
 			child8s.add(sk);
 			break;
 		default:
@@ -124,7 +134,7 @@ public class LichTuanFragment extends Fragment {
 
 		listLichtuan = new ArrayList<SuKien>();
 		listLichtuan = exeQ.getAllSukienTuan();
-		
+
 		parentItems = new ArrayList<DayNumberOfContents>();
 		childItems = new ArrayList<Object>();
 		child2s = new ArrayList<SuKien>();
@@ -134,9 +144,8 @@ public class LichTuanFragment extends Fragment {
 		child6s = new ArrayList<SuKien>();
 		child7s = new ArrayList<SuKien>();
 		child8s = new ArrayList<SuKien>();
-		
-		expandableList = (ExpandableListView) view
-				.findViewById(R.id.elvDays);
+
+		expandableList = (ExpandableListView) view.findViewById(R.id.elvDays);
 		expandableList.setGroupIndicator(null);
 		expandableList.setClickable(true);
 
@@ -152,6 +161,18 @@ public class LichTuanFragment extends Fragment {
 		expandableList.setAdapter(adapter);
 		expandableList.expandGroup(posOpened, true);
 
+	
+		expandableList.setOnChildClickListener(new OnChildClickListener() {
+			
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				Toast.makeText(getActivity(), "Group " + groupPosition + "Child " + childPosition, Toast.LENGTH_SHORT).show();
+				
+				return false;
+			}
+		});
+		
 		return view;
 	}
 

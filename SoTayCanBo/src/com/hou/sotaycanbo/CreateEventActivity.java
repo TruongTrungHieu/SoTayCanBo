@@ -85,7 +85,7 @@ public class CreateEventActivity extends ActionBarActivity {
 			// 0 - turn off alarm
 			String maLoinhac = ckAlarm.isChecked() ? (1 + "") : (0 + "");
 			String maEvent = Global.getMaCanBo(this) + "_E_" + Global.getCurrentDateTime();
-			Event e = new Event(maEvent, ten, diadiem, thoigian, "", maLoinhac, currentDay, Global.getMaCanBo(this), mota);
+			Event e = new Event(maEvent, ten, diadiem, thoigian, "", maLoinhac, currentDay, Global.getMaCanBo(this), mota, "");
 			if (exeQ.insert_tblEvent_single(e)) {
 				Toast.makeText(getBaseContext(), getString(R.string.createevent_success), Toast.LENGTH_SHORT).show();
 			} else {

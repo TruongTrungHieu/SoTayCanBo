@@ -18,6 +18,7 @@ public class Event implements Serializable {
 	private String ngay_event;
 	private String maCanbo;
 	private String mota;
+	private String maSukientuan;
 	
 	public Event() {
 		
@@ -25,7 +26,7 @@ public class Event implements Serializable {
 
 	public Event(String maEvent, String tenEvent, String diadiem,
 			String thoigianbatdau, String maLaplai, String maLoinhac,
-			String ngay_event, String maCanbo, String mota) {
+			String ngay_event, String maCanbo, String mota, String maSukientuan) {
 		super();
 		this.maEvent = maEvent;
 		this.tenEvent = tenEvent;
@@ -36,6 +37,7 @@ public class Event implements Serializable {
 		this.ngay_event = ngay_event;
 		this.maCanbo = maCanbo;
 		this.mota = mota;
+		this.maSukientuan = maSukientuan;
 	}
 
 	public String getMaEvent() {
@@ -108,6 +110,14 @@ public class Event implements Serializable {
 
 	public void setMota(String mota) {
 		this.mota = mota;
+	}
+	
+	public String getMaSukientuan() {
+		return maSukientuan;
+	}
+	
+	public void setMaSukientuan(String maSukientuan) {
+		this.maSukientuan = maSukientuan;
 	}
 	
 	public static long getSerialversionuid() {

@@ -67,7 +67,8 @@ public class CanboAdapter extends ArrayAdapter<CanBo> {
 		TextView tvTenCanbo = (TextView) v.findViewById(R.id.tvTencanbo);
 		TextView tvEmail = (TextView) v.findViewById(R.id.tvEmail);
 		TextView tvSodienthoai = (TextView) v.findViewById(R.id.tvSodienthoai);
-
+		TextView tvChucvu = (TextView) v.findViewById(R.id.tvChucvu);
+		
 		CanBo cb = listCanbo.get(position);
 		String tenCanbo = cb.getTenCanbo().toString(); 
 		if (tenCanbo != null && !tenCanbo.equals("null")) {
@@ -88,11 +89,18 @@ public class CanboAdapter extends ArrayAdapter<CanBo> {
 			tvSodienthoai.setText("");
 		}
 
+		String chucvu = cb.getTenChucvu().toString();
+		if (chucvu != null && !chucvu.equals("null")) {
+			tvChucvu.setText(chucvu);
+		} else {
+			tvSodienthoai.setText("");
+		}
+		
 		File f = ImageUltiFunctions
 				.getFileFromUri(Global.getURI(cb.getAvatar()));
 		if (f != null) {
-			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
-					500);
+			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 300,
+					300);
 			ava.setImageBitmap(b);
 		} else {
 			ava.setImageResource(R.drawable.test1);

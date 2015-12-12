@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff.Mode;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,7 +48,13 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+
+		int state = getResources().getConfiguration().orientation;
+		if (state == Configuration.ORIENTATION_LANDSCAPE) {
+			setContentView(R.layout.activity_login_landscape);
+		} else {
+			setContentView(R.layout.activity_login);
+		}
 
 		edtEmail = (EditText) findViewById(R.id.edt_email);
 		edtPass = (EditText) findViewById(R.id.edt_pass);
@@ -71,7 +78,7 @@ public class LoginActivity extends Activity {
 						&& (_pass.toString().trim().length() > 0)) {
 					loginToServer();
 				} else {
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(getBaseContext(),
 							getResources().getString(R.string.login_notnull),
 							Toast.LENGTH_SHORT).show();
 					return;
@@ -86,7 +93,7 @@ public class LoginActivity extends Activity {
 				if (Global.hasNetworkConnection(getApplicationContext())) {
 					dialogForgotPass();
 				} else {
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(getBaseContext(),
 							getResources().getString(R.string.no_internet),
 							Toast.LENGTH_SHORT).show();
 				}
@@ -112,7 +119,7 @@ public class LoginActivity extends Activity {
 						switch (statusCode) {
 						case 0:
 							Toast.makeText(
-									getApplicationContext(),
+									getBaseContext(),
 									getResources().getString(
 											R.string.check_internet)
 											+ " - " + statusCode,
@@ -120,7 +127,7 @@ public class LoginActivity extends Activity {
 							break;
 						default:
 							Toast.makeText(
-									getApplicationContext(),
+									getBaseContext(),
 									getResources().getString(
 											R.string.database_error)
 											+ " - " + statusCode,
@@ -137,6 +144,9 @@ public class LoginActivity extends Activity {
 			JSONObject obj = new JSONObject(response);
 			String status = obj.optString("status", "false");
 			if (status.equalsIgnoreCase("true")) {
+				Global.savePreference(getApplicationContext(),
+						Const.SAVE_LOGIN, Const.SAVE_LOGIN_TRUE);
+
 				int trangthai = obj.optInt("trangthai", 1);
 
 				String taikhoan = obj.optString("taikhoan", "");
@@ -157,9 +167,13 @@ public class LoginActivity extends Activity {
 				String ten_hocham = canbo.optString("ten_hocham", "");
 				String anh_nv = canbo.optString("anh_nv", "");
 				String ma_donvi = canbo.optString("ma_dv", "");
+
+				Global.savePreference(getApplicationContext(), Const.USER_MADONVI, ma_donvi);
 				
-				CanBo cb = new CanBo(ma_nv, ma_donvi, hoten_nv, chitietdiachihientai, email_nv, so_cmnd, ten_hocham, ten_hocvi, anh_nv, sdt);
-				
+				CanBo cb = new CanBo(ma_nv, hoten_nv,
+						chitietdiachihientai, email_nv, so_cmnd, ten_hocham,
+						ten_hocvi, anh_nv, sdt, "", "");
+
 				Intent t;
 				if (trangthai == 1) {
 					t = new Intent(LoginActivity.this,
@@ -167,22 +181,21 @@ public class LoginActivity extends Activity {
 
 				} else {
 					// change pass
-					t = new Intent(LoginActivity.this,
-							DoiMatkhauActivity.class);
+					t = new Intent(LoginActivity.this, DoiMatkhauActivity.class);
 					t.putExtra("isFirstLogin", true);
 				}
-				
+
 				t.putExtra("canbo", cb);
 				startActivity(t);
 				finish();
 			} else {
-				Toast.makeText(getApplicationContext(),
+				Toast.makeText(getBaseContext(),
 						getResources().getString(R.string.login_failed),
 						Toast.LENGTH_SHORT).show();
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			Toast.makeText(getApplicationContext(),
+			Toast.makeText(getBaseContext(),
 					getResources().getString(R.string.login_failed),
 					Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
@@ -209,7 +222,7 @@ public class LoginActivity extends Activity {
 			@Override
 			protected void onPostExecute(String msg) {
 				if (!msg.equals("")) {
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(getBaseContext(),
 							getString(R.string.check_internet) + "\n" + msg,
 							Toast.LENGTH_SHORT).show();
 				}
@@ -345,5 +358,5 @@ public class LoginActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 }

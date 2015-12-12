@@ -68,7 +68,7 @@ public class DonviAdapter extends ArrayAdapter<DonVi> {
 		if (dv.getEmail().trim().toString().length() > 0) {
 			tvEmail.setText(dv.getEmail().toString());
 		} else {
-			tvEmail.setText(getContext().getApplicationContext().getResources().getString(R.string.default_email));
+			tvEmail.setText("");
 		}
 		tvDiachi.setText(dv.getDiachi().toString());
 

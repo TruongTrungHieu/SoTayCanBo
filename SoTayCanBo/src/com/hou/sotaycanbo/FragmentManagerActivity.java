@@ -13,9 +13,11 @@ import com.hou.fragment.CalendarFragment;
 import com.hou.fragment.GhichuFragment;
 import com.hou.fragment.LichTuanFragment;
 import com.hou.fragment.LienheFragment;
+import com.hou.fragment.LogoutFragment;
 import com.hou.fragment.SettingFragment;
 import com.hou.fragment.SotayFragment;
 import com.hou.models.CanBo;
+import com.hou.models.Chucvu_Canbo;
 import com.hou.models.SuKien;
 import com.hou.ultis.ImageUltiFunctions;
 import com.hou.fragment.ThongTinCanBoFragment;
@@ -45,6 +47,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 	private MaterialSection<?> LienHe;
 	private MaterialSection<?> CaiDat;
 	private MaterialSection<?> ThongTinCanBo;
+	private MaterialSection<?> Dangxuat;
 
 	public static FragmentManagerActivity sInstance;
 
@@ -82,18 +85,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 					tenDonvi, b, R.drawable.bg);
 		} else {
 			account = new MaterialAccount(this.getResources(), tenCanbo,
-					tenDonvi, R.drawable.account_ava, R.drawable.bg);
-			try {
-				DownloadProfileAvatarAsync download = new DownloadProfileAvatarAsync();
-				download.execute();
-				File f1 = ImageUltiFunctions.getFileFromUri(Global.getURI(anh));
-				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f1, 500,
-						500);
-				account = new MaterialAccount(this.getResources(), tenCanbo,
-						tenDonvi, b, R.drawable.bg);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+					tenDonvi, R.drawable.test1, R.drawable.bg);
 		}
 
 		this.addAccount(account);
@@ -122,6 +114,10 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 				getResources().getString(R.string.manager_thongtincanbo),
 				R.drawable.menu_thongtin_material, new ThongTinCanBoFragment());
 		
+		Dangxuat = newSection(
+				getResources().getString(R.string.manager_dangxuat),
+				R.drawable.menu_logout_material, new LogoutFragment());
+		
 		CaiDat = newSection(getResources().getString(R.string.manager_caidat),
 				R.drawable.menu_caidat_material, new SettingFragment());
 
@@ -131,6 +127,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		this.addSection(LichTuan);
 		this.addSection(LienHe);
 		this.addSection(ThongTinCanBo);
+		this.addSection(Dangxuat);
 		this.addBottomSection(CaiDat);
 
 		if (Global.hasNetworkConnection(getApplicationContext())) {
@@ -139,6 +136,18 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 			if (dowloadFirst == null || dowloadFirst.equals("")) {
 				getCanBoFromServer();
 			}
+		}
+		
+		try {
+			DownloadProfileAvatarAsync download = new DownloadProfileAvatarAsync();
+			download.execute();
+			File f1 = ImageUltiFunctions.getFileFromUri(Global.getURI(anh));
+			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f1, 500,
+					500);
+			account = new MaterialAccount(this.getResources(), tenCanbo,
+					tenDonvi, b, R.drawable.bg);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -191,14 +200,24 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 				String so_cmnd = cbObj.optString("so_cmnd", "");
 				String ten_hocvi = cbObj.optString("ten_hocvi", "");
 				String ten_hocham = cbObj.optString("ten_hocham", "");
-				String ma_dv = cbObj.optString("ma_dv", "");
 				String anh_nv = cbObj.optString("anh_nv", "");
 
-				CanBo cb = new CanBo(ma_nv, ma_dv, hoten_nv,
-						chitietdiachihientai, email_nv, so_cmnd, ten_hocham,
-						ten_hocvi, anh_nv, sdt);
-
+				CanBo cb = new CanBo(ma_nv, hoten_nv, chitietdiachihientai,
+						email_nv, so_cmnd, ten_hocham, ten_hocvi, anh_nv, sdt,
+						"", "");
 				exeQ.insert_tblCanbo_single(cb);
+				
+				JSONArray chucvuArr = cbObj.getJSONArray("ds_dvcv");
+				for (int j = 0;j < chucvuArr.length(); ++j) {
+					JSONObject objCC = chucvuArr.getJSONObject(j);
+					String maDonvi = objCC.optString("ma_dv", "");
+					String tenChucvu = objCC.optString("ten_dmcv", "");
+					String uutien = objCC.optString("uutien", "");
+					
+					Chucvu_Canbo cc = new Chucvu_Canbo(ma_nv, maDonvi, tenChucvu, uutien);
+					exeQ.insert_tbl_chucvu_canbo_single(cc);
+				}
+				
 				DownloadAvatarAsync downAvatar = new DownloadAvatarAsync(cb);
 				downAvatar.execute();
 			}
@@ -258,8 +277,6 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 					cb.getHocham());
 			Global.savePreference(getApplicationContext(), Const.USER_ANH,
 					cb.getAvatar());
-			Global.savePreference(getApplicationContext(), Const.USER_MADONVI,
-					cb.getMaDonvi());
 		}
 	}
 
@@ -307,7 +324,10 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 	private void saveSukienIntoSQL(String response) {
 		exeQ.delete_tblSukienTuan_allrecord();
 		try {
-			JSONArray arr = new JSONArray(response);
+			JSONObject obj = new JSONObject(response);
+			String tuan = obj.optString("tuanht", "");
+			Global.savePreference(getApplicationContext(), Const.LICHTUAN, tuan);
+			JSONArray arr = obj.getJSONArray("res");
 			for (int i = 0; i < arr.length(); ++i) {
 				JSONObject lich = arr.getJSONObject(i);
 

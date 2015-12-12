@@ -10,7 +10,6 @@ public class CanBo implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String maCanbo;
-	private String maDonvi;
 	private String tenCanbo;
 	private String diachi;
 	private String email;
@@ -19,17 +18,18 @@ public class CanBo implements Serializable{
 	private String hocvi;
 	private String avatar;
 	private String sdt;
+	private String tenChucvu;
+	private String uutien;
 	
 	public CanBo() {
 		
 	}
 
-	public CanBo(String maCanbo, String maDonvi,
-			String tenCanbo, String diachi, String email, String cmnd,
-			String hocham, String hocvi, String avatar, String sdt) {
+	public CanBo(String maCanbo, String tenCanbo, String diachi, String email,
+			String cmnd, String hocham, String hocvi, String avatar,
+			String sdt, String tenChucvu, String uutien) {
 		super();
 		this.maCanbo = maCanbo;
-		this.maDonvi = maDonvi;
 		this.tenCanbo = tenCanbo;
 		this.diachi = diachi;
 		this.email = email;
@@ -38,6 +38,8 @@ public class CanBo implements Serializable{
 		this.hocvi = hocvi;
 		this.avatar = avatar;
 		this.sdt = sdt;
+		this.tenChucvu = tenChucvu;
+		this.uutien = uutien;
 	}
 
 	public String getMaCanbo() {
@@ -46,14 +48,6 @@ public class CanBo implements Serializable{
 
 	public void setMaCanbo(String maCanbo) {
 		this.maCanbo = maCanbo;
-	}
-
-	public String getMaDonvi() {
-		return maDonvi;
-	}
-
-	public void setMaDonvi(String maDonvi) {
-		this.maDonvi = maDonvi;
 	}
 
 	public String getTenCanbo() {
@@ -111,13 +105,29 @@ public class CanBo implements Serializable{
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-	
+
 	public String getSdt() {
 		return sdt;
 	}
 
 	public void setSdt(String sdt) {
 		this.sdt = sdt;
+	}
+
+	public String getTenChucvu() {
+		return tenChucvu;
+	}
+
+	public void setTenChucvu(String tenChucvu) {
+		this.tenChucvu = tenChucvu;
+	}
+
+	public String getUutien() {
+		return uutien;
+	}
+
+	public void setUutien(String uutien) {
+		this.uutien = uutien;
 	}
 
 	public static long getSerialversionuid() {

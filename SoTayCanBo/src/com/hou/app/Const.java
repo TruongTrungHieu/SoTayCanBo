@@ -26,6 +26,7 @@ public class Const {
 	public static final String URL_DOWNLOAD_AVATAR = "http://nhansu.hou.edu.vn/anhnhanvien/";
 	public static final String URL_UPLOAD_AVATAR = "http://nhansu.hou.edu.vn/API/capi/UploadAnh";
 	public static final String URL_UPDATE_PROFILE = "http://nhansu.hou.edu.vn/API/capi/suathongtin";
+	public static final String URL_USER_GUIDE = "http://nhansu.hou.edu.vn/API/capi/userguide";
 	/*
 	 * Share References
 	 */
@@ -53,7 +54,8 @@ public class Const {
 	public static final String USER_TAIKHOAN = "taikhoan";
 	// GCM ID
 	public static final String GCM_ID = "gcm_id";
-	
+	// LICH TUAN
+	public static final String LICHTUAN = "lichtuan";
 	/*
 	 * Attachment
 	 */

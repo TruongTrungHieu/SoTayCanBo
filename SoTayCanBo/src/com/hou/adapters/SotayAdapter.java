@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SotayAdapter extends ArrayAdapter<SoTay> {
 	
@@ -60,6 +59,6 @@ public class SotayAdapter extends ArrayAdapter<SoTay> {
 	}
 	
 	public void showDialogMoreNote() {
-		Toast.makeText(getContext(), "More", Toast.LENGTH_SHORT).show();
+		
 	}
 }

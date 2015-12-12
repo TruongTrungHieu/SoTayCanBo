@@ -15,7 +15,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,11 +25,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.Event;
+import com.hou.sotaycanbo.CalendarDetailActivity;
 import com.hou.sotaycanbo.CreateEventActivity;
 import com.hou.sotaycanbo.R;
+import com.hou.ultis.LunarCalendarConversion;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -42,10 +44,12 @@ public class CalendarFragment extends Fragment {
 	private final SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 	private ExecuteQuery exeQ;
-	private List<Event> listEvent;
+	private ArrayList<Event> listEvent;
 	private ListView lvEvent;
 	boolean isFirstTimeSelect = true;
-
+	private ArrayAdapter<String> adapter;
+	private TextView tvLunarDay;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -65,6 +69,8 @@ public class CalendarFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_main, container, false);
 		lvEvent = (ListView) view.findViewById(R.id.lvEvent);
+		tvLunarDay = (TextView) view.findViewById(R.id.tvLunarDay);
+		setLunarCalendar(currentDate);
 		// If Activity is created after rotation
 		if (savedInstanceState != null) {
 			caldroidFragment.restoreStatesFromKey(savedInstanceState,
@@ -101,8 +107,6 @@ public class CalendarFragment extends Fragment {
 			public void onSelectDate(Date date, View view) {
 				if (isFirstTimeSelect) {
 					currentDate = date;
-					Log.d("First", currentDate.getTime() + "");
-					formatter.format(currentDate);
 				}
 				if (!isDateEqual(currentDate, date)) {
 					caldroidFragment.setBackgroundResourceForDate(
@@ -117,12 +121,11 @@ public class CalendarFragment extends Fragment {
 								R.drawable.red_border, currentDate);
 						try {
 							if (isEventDate(currentDate)) {
-								caldroidFragment
-										.setBackgroundResourceForDate(
-												R.drawable.red_border_green_bg,
-												currentDate);
-								caldroidFragment.setTextColorForDate(R.color.black,
+								caldroidFragment.setBackgroundResourceForDate(
+										R.drawable.red_border_green_bg,
 										currentDate);
+								caldroidFragment.setTextColorForDate(
+										R.color.black, currentDate);
 							}
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
@@ -145,6 +148,7 @@ public class CalendarFragment extends Fragment {
 				}
 				try {
 					setListEvent(date);
+					setLunarCalendar(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -223,14 +227,15 @@ public class CalendarFragment extends Fragment {
 		List<String> getListByDate = new ArrayList<String>();
 		for (Event e : listEvent) {
 			if (isDateEqual(date, formatter.parse(e.getNgay_event()))) {
-				getListByDate.add("  " + e.getThoigianbatdau() + "      " + e.getTenEvent());
+				getListByDate.add("  " + e.getThoigianbatdau() + "      "
+						+ e.getTenEvent());
 			}
 		}
 		return getListByDate;
 	}
 
 	private void setListEvent(final Date date) throws ParseException {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		adapter = new ArrayAdapter<String>(getActivity(),
 				android.R.layout.simple_list_item_1, getListEvent(date));
 		lvEvent.setAdapter(adapter);
 		lvEvent.setOnItemClickListener(new OnItemClickListener() {
@@ -238,7 +243,10 @@ public class CalendarFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
+				Intent detail = new Intent(getActivity(),
+						CalendarDetailActivity.class);
+				detail.putExtra("event", listEvent.get(arg2));
+				startActivity(detail);
 			}
 		});
 		lvEvent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -248,38 +256,53 @@ public class CalendarFragment extends Fragment {
 					int position, long id) {
 				final int pos = position;
 				AlertDialog.Builder buider = new Builder(getActivity());
-				buider.setMessage(getActivity()
-						.getString(R.string.calendar_delete_confirm));
-				buider.setNegativeButton(getString(R.string.forgotpass_cancel), new OnClickListener() {
+				buider.setMessage(getActivity().getString(
+						R.string.calendar_delete_confirm));
+				buider.setNegativeButton(getString(R.string.forgotpass_cancel),
+						new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-					}
-				});
-				buider.setNeutralButton(getString(R.string.forgotpass_ok), new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								dialog.dismiss();
+							}
+						});
+				buider.setNeutralButton(getString(R.string.forgotpass_ok),
+						new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						exeQ.delete_tblEvent_byMaEvent(listEvent.get(pos).getMaEvent());
-						try {
-							setListEvent(formatter.parse(listEvent.get(pos).getNgay_event()));
-							setCustomResourceForDates();
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				});
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								exeQ.delete_tblEvent_byMaEvent(listEvent.get(
+										pos).getMaEvent());
+								try {
+									setListEvent(formatter.parse(listEvent.get(
+											pos).getNgay_event()));
+									setCustomResourceForDates();
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						});
 				buider.create().show();
-				
+
 				return false;
 			}
 		});
 	}
 
+	public void setLunarCalendar(Date date) {
+		String solarDay = formatter.format(date);
+		LunarCalendarConversion lunarConvert = new LunarCalendarConversion(solarDay);
+		String lunarDay = lunarConvert.convertSolar2Lunar(7);
+		if (tvLunarDay != null) {
+			tvLunarDay.setText(getResources().getString(R.string.calendar_lunnar) + "   " + lunarDay);
+		}
+	}
+	
 	/**
 	 * Save current states of the Caldroid here
 	 */
@@ -327,6 +350,7 @@ public class CalendarFragment extends Fragment {
 			try {
 				setListEvent(currentDate);
 				setCustomResourceForDates();
+				setLunarCalendar(currentDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -350,7 +374,14 @@ public class CalendarFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		try {
+			listEvent = new ArrayList<Event>();
+			listEvent = exeQ.getAllEvent();
 			setCustomResourceForDates();
+			// update listview event
+			adapter = new ArrayAdapter<String>(getActivity(),
+					android.R.layout.simple_list_item_1, getListEvent(currentDate));
+			lvEvent.setAdapter(adapter);
+			setLunarCalendar(currentDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

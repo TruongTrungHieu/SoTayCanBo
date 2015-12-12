@@ -67,21 +67,21 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		tvTime.setText(child.get(childPosition).getThoigianbatdau());
 		ivBuoi = (ImageView) convertView.findViewById(R.id.ivBuoi);
 
-		String buoi = child.get(childPosition).getBuoi().toString().trim();
-		if (buoi.equalsIgnoreCase(this.activity.getResources().getString(
-				R.string.lichtuan_sang))) {
+		String thoigian = child.get(childPosition).getThoigianbatdau()
+				.toString().trim();
+		if (thoigian.compareToIgnoreCase("12:00") < 0) {
 			ivBuoi.setBackgroundResource(R.drawable.ic_morning);
 		} else {
 			ivBuoi.setBackgroundResource(R.drawable.ic_afternoon);
 		}
 
-		convertView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				sukienDetailDialog(activity, child.get(childPosition));
-			}
-		});
+//		convertView.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View view) {
+//				sukienDetailDialog(activity, child.get(childPosition));
+//			}
+//		});
 
 		return convertView;
 	}
@@ -105,16 +105,48 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 				.findViewById(R.id.tvThanhphan_khac);
 		tvNoidung = (TextView) alertLayout.findViewById(R.id.tvNoidung);
 
+		// ten su kien
 		tvTensukien.setText(sk.getTenSukien());
+		// thoi gian
 		tvThoigian.setText(sk.getThoigianbatdau() + " - " + sk.getNgay());
-		if (!sk.getPhong().trim().equalsIgnoreCase("")) {
-			tvDiadiem.setText(sk.getPhong() + "\n" + sk.getDiadiem());
-		} else {
-			tvDiadiem.setText(sk.getDiadiem());
+		// dia diem
+		String phong = sk.getPhong().trim();
+		String diadiem = sk.getDiadiem().trim();
+		if (phong.equals(activity.getString(R.string.compare_khong))) {
+			phong = "";
 		}
+		if (!phong.equalsIgnoreCase("")) {
+			tvDiadiem.setText(phong + "\n" + diadiem);
+		} else {
+			tvDiadiem.setText(diadiem);
+		}
+		// thanh phan tham gia
 		String[] tpThamgia = sk.getTp_thamgia().split("##");
-		tvThanhphan.setText(tpThamgia[0]);
-		tvThanhphan_khac.setText(tpThamgia[1]);
+		String chinh = "";
+		String phu = "";
+		if (tpThamgia.length == 1) {
+			chinh = tpThamgia[0];
+		}
+		if (tpThamgia.length == 2) {
+			phu = tpThamgia[1];
+		}
+		if (chinh.equals(activity.getString(R.string.compare_khong)) || chinh.length() == 0) {
+			if (phu.equals(activity.getString(R.string.compare_khong)) || phu.length() == 0) {
+				tvThanhphan.setText("");
+			} else {
+				tvThanhphan.setText(phu);
+			}
+			tvThanhphan_khac.setText("");
+		} else {
+			tvThanhphan.setText(chinh);
+			if (phu.equals(activity.getString(R.string.compare_khong)) || phu.length() == 0) {
+				tvThanhphan_khac.setText("");
+			} else {
+				tvThanhphan_khac.setText(phu);
+			}
+		}
+
+		// noi dung
 		tvNoidung.setText(sk.getNoidung());
 
 		final ImageView btnAddEvent = (ImageView) alertLayout
@@ -136,10 +168,15 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 				e.setNgay_event(sukienTuan.getNgay());
 				e.setMaCanbo(Global.getMaCanBo(activity));
 				e.setMota(sukienTuan.getNoidung());
-				if (exeQ.insert_tblEvent_single(e)) {
+				e.setMaSukientuan(sukienTuan.getMaSukien());
+
+				if (exeQ.insert_tblEvent_from_lichtuan(e)) {
 					Toast.makeText(
-							activity,
+							activity.getBaseContext(),
 							activity.getString(R.string.dialog_lichtuan_insert_success),
+							Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(activity.getBaseContext(), "Tavhj",
 							Toast.LENGTH_LONG).show();
 				}
 			}
@@ -176,14 +213,15 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return null;
+		return ((ArrayList<SuKien>)childtems.get(groupPosition)).get(childPosition);
 	}
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
-		return 0;
+		return childPosition;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -194,7 +232,7 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		return null;
+		return parentItems.get(groupPosition);
 	}
 
 	@Override
@@ -214,7 +252,7 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public long getGroupId(int groupPosition) {
-		return 0;
+		return groupPosition;
 	}
 
 	@Override

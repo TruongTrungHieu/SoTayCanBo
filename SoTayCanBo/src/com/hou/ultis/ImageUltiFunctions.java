@@ -10,11 +10,14 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import com.hou.app.Const;
+import com.hou.app.Global;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -121,8 +124,8 @@ public class ImageUltiFunctions {
 	public static void downloadFileFromServer(String filename) {
 		BufferedInputStream in = null;
 		FileOutputStream fout = null;
-		int count;		
-		
+		int count;
+
 		try {
 			URL url = new URL(Const.URL_DOWNLOAD_AVATAR + filename);
 			URLConnection conection = url.openConnection();
@@ -148,7 +151,6 @@ public class ImageUltiFunctions {
 			InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
 			// Output stream to write file
-
 			Log.d("Out", mediaStorageDir.getPath() + "/" + filename);
 			OutputStream output = new FileOutputStream(
 					mediaStorageDir.getPath() + "/" + filename);
@@ -167,10 +169,51 @@ public class ImageUltiFunctions {
 			// closing streams
 			output.close();
 			input.close();
-
 		} catch (Exception e) {
-			Log.e("downloadFileFromServer", e.getMessage());
+			Log.e("Not exist image - downloadFileFromServer", e.getMessage());
 		}
 	}
-	
+
+	// Delete image
+	public static void deleteImage(String imageName, Context c) {
+		String file_dj_path = ImageUltiFunctions.getRealPathFromURI(Global.getURI(imageName), c);
+		File fdelete = new File(file_dj_path);
+		if (fdelete.exists()) {
+			if (fdelete.delete()) {
+				Log.e("-->", "file Deleted :" + file_dj_path);
+				callBroadCast(c);
+			} else {
+				Log.e("-->", "file not Deleted :" + file_dj_path);
+			}
+		}
+	}
+
+	// Refresh gallery after deleting image
+	public static void callBroadCast(Context context) {
+		if (Build.VERSION.SDK_INT >= 14) {
+			Log.e("-->", " >= 14");
+			MediaScannerConnection.scanFile(context, new String[] { Environment
+					.getExternalStorageDirectory().toString() }, null,
+					new MediaScannerConnection.OnScanCompletedListener() {
+						
+						public void onScanCompleted(String path, Uri uri) {
+							Log.e("ExternalStorage", "Scanned " + path + ":");
+							Log.e("ExternalStorage", "-> uri=" + uri);
+						}
+					});
+		} else {
+			Log.e("-->", " < 14");
+			File mediaStorageDir;
+			if (Build.VERSION.SDK_INT > 8) {
+				mediaStorageDir = Environment
+						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+			} else {
+				mediaStorageDir = new File(
+						Environment.getExternalStorageDirectory(), "Pictures");
+			}
+			context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+					Uri.parse("file://" + mediaStorageDir.getPath())));
+		}
+	}
+
 }

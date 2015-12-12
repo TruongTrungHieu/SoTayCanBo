@@ -2,8 +2,6 @@ package com.hou.fragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +22,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,7 +29,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -387,7 +383,6 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		if (resultCode == getActivity().RESULT_OK) {
 			if (requestCode == PICK_FROM_FILE) {
 				Uri selectedImage = data.getData();
-
 				fromCameraFile = new File(
 						ImageUltiFunctions.getRealPathFromURI(
 								selectedImage.toString(), getActivity()));

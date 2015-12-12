@@ -50,7 +50,7 @@ public class LienheFragment extends Fragment {
 		View view = inflater
 				.inflate(R.layout.fragment_lienhe, container, false);
 		initView(view);
-
+		setupTabs();
 		exeQ = new ExecuteQuery(getActivity().getApplicationContext());
 		exeQ.createDatabase();
 		exeQ.open();
@@ -68,22 +68,24 @@ public class LienheFragment extends Fragment {
 			}
 		} else {
 			for (DonVi dv : listDonvi) {
-				String maNhomDonvi = dv.getMaNhomdonvi();
+				String maNhomDonvi = dv.getMaNhomdonvi().charAt(0) + "";
 				switch (maNhomDonvi) {
-				case "phong":
+				case "1":
+					Global.listDvTochuc.add(dv);
+					break;
+				case "2":
 					Global.listDvPhong.add(dv);
 					break;
-				case "khoa":
+				case "3":
 					Global.listDvKhoa.add(dv);
 					break;
-				case "trungtam":
+				case "4":
 					Global.listDvTrungtam.add(dv);
 					break;
 				default:
 					break;
 				}
 			}
-			setupTabs();
 		}
 		return view;
 	}
@@ -104,8 +106,9 @@ public class LienheFragment extends Fragment {
 	public class MyPagerAdapter extends FragmentPagerAdapter {
 
 		private final String[] TITLES = {
-				getString(R.string.lienhe_title_khoa),
+				getString(R.string.lienhe_title_tochuc),
 				getString(R.string.lienhe_title_phong),
+				getString(R.string.lienhe_title_khoa),
 				getString(R.string.lienhe_title_trungtam) };
 
 		public MyPagerAdapter(FragmentManager fm) {
@@ -127,16 +130,19 @@ public class LienheFragment extends Fragment {
 			Fragment fragment;
 			switch (position) {
 			case 0:
-				fragment = new LienheFragment_Khoa(Global.listDvKhoa, true);
+				fragment = new LienheFragment_Khoa(Global.listDvTochuc);
 				break;
 			case 1:
-				fragment = new LienheFragment_Khoa(Global.listDvPhong, false);
+				fragment = new LienheFragment_Khoa(Global.listDvPhong);
 				break;
 			case 2:
-				fragment = new LienheFragment_Khoa(Global.listDvTrungtam, false);
+				fragment = new LienheFragment_Khoa(Global.listDvKhoa);
+				break;
+			case 3:
+				fragment = new LienheFragment_Khoa(Global.listDvTrungtam);
 				break;
 			default:
-				fragment = new LienheFragment_Khoa(Global.listDvKhoa, true);
+				fragment = new LienheFragment_Khoa(Global.listDvTochuc);
 				break;
 			}
 			return fragment;
@@ -185,47 +191,40 @@ public class LienheFragment extends Fragment {
 				String ma_dv = donvi.optString("ma_dv", "");
 				String ten_dv = donvi.optString("ten_dv", "");
 				String diachi_dv = donvi.optString("diachi_dv", "");
-				String sdt_dv = donvi.optString("sdt_dv", "").replace("_", "")
-						.trim();
-
-				String email = "";
+				String sdt_dv = donvi.optString("sdt_dv", "").replace("_", "").trim();
+				String email_dv = donvi.optString("email_dv", "");
+				String nhom_uutien = donvi.optString("nhom_uutien", "");
+				
 				String website = "";
 				String fax = "";
-				String maNhom = "";
-				String[] maNhomArr = ten_dv.trim().split(" ");
-				String temp = maNhomArr[0];
-				if (temp.equalsIgnoreCase(getString(R.string.lienhe_title_khoa))) {
-					maNhom = "khoa";
-				} else if (temp
-						.equalsIgnoreCase(getString(R.string.lienhe_title_phong))) {
-					maNhom = "phong";
-				} else {
-					maNhom = "trungtam";
-				}
 
-				DonVi dv = new DonVi(ma_dv, ten_dv, sdt_dv, email, website,
-						fax, diachi_dv, maNhom);
+				DonVi dv = new DonVi(ma_dv, ten_dv, sdt_dv, email_dv, website,
+						fax, diachi_dv, nhom_uutien);
 
 				exeQ.insert_tblDonvi_single(dv);
 				listDonvi.add(dv);
 			}
 
 			for (DonVi dv : listDonvi) {
-				String maNhomDonvi = dv.getMaNhomdonvi();
+				String maNhomDonvi = dv.getMaNhomdonvi().charAt(0) + "";
 				switch (maNhomDonvi) {
-				case "phong":
+				case "1":
+					Global.listDvTochuc.add(dv);
+					break;
+				case "2":
 					Global.listDvPhong.add(dv);
 					break;
-				case "khoa":
+				case "3":
 					Global.listDvKhoa.add(dv);
 					break;
-				case "trungtam":
+				case "4":
 					Global.listDvTrungtam.add(dv);
 					break;
 				default:
 					break;
 				}
 			}
+			setupTabs();
 		} catch (JSONException e) {
 			Log.e("saveSukienIntoSQL", e.getMessage());
 		}
@@ -234,7 +233,36 @@ public class LienheFragment extends Fragment {
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-//		adapter.notifyDataSetChanged();
 		super.onResume();
+		listDonvi = new ArrayList<DonVi>();
+		listDonvi = exeQ.getAllDonvi();
+
+		Global.listDvTochuc = new ArrayList<DonVi>();
+		Global.listDvKhoa = new ArrayList<DonVi>();
+		Global.listDvPhong = new ArrayList<DonVi>();
+		Global.listDvTrungtam = new ArrayList<DonVi>();
+		
+		if (listDonvi.size() > 0) {
+			for (DonVi dv : listDonvi) {
+				String maNhomDonvi = dv.getMaNhomdonvi().charAt(0) + "";
+				switch (maNhomDonvi) {
+				case "1":
+					Global.listDvTochuc.add(dv);
+					break;
+				case "2":
+					Global.listDvPhong.add(dv);
+					break;
+				case "3":
+					Global.listDvKhoa.add(dv);
+					break;
+				case "4":
+					Global.listDvTrungtam.add(dv);
+					break;
+				default:
+					break;
+				}
+			}
+			setupTabs();
+		}
 	}
 }

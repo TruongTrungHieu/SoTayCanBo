@@ -3,6 +3,7 @@ package com.hou.sotaycanbo;
 import java.util.ArrayList;
 
 import com.hou.adapters.CanboAdapter;
+import com.hou.app.Global;
 import com.hou.database_handler.ExecuteQuery;
 import com.hou.models.CanBo;
 import com.hou.models.DonVi;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class DanhSachCanBoActivity extends ActionBarActivity {
 
@@ -34,6 +36,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 	private static final int ID_INFOR = 1;
 	private static final int ID_CALL = 2;
 	private static final int ID_SMS = 3;
+	private static final int ID_EMAIL = 4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +60,20 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 		 */
 		ActionItem inforItem = new ActionItem(ID_INFOR, "Infor", getResources()
 				.getDrawable(R.drawable.quick_infor));
-		ActionItem callItem = new ActionItem(ID_CALL, "Call", getResources()
+		ActionItem callItem = new ActionItem(ID_CALL, " Call ", getResources()
 				.getDrawable(R.drawable.quick_call));
 		ActionItem smsItem = new ActionItem(ID_SMS, "SMS", getResources()
 				.getDrawable(R.drawable.quick_sms));
-
+		ActionItem emailItem = new ActionItem(ID_EMAIL, "Email", getResources()
+				.getDrawable(R.drawable.quick_email));
+		
 		final QuickAction quickAction = new QuickAction(this,
 				QuickAction.HORIZONTAL);
 
 		quickAction.addActionItem(inforItem);
 		quickAction.addActionItem(callItem);
 		quickAction.addActionItem(smsItem);
+		quickAction.addActionItem(emailItem);
 
 		quickAction
 				.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
@@ -84,7 +90,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 									R.anim.fade_out);
 							break;
 						case ID_CALL:
-							String sdt = listCanbo.get(posI).getSdt();
+							String sdt = listCanbo.get(posI).getSdt().trim();
 							if (sdt.length() > 0) {
 								Intent callIntent = new Intent(
 										Intent.ACTION_CALL);
@@ -93,7 +99,7 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 							}
 							break;
 						case ID_SMS:
-							String sms = listCanbo.get(posI).getSdt();
+							String sms = listCanbo.get(posI).getSdt().trim();
 							if (sms.length() > 0) {
 								String uri = "smsto:" + sms;
 								Intent intent = new Intent(
@@ -102,6 +108,23 @@ public class DanhSachCanBoActivity extends ActionBarActivity {
 								startActivity(intent);
 							}
 							break;
+						case ID_EMAIL:
+							String email = listCanbo.get(posI).getEmail().trim();
+							if (email.length() > 0) {
+								if (Global.hasNetworkConnection(getApplicationContext())) {
+									Intent gmail = new Intent(Intent.ACTION_VIEW);
+									gmail.setClassName("com.google.android.gm",
+											"com.google.android.gm.ComposeActivityGmail");
+									gmail.putExtra(Intent.EXTRA_EMAIL,
+											new String[] { email });
+									gmail.setType("plain/text");
+									startActivity(gmail);
+								} else {
+									Toast.makeText(getBaseContext(),
+											getString(R.string.no_internet),
+											Toast.LENGTH_SHORT).show();
+								}
+							}
 						default:
 							break;
 						}

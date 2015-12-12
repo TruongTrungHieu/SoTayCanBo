@@ -5,13 +5,20 @@
     <string name="action_settings"></string>
     <string name="description"></string>
     <string name="default_email">webmaster@hou.edu.vn</string>
-
+	<string name="compare_khong">Không</string>
+    
     <!-- SERVER -->
-    <string name="check_internet">Kiểm tra lại dịch vụ mạng</string>
+    <string name="check_internet">Kiểm tra kết nối mạng</string>
     <string name="database_error">Hệ thống đang sửa chữa :(</string>
 
     <!-- SPLASH ACTIVITY -->
     <string name="title_activity_splash">HOU Note</string>
+    <string name="splash_dialog_title">Hỗ trợ cài đặt</string>
+    <string name="splash_dialog_message">Nhập địa chỉ Email</string>
+    <string name="splash_dialog_success">Vui lòng kiểm tra email</string>
+    <string name="splash_dialog_false">Email không có trong hệ thống</string>
+    <string name="splash_dialog_ok">GỬI</string>
+    <string name="splash_dialog_cancel">HỦY BỎ</string>
 
     <!-- LOGIN ACTIVITY -->
     <string name="title_activity_login">Đăng nhập</string>
@@ -41,6 +48,7 @@
     <string name="manager_caidat">Cài đặt</string>
     <string name="manager_thongtin">Thông tin</string>
     <string name="manager_thongtincanbo">Cá nhân</string>
+    <string name="manager_dangxuat">Đăng xuất</string>
 
     <!-- NOTE ACTIVITY -->
     <string name="title_activity_note"></string>
@@ -55,8 +63,13 @@
     <string name="oclock">Đặt thời gian</string>
     <string name="title_share">Chia sẻ qua</string>
     <string name="cant_insert">Không thể lưu ghi chú rỗng</string>
+    <string name="note_no_sotay">Bạn cần chọn sổ tay trước khi lưu ghi chú</string>
     <string name="save_sucessful">Đã lưu ghi chú</string>
     <string name="note_sotay">CHỌN SỔ TAY</string>
+    <string name="note_title_default_sotay">Sổ tay mới</string>
+    <string name="note_note_select_file">Chưa tệp tin nào được chọn</string>
+    <string name="note_back_confirm">Bạn có muốn lưu ghi chú ?</string>
+    <string name="note_err_createnew">Xảy ra lỗi, vui lòng thử lại sau</string>
 
     <!-- DIALOG NOTE ACTIVITY -->
     <string name="dialog_note_dinhkem">Đính kèm</string>
@@ -74,6 +87,7 @@
     <string name="calendar_add">Tạo mới</string>
     <string name="calendar_today">Hôm nay</string>
     <string name="calendar_delete_confirm">Bạn có chắc chắn muốn xóa sự kiện này ?</string>
+    <string name="calendar_lunnar">Âm lịch:</string>
 
     <!-- SOTAY FRAGMENT -->
     <string name="menu_sotay_addnew">Tạo mới sổ tay</string>
@@ -152,6 +166,7 @@
     <string name="lienhe_title_phong">Phòng</string>
     <string name="lienhe_title_khoa">Khoa</string>
     <string name="lienhe_title_trungtam">Trung tâm</string>
+    <string name="lienhe_title_tochuc">Tổ chức</string>
 
     <!-- SETTING FRAGMENT -->
     <string name="setting_account">CÀI ĐẶT TÀI KHOẢN</string>
@@ -187,9 +202,33 @@
     <string name="profile_update_fail">Xảy ra lỗi, vui lòng thử lại</string>
     <string name="profile_update_success">Cập nhật thành công</string>
     <string name="profile_update_ava_success">Cập nhật ảnh đại diện thành công</string>
-    
+
     <!-- IMAGE DIALOG -->
     <string name="imagedialog_capture">Chụp ảnh</string>
     <string name="imagedialog_album">Thư viện ảnh</string>
+
+    <!-- CALENDAR DETAIL ACTIVITY -->
+    <string name="title_activity_calendar_detail">Chi tiết sự kiện</string>
+    <string name="action_delete_event">Xóa sự kiện</string>
+    <string name="calendar_detail_ok">Đồng ý</string>
+    <string name="calendar_detail_cancel">Hủy bỏ</string>
+    <string name="calendar_detail_message">Bạn có muốn xóa sự kiện này ?</string>
+    <string name="calendar_detail_del_ok">Sự kiện đã được xóa</string>
+    <string name="calendar_detail_time">Thời gian</string>
+    <string name="calendar_detail_add">Địa điểm</string>
+    <string name="calendar_detail_detail">Mô tả</string>
+
+    <!-- DIALOG ACTION DONVI -->
+    <string name="dialog_donvi_details">Danh sách cán bộ</string>
+    <string name="dialog_donvi_call">Gọi điện</string>
+    <string name="dialog_donvi_email">Gửi thư</string>
     
+    <!-- HELP ACTIVITY -->
+    <string name="title_activity_help">Trung tâm hỗ trợ</string>
+    <string name="help_version">Phiên bản: 1.0.5</string>
+    <string name="help_title_team">NHÓM PHÁT TRIỂN</string>
+    <string name="help_email_team">Email: h2p.groups@gmail.com</string>
+    <string name="help_phone_team">Liên hệ: 01646970797</string>
+    <string name="help_subject_mail">Phản hồi Sổ tay điện tử HOU</string>
+
 </resources>

@@ -19,12 +19,15 @@ import com.hou.models.GhiChu;
 import com.hou.models.SoTay;
 import com.hou.ultis.IntentUtils;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.app.AlertDialog.Builder;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.media.Ringtone;
@@ -79,14 +82,14 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	private DatePickerDialog datePickerDialog;
 	private long datePicked = 0;
 	private SoTay sotay = new SoTay();
-	String MACANBO, CURRENTTIME;
-	List<SoTay> listSotay;
+	private String MACANBO, CURRENTTIME;
+	private List<SoTay> listSotay;
 
 	private boolean isRecording = false;
 	public MediaRecorder recorder;
 	private Point screenSize;
-	boolean isSave = false;
-	TimePickerDialog timePickerDialog;
+	private boolean isNeedSave;
+	private TimePickerDialog timePickerDialog;
 	private PendingIntent pendingIntent;
 	private AlarmManager alarmManager;
 
@@ -116,35 +119,40 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		String type = getIntent().getExtras().getString("TYPE_NOTE");
 		if (type.equals("READ")) {
 			// READ NOTE FROM LIST NOTE
-
 			mNoteMode = NoteMode.READ;
 			getWindow().setSoftInputMode(
 					WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+			isNeedSave = false;
 		} else {
 			// CREATE NEW NOTE
 			getWindow().setSoftInputMode(
 					WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 			mNoteMode = NoteMode.EDIT;
 			isCreatNew = true;
+			isNeedSave = true;
 		}
 		if (getIntent().getBooleanExtra("from_alarm", false)) {
-			Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-	        if (alarmUri == null) {
-	            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-	        }
-	        final Ringtone ringtone = RingtoneManager.getRingtone(this, alarmUri);
-	        ringtone.play();
-//	        Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-//			vibrator.vibrate(3000);
-	        new Timer().schedule(new TimerTask() {
-				
+			Uri alarmUri = RingtoneManager
+					.getDefaultUri(RingtoneManager.TYPE_ALARM);
+			if (alarmUri == null) {
+				alarmUri = RingtoneManager
+						.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+			}
+			final Ringtone ringtone = RingtoneManager.getRingtone(this,
+					alarmUri);
+			ringtone.play();
+			// Vibrator vibrator =
+			// (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+			// vibrator.vibrate(3000);
+			new Timer().schedule(new TimerTask() {
+
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					ringtone.stop();
 				}
 			}, 3000);
-			
+
 		}
 		// Listview attachment
 		lvAttachment = (ListView) findViewById(R.id.lvAttachment);
@@ -175,9 +183,9 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			screenSize = new Point();
 			getWindowManager().getDefaultDisplay().getSize(screenSize);
 		}
-		
+
 		pendingIntent = setupPendingIntent();
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 	}
 
 	public static String getMimeType(String url) {
@@ -207,8 +215,10 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 				showDialogAttachment(R.layout.fragment_sotay);
 			}
 			if (listSotay.size() == 0) {
-				tvTensotay.setText("Sổ tay mới");
-				sotay = new SoTay("ST" + CURRENTTIME, "Sổ tay mới",
+				tvTensotay
+						.setText(getString(R.string.note_title_default_sotay));
+				sotay = new SoTay("ST" + CURRENTTIME,
+						getString(R.string.note_title_default_sotay),
 						Global.getCurrentDateTime(), 0, MACANBO);
 				exeQ.insert_tblSotay_single(sotay);
 			}
@@ -245,9 +255,10 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 				getAttachFileInfo(data, Const.ATTACHMENT_FILE);
 				break;
 			}
+			isNeedSave = true;
 		} else {
-			Toast.makeText(NoteActivity.this,
-					"Can't get your file, please select different file",
+			Toast.makeText(getBaseContext(),
+					getString(R.string.note_note_select_file),
 					Toast.LENGTH_LONG).show();
 		}
 	}
@@ -309,7 +320,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			});
 			break;
 		}
-
 		mDialogAttachment.show();
 	}
 
@@ -337,14 +347,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		if (!isSave) {
-			for (DinhKem dinhKem : listAttachment) {
-				if (dinhKem.getLoaifile().equals(Const.ATTACHMENT_VOICE)) {
-					File file = new File(dinhKem.getUrl());
-					file.delete();
-				}
-			}
-		}
 	}
 
 	@Override
@@ -356,8 +358,50 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		int id = item.getItemId();
 		switch (id) {
 		case android.R.id.home:
-			onBackPressed();
-			NoteActivity.this.finish();
+			if (isNeedSave) {
+				AlertDialog.Builder buider = new Builder(NoteActivity.this);
+				buider.setCancelable(true);
+				buider.setMessage(getString(R.string.note_back_confirm));
+				buider.setNegativeButton(
+						getString(R.string.calendar_detail_cancel),
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								for (DinhKem dinhKem : listAttachment) {
+									if (dinhKem.getLoaifile().equals(
+											Const.ATTACHMENT_VOICE)) {
+										File file = new File(dinhKem.getUrl());
+										file.delete();
+									}
+								}
+								dialog.dismiss();
+								onBackPressed();
+								finish();
+							}
+						});
+
+				buider.setPositiveButton(
+						getString(R.string.calendar_detail_ok),
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								dialog.dismiss();
+								createNewNote();
+								onBackPressed();
+								finish();
+							}
+						});
+
+				buider.create().show();
+			} else {
+				onBackPressed();
+				finish();
+			}
 			break;
 
 		case R.id.action_note_dinhkem:
@@ -368,38 +412,45 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		// break;
 
 		case R.id.action_note_create:
-			mNoteMode = NoteMode.READ;
-			changeMode();
-			createNewNote();
-			if (isCreatNew) {
-				isCreatNew = !isCreatNew;
+			if (createNewNote()) {
+				mNoteMode = NoteMode.READ;
+				changeMode();
+				if (isCreatNew) {
+					isCreatNew = !isCreatNew;
+				} else {
+
+				}
+				if (datePicked > Calendar.getInstance().getTimeInMillis()) {
+					alarmManager.set(AlarmManager.RTC, datePicked,
+							pendingIntent);
+				}
 			} else {
-				
+
 			}
-			isSave = true;
-			if (datePicked > Calendar.getInstance().getTimeInMillis()) {
-				alarmManager.set(AlarmManager.RTC, datePicked, pendingIntent);	
-			}			
 			break;
 
 		// case R.id.action_note_message:
 		// break;
 
 		case R.id.action_note_share:
-			String body = edtTenghichu.getText().toString() + "\n"
-					+ edtNoidung.getText().toString();
 			Intent shareIntent = new Intent();
-
 			shareIntent.setAction(Intent.ACTION_SEND);
-			shareIntent.putExtra(Intent.EXTRA_TEXT, body);
+			shareIntent.setType("*/*");
+			shareIntent.putExtra(Intent.EXTRA_SUBJECT, edtTenghichu.getText()
+					.toString());
+			shareIntent.putExtra(Intent.EXTRA_TEXT, edtNoidung.getText()
+					.toString());
+
 			ArrayList<Uri> listUri = new ArrayList<Uri>();
 			for (DinhKem dinhKem : listAttachment) {
 				Uri uri = Uri.fromFile(new File(dinhKem.getUrl()));
 				listUri.add(uri);
 			}
-			shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,
-					listUri);
-			shareIntent.setType("*/*");
+			if (listUri.size() > 0) {
+				shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,
+						listUri);
+			}
+
 			startActivity(Intent.createChooser(shareIntent, getResources()
 					.getString(R.string.title_share)));
 			break;
@@ -407,6 +458,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		case R.id.action_note_modify:
 			mNoteMode = NoteMode.EDIT;
 			changeMode();
+			isNeedSave = true;
 			break;
 
 		default:
@@ -421,7 +473,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		final int hourSelected = 0;
 		final int minuteSelected = 0;
 		final Calendar newDate = Calendar.getInstance();
-		
+
 		timePickerDialog = new TimePickerDialog(NoteActivity.this,
 				new OnTimeSetListener() {
 
@@ -430,12 +482,17 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 							int minute) {
 						// TODO Auto-generated method stub
 						newDate.set(Calendar.HOUR_OF_DAY, hour);
-						newDate.set(Calendar.MINUTE, minute);						
+						newDate.set(Calendar.MINUTE, minute);
 						datePicked = newDate.getTimeInMillis();
-						Log.d("Date Select", newDate.get(Calendar.DAY_OF_MONTH) + " " + newDate.get(Calendar.MONTH) + " " + newDate.get(Calendar.YEAR) + " " + newDate.get(Calendar.HOUR_OF_DAY) + " " + newDate.get(Calendar.MINUTE));
+						Log.d("Date Select",
+								newDate.get(Calendar.DAY_OF_MONTH) + " "
+										+ newDate.get(Calendar.MONTH) + " "
+										+ newDate.get(Calendar.YEAR) + " "
+										+ newDate.get(Calendar.HOUR_OF_DAY)
+										+ " " + newDate.get(Calendar.MINUTE));
 						Log.d("Date Select", datePicked + "");
-						Log.d("Date Select", newDate.getTime().toString());					
-						
+						Log.d("Date Select", newDate.getTime().toString());
+
 					}
 				}, newCalendar.get(Calendar.HOUR_OF_DAY),
 				newCalendar.get(Calendar.MINUTE), false);
@@ -445,7 +502,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 					public void onDateSet(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
 						newDate.set(year, monthOfYear, dayOfMonth);
-						timePickerDialog.show();						
+						timePickerDialog.show();
 					}
 
 				}, newCalendar.get(Calendar.YEAR),
@@ -453,24 +510,23 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 				newCalendar.get(Calendar.DAY_OF_MONTH));
 
 	}
-	
-	public PendingIntent setupPendingIntent(){
-    	Intent myIntent = new Intent(NoteActivity.this, AlarmReceiver.class);
-    	myIntent.putExtra("note", mGhichu);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
-        return pendingIntent;
-    }
 
-	public void createNewNote() {
-		if ((edtNoidung.toString().trim().length() <= 0)
-				&& (edtTenghichu.toString().trim().length() <= 0)) {
+	public PendingIntent setupPendingIntent() {
+		Intent myIntent = new Intent(NoteActivity.this, AlarmReceiver.class);
+		myIntent.putExtra("note", mGhichu);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
+				myIntent, 0);
+		return pendingIntent;
+	}
+
+	public boolean createNewNote() {
+		boolean actionSucces = false;
+		if ((edtNoidung.getText().toString().trim().length() <= 0)
+				&& (edtTenghichu.getText().toString().trim().length() <= 0)) {
 			Toast.makeText(getBaseContext(),
 					getResources().getString(R.string.cant_insert),
 					Toast.LENGTH_SHORT).show();
-			Intent home = new Intent(NoteActivity.this,
-					FragmentManagerActivity.class);
-			startActivity(home);
-			NoteActivity.this.finish();
+			actionSucces = false;
 		} else {
 			// Insert
 			int dinhkem = listAttachment.size();
@@ -482,7 +538,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			int trangthai = 0;
 			int bookmark = 0;
 			String maSotay = sotay.getMaSoTay();
-			
+
 			mGhichu.setTenGhiChu(tenGhichu);
 			mGhichu.setNgaytao(ngaytao);
 			mGhichu.setNoidung(noidung);
@@ -492,20 +548,45 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			mGhichu.setNgaythuchien(ngaythuchien);
 			mGhichu.setBookmark(bookmark);
 			mGhichu.setMaSotay(maSotay);
-			
+
 			if (isCreatNew) {
 				mGhichu.setMaGhiChu("NT" + CURRENTTIME);
 				mGhichu.setNgaytao(ngaytao);
-				if (exeQ.insert_tblGhichu_single(mGhichu)) {
+				if (sotay.getMaSoTay() != null
+						&& !sotay.getMaSoTay().equals("")) {
+					if (exeQ.insert_tblGhichu_single(mGhichu)) {
+						Toast.makeText(
+								getBaseContext(),
+								getResources().getString(
+										R.string.save_sucessful),
+								Toast.LENGTH_SHORT).show();
+						exeQ.update_tblSotay_soGhichu(mGhichu.getMaSotay(),
+								true);
+						isNeedSave = false;
+						actionSucces = true;
+					} else {
+						actionSucces = false;
+						Toast.makeText(getBaseContext(),
+								getString(R.string.note_err_createnew),
+								Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					actionSucces = false;
 					Toast.makeText(getBaseContext(),
-							getResources().getString(R.string.save_sucessful),
+							getResources().getString(R.string.note_no_sotay),
 							Toast.LENGTH_SHORT).show();
-					exeQ.update_tblSotay_soGhichu(mGhichu.getMaSotay(), true);
 				}
 			} else {
 				if (exeQ.update_tblGhichu(mGhichu)) {
 					Toast.makeText(getBaseContext(),
 							getResources().getString(R.string.save_sucessful),
+							Toast.LENGTH_SHORT).show();
+					isNeedSave = false;
+					actionSucces = true;
+				} else {
+					actionSucces = false;
+					Toast.makeText(getBaseContext(),
+							getString(R.string.note_err_createnew),
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -521,6 +602,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 				}
 			}
 		}
+		return actionSucces;
 	}
 
 	private enum NoteMode {
@@ -608,7 +690,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 		public void initView() {
 			tvTimeCounter = (TextView) findViewById(R.id.tvTimeCounter);
 			ivRecording = (ImageView) findViewById(R.id.ivRecording);
-
 			ivRecording.setOnClickListener(this);
 		}
 
@@ -674,7 +755,6 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			@Override
 			public void onFinish() {
 				// TODO Auto-generated method stub
-
 			}
 		}
 	}

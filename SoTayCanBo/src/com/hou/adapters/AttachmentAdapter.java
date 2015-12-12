@@ -76,15 +76,18 @@ public class AttachmentAdapter extends ArrayAdapter<DinhKem> {
 				AlertDialog.Builder buider = new Builder(context);
 				buider.setMessage(context
 						.getString(R.string.remove_attach_confirm));
-				buider.setNegativeButton("Cancel", new OnClickListener() {
+				buider.setNegativeButton(
+						context.getString(R.string.calendar_detail_cancel),
+						new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-					}
-				});
-				buider.setNeutralButton("OK", new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								dialog.dismiss();
+							}
+						});
+				buider.setNeutralButton(context.getString(R.string.calendar_detail_ok), new OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -101,8 +104,6 @@ public class AttachmentAdapter extends ArrayAdapter<DinhKem> {
 
 							@Override
 							public void onAnimationEnd(Animation animation) {
-								// adapter.pointItems.remove(position);
-								// adapter.notifyDataSetChanged();
 								remove(listAttachment.get(position));
 							}
 
@@ -113,7 +114,6 @@ public class AttachmentAdapter extends ArrayAdapter<DinhKem> {
 						});
 
 						rowView.startAnimation(fadeOut);
-						// remove(listAttachment.get(position));
 					}
 				});
 				buider.create().show();

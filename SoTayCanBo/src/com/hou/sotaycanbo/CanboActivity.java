@@ -28,7 +28,7 @@ public class CanboActivity extends ActionBarActivity {
 
 	private CircularImageView imgAvatar;
 	private TextView tvTenCanbo, tvTenDonvi;
-	private EditText edtFullname, edtSdt, edtEmail, edtDiachi;
+	private EditText edtChucvu, edtSdt, edtEmail, edtDiachi;
 
 	private ExecuteQuery exeQ;
 
@@ -47,7 +47,7 @@ public class CanboActivity extends ActionBarActivity {
 		imgAvatar = (CircularImageView) findViewById(R.id.imgAvatar);
 		tvTenCanbo = (TextView) findViewById(R.id.tvUserName);
 		tvTenDonvi = (TextView) findViewById(R.id.tvDonvi);
-		edtFullname = (EditText) findViewById(R.id.edtFullName);
+		edtChucvu = (EditText) findViewById(R.id.edtChucvu);
 		edtSdt = (EditText) findViewById(R.id.edtSdt);
 		edtEmail = (EditText) findViewById(R.id.edtEmail);
 		edtDiachi = (EditText) findViewById(R.id.edtDiachi);
@@ -78,11 +78,13 @@ public class CanboActivity extends ActionBarActivity {
 				String email = edtEmail.getText().toString().trim();
 				if (email.length() > 0) {
 					if (Global.hasNetworkConnection(getApplicationContext())) {
-						Intent intent = new Intent(Intent.ACTION_SEND);
-						intent.setType("text/html");
-						intent.putExtra(Intent.EXTRA_EMAIL, email);
-						startActivity(Intent.createChooser(intent,
-								getString(R.string.title_share)));
+						Intent gmail = new Intent(Intent.ACTION_VIEW);
+						gmail.setClassName("com.google.android.gm",
+								"com.google.android.gm.ComposeActivityGmail");
+						gmail.putExtra(Intent.EXTRA_EMAIL,
+								new String[] { email });
+						gmail.setType("plain/text");
+						startActivity(gmail);
 					} else {
 						Toast.makeText(getBaseContext(),
 								getString(R.string.no_internet),
@@ -94,13 +96,33 @@ public class CanboActivity extends ActionBarActivity {
 	}
 
 	private void initData() {
-		String tenDv = exeQ.getTendonviByMadonvi(mCanbo.getMaDonvi());
+		String tenDv = exeQ.getTenDonviByMaCanbo(mCanbo.getMaCanbo());
 		tvTenCanbo.setText(mCanbo.getTenCanbo().toString());
 		tvTenDonvi.setText(tenDv);
-		edtFullname.setText(mCanbo.getTenCanbo().toString());
-		edtSdt.setText(mCanbo.getSdt().toString());
-		edtEmail.setText(mCanbo.getEmail().toString());
-		edtDiachi.setText(mCanbo.getDiachi().toString());
+		String tenChucvu = exeQ.getChucvuByMaCanbo(mCanbo.getMaCanbo());
+		edtChucvu.setText(tenChucvu);
+
+		String sdt = mCanbo.getSdt().toString().trim();
+		if (sdt != null && !sdt.equals("null")) {
+			edtSdt.setText(sdt);
+		} else {
+			edtSdt.setText("");
+		}
+
+		String email = mCanbo.getEmail().toString().trim();
+		if (email != null && !email.equals("null")) {
+			edtEmail.setText(email);
+		} else {
+			edtEmail.setText("");
+		}
+
+		String diachi = mCanbo.getDiachi().toString().trim();
+		if (diachi != null && !diachi.equals("null")) {
+			edtDiachi.setText(diachi);
+		} else {
+			edtDiachi.setText("");
+		}
+
 		String urlAvatar = mCanbo.getAvatar();
 		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(urlAvatar));
 		if (f != null) {

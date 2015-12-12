@@ -3,68 +3,6 @@ package com.hou.database_handler;
 public class ColumnName {
 	
 	/*
-	 * dm_chucvu
-	 */
-	public static String DMCHUCVU_TABLE = "dm_chucvu";
-	public static String DMCHUCVU_MADMCHUCVU = "maDmChucvu";
-	public static String DMCHUCVU_TENDMCHUCVU = "tenChucvu";
-	public static String DMCHUCVU_GHICHU = "ghichu";
-
-	/*
-	 * dm_laplai
-	 */
-	public static String DMLAPLAI_TABLE = "dm_laplai";
-	public static String DMLAPLAI_MALAPLAI = "maLaplai";
-	public static String DMLAPLAI_TENLAPLAI = "tenLaplai";
-	public static String DMLAPLAI_THOIGIAN = "thoigian";
-
-	/*
-	 * dm_loaidienthoai
-	 */
-	public static String DMLOAIDIENTHOAI_TABLE = "dm_loaidienthoai";
-	public static String DMLOAIDIENTHOAI_MALOAIDIENTHOAI = "maLoaidienthoai";
-	public static String DMLOAIDIENTHOAI_TENLOAIDIENTHOAI = "tenLoaidienthoai";
-
-	/*
-	 * dm_loinhac
-	 */
-	public static String DMLOINHAC_TABLE = "dm_loinhac";
-	public static String DMLOINHAC_MALOINHAC = "maLoinhac";
-	public static String DMLOINHAC_TENLOINHAC = "tenLoinhac";
-	public static String DMLOINHAC_THOIGIAN = "thoigian";
-
-	/*
-	 * dm_nganh
-	 */
-	public static String DMNGANH_TABLE = "dm_nganh";
-	public static String DMNGANH_MANGANH = "maNganh";
-	public static String DMNGANH_TENNGANH = "tenNganh";
-	public static String DMNGANH_MANHOMNGANH = "maNhomnganh ";
-	
-	/*
-	 * dm_nganhang
-	 */
-	public static String DMNGANHANG_TABLE = "dm_nganhang";
-	public static String DMNGANHANG_MANGANHANG = "maNganhang";
-	public static String DMNGANHANG_TENNGANHANG = "tenNganhang";
-	public static String DMNGANHANG_DIACHI = "diachi";
-
-	/*
-	 * dm_nhomdonvi
-	 */
-	public static String DMNHOMDONVI_TABLE = "dm_nhomdonvi";
-	public static String DMNHOMDONVI_MANHOMDONVI = "maNhomdonvi";
-	public static String DMNHOMDONVI_TENNHOMDONVI = "tenNhomdonvi";
-	public static String DMNHOMDONVI_GHICHU = "ghichu";
-	
-	/*
-	 * dm_nhomnganh
-	 */
-	public static String DMNHOMNGANH_TABLE = "dm_nhomnganh";
-	public static String DMNHOMNGANH_MANHOMNGANH = "maNhomnganh";
-	public static String DMNHOMNGANH_TENNHOMNGANH = "tenNhomnganh";
-	
-	/*
 	 * tbl_canbo
 	 */
 	public static String CANBO_TABLE = "tbl_canbo";
@@ -77,25 +15,17 @@ public class ColumnName {
 	public static String CANBO_HOCHAM = "hocham";
 	public static String CANBO_HOCVI = "hocvi";
 	public static String CANBO_AVATAR = "avatar";
-	public static String CANBO_MADONVI = "maDonvi";
+	public static String CANBO_TENCHUCVU = "tenChucvu";
+	public static String CANBO_UUTIEN = "mucdouutien";
 	
 	/*
 	 * tbl_chucvu_donvi
 	 */
-	public static String CHUCVU_DONVI_TABLE = "tbl_chucvu_donvi";
-	public static String CHUCVU_DONVI_MACHUCVUDONVI = "maChucvu_Donv";
+	public static String CHUCVU_DONVI_TABLE = "tbl_chucvu_canbo";
 	public static String CHUCVU_DONVI_MACANBO = "maCanbo";
 	public static String CHUCVU_DONVI_MADONVI = "maDonvi";
-	public static String CHUCVU_DONVI_MADMCHUVU = "maDmChuvu";
-	
-	/*
-	 * tbl_dienthoai
-	 */
-	public static String DIENTHOAI_TABLE = "tbl_dienthoai";
-	public static String DIENTHOAI_MADIENTHOAI = "maDienthoai";
-	public static String DIENTHOAI_SODIENTHOAI = "soDienthoai";
-	public static String DIENTHOAI_MALOAIDIENTHOAI = "maLoaidienthoai";
-	public static String DIENTHOAI_MACANBO = "maCanbo";
+	public static String CHUCVU_DONVI_TENCHUCVU = "tenChucvu";
+	public static String CHUCVU_DONVI_UUTIEN = "uutien";
 	
 	/*
 	 * tbl_dinhkem
@@ -133,6 +63,7 @@ public class ColumnName {
 	public static String EVENT_NGAYEVENT = "ngay_event";
 	public static String EVENT_MACANBO = "maCanbo";
 	public static String EVENT_MOTA = "mota";
+	public static String EVENT_MASUKIENTUAN = "maSukienTuan";
 		
 	/*
 	 * tbl_ghichu
@@ -148,21 +79,6 @@ public class ColumnName {
 	public static String GHICHU_NGAYTHUCHIEN = "ngaythuchien";
 	public static String GHICHU_BOOKMARK = "bookmark";
 	public static String GHICHU_MASOTAY = "maSotay";
-	
-	/*
-	 * tbl_group
-	 */
-	public static String GROUP_TABLE = "tbl_group";
-	public static String GROUP_MAGROUP = "maGroup";
-	public static String GROUP_TENGROUP = "tenGroup";
-	public static String GROUP_MACANBO_ADMIN = "maCanbo_admin";
-	
-	/*
-	 * tbl_group_cb
-	 */
-	public static String GROUP_CB_TABLE = "tbl_group_cb";
-	public static String GROUP_CB_MAGROUP = "maGroup";
-	public static String GROUP_CB_MACANBO = "maCanbo";
 	
 	/*
 	 * tbl_sotay
@@ -191,13 +107,5 @@ public class ColumnName {
 	public static String SUKIEN_TUAN_GHICHU = "ghichu";
 	public static String SUKIEN_TUAN_NOIDUNG = "noidung";
 	
-	/*
-	 * tbl_tknganhang
-	 */
-	public static String TKNGANHANG_TABLE = "tbl_tknganhang";
-	public static String TKNGANHANG_MATAIKHOAN = "maTaikhoan";
-	public static String TKNGANHANG_SOTAIKHOAN = "soTaikhoan";
-	public static String TKNGANHANG_MACANBO = "maCanbo";
-	public static String TKNGANHANG_MANGANHANG = "maNganhang";
 	
 }

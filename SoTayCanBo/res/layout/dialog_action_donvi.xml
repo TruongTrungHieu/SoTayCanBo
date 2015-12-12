@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/radius_view"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvDonviDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:text="@string/dialog_donvi_details"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/vOldPasswordLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada" />
+
+    <TextView
+        android:id="@+id/tvDonviCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/dialog_donvi_call"
+        android:textSize="15sp" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada" />
+
+    <TextView
+        android:id="@+id/tvDonviEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/dialog_donvi_email"
+        android:textSize="15sp" />
+
+</LinearLayout>
