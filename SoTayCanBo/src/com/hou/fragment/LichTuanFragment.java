@@ -14,16 +14,16 @@ import com.hou.sotaycanbo.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.Toast;
 
 public class LichTuanFragment extends Fragment {
 	private ArrayList<SuKien> listLichtuan;
 	private ArrayList<DayNumberOfContents> parentItems;
-	private ArrayList<Object> childItems;
 	private ArrayList<SuKien> child2s;
 	private ArrayList<SuKien> child3s;
 	private ArrayList<SuKien> child4s;
@@ -58,41 +58,30 @@ public class LichTuanFragment extends Fragment {
 		} else {
 			posOpened = 6;
 		}
-
 	}
 
 	public void setGroupParents() {
 		DayNumberOfContents day2 = new DayNumberOfContents(
-				getString(R.string.Mon), child2s.size());
+				getString(R.string.Mon), child2s);
 		parentItems.add(day2);
 		DayNumberOfContents day3 = new DayNumberOfContents(
-				getString(R.string.Tue), child3s.size());
+				getString(R.string.Tue), child3s);
 		parentItems.add(day3);
 		DayNumberOfContents day4 = new DayNumberOfContents(
-				getString(R.string.Wed), child4s.size());
+				getString(R.string.Wed), child4s);
 		parentItems.add(day4);
 		DayNumberOfContents day5 = new DayNumberOfContents(
-				getString(R.string.Thus), child5s.size());
+				getString(R.string.Thus), child5s);
 		parentItems.add(day5);
 		DayNumberOfContents day6 = new DayNumberOfContents(
-				getString(R.string.Fri), child6s.size());
+				getString(R.string.Fri), child6s);
 		parentItems.add(day6);
 		DayNumberOfContents day7 = new DayNumberOfContents(
-				getString(R.string.Sat), child7s.size());
+				getString(R.string.Sat), child7s);
 		parentItems.add(day7);
 		DayNumberOfContents day8 = new DayNumberOfContents(
-				getString(R.string.Sun), child8s.size());
+				getString(R.string.Sun), child8s);
 		parentItems.add(day8);
-	}
-
-	public void setChildData() {
-		childItems.add(child2s);
-		childItems.add(child3s);
-		childItems.add(child4s);
-		childItems.add(child5s);
-		childItems.add(child6s);
-		childItems.add(child7s);
-		childItems.add(child8s);
 	}
 
 	private void phanListCv(SuKien sk) {
@@ -136,7 +125,6 @@ public class LichTuanFragment extends Fragment {
 		listLichtuan = exeQ.getAllSukienTuan();
 
 		parentItems = new ArrayList<DayNumberOfContents>();
-		childItems = new ArrayList<Object>();
 		child2s = new ArrayList<SuKien>();
 		child3s = new ArrayList<SuKien>();
 		child4s = new ArrayList<SuKien>();
@@ -154,26 +142,38 @@ public class LichTuanFragment extends Fragment {
 		}
 
 		setGroupParents();
-		setChildData();
 
-		adapter = new LichNgayAdapter(parentItems, childItems);
+		adapter = new LichNgayAdapter(getActivity().getApplicationContext(),
+				parentItems);
 		adapter.setInflater(inflater, getActivity());
 		expandableList.setAdapter(adapter);
 		expandableList.expandGroup(posOpened, true);
 
-	
-		expandableList.setOnChildClickListener(new OnChildClickListener() {
-			
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				Toast.makeText(getActivity(), "Group " + groupPosition + "Child " + childPosition, Toast.LENGTH_SHORT).show();
-				
-				return false;
-			}
-		});
-		
 		return view;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		inflater.inflate(R.menu.fragment_lichtuan, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		int id = item.getItemId();
+		switch (id) {
+		case R.id.action_lichtuan_collapse:
+			int count = adapter.getGroupCount();
+			for (int i = 0; i < count; ++i) {
+				expandableList.collapseGroup(i);
+			}
+			expandableList.expandGroup(posOpened, true);
+			break;
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

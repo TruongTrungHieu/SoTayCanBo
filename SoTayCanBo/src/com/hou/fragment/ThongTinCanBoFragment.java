@@ -312,13 +312,13 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			File f = new File(ImageUltiFunctions.getRealPathFromURI(Global.getURI(fileName), getActivity()));
-			if (f != null) {
-				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
-						500, 500);
-				imgAvatar.setImageBitmap(b);
-			}
-
+//			File f = new File(ImageUltiFunctions.getRealPathFromURI(Global.getURI(fileName), getActivity()));
+//			if (f != null) {
+//				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
+//						500, 500);
+//				imgAvatar.setImageBitmap(b);
+//			}
+			initData();
 		}
 	}
 
@@ -417,6 +417,8 @@ public class ThongTinCanBoFragment extends Fragment implements OnClickListener {
 								Toast.LENGTH_LONG).show();
 						Global.savePreference(getActivity(), Const.USER_ANH,
 								fileName(fromCameraFile));
+//						String manv = Global.getPreference(getActivity(), Const.USER_MACANBO);
+//						Global.savePreference(getActivity(), Const.USER_ANH, manv + ".jpg");
 						((FragmentManagerActivity)getActivity()).getAccount().setPhoto(bm);
 					}
 

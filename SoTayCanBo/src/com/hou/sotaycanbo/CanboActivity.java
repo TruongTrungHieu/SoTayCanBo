@@ -125,11 +125,10 @@ public class CanboActivity extends ActionBarActivity {
 
 		String urlAvatar = mCanbo.getAvatar();
 		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(urlAvatar));
-		if (f != null) {
+		if (f != null && !urlAvatar.equals("")) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
 			imgAvatar.setImageBitmap(b);
-
 		} else {
 			imgAvatar.setImageResource(R.drawable.test1);
 			if (Global.hasNetworkConnection(getApplicationContext())) {
@@ -165,13 +164,12 @@ public class CanboActivity extends ActionBarActivity {
 		protected void onPostExecute(Void result) {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
-			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(mCanbo
-					.getAvatar()));
-			if (f != null) {
+			String urlAvatar = mCanbo.getAvatar();
+			File f = ImageUltiFunctions.getFileFromUri(Global.getURI(urlAvatar));
+			if (f != null && !urlAvatar.equals("")) {
 				Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f,
 						500, 500);
 				imgAvatar.setImageBitmap(b);
-
 			} else {
 				imgAvatar.setImageResource(R.drawable.test1);
 			}

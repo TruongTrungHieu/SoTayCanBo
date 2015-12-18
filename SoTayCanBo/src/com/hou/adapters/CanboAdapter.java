@@ -98,7 +98,7 @@ public class CanboAdapter extends ArrayAdapter<CanBo> {
 		
 		File f = ImageUltiFunctions
 				.getFileFromUri(Global.getURI(cb.getAvatar()));
-		if (f != null) {
+		if (f != null && !cb.getAvatar().equals("")) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 300,
 					300);
 			ava.setImageBitmap(b);

@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,36 +24,56 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@SuppressLint("InflateParams")
 public class LichNgayAdapter extends BaseExpandableListAdapter {
 
-	private Activity activity;
-	private ArrayList<Object> childtems;
+	private Context mContext;
 	private LayoutInflater inflater;
-	private ArrayList<DayNumberOfContents> parentItems;
-	private ArrayList<SuKien> child;
+	private ArrayList<DayNumberOfContents> listParent;
 	private ExecuteQuery exeQ;
 
-	public LichNgayAdapter(ArrayList<DayNumberOfContents> parents,
-			ArrayList<Object> childern) {
-		this.parentItems = parents;
-		this.childtems = childern;
+	public LichNgayAdapter(Context context,
+			ArrayList<DayNumberOfContents> listParent) {
+		this.mContext = context;
+		this.listParent = listParent;
 	}
 
-	public void setInflater(LayoutInflater inflater, Activity activity) {
+	public void setInflater(LayoutInflater inflater, Context context) {
 		this.inflater = inflater;
-		this.activity = activity;
-		exeQ = new ExecuteQuery(activity);
+		this.mContext = context;
+		exeQ = new ExecuteQuery(context);
 		exeQ.createDatabase();
 		exeQ.open();
 	}
 
-	@SuppressWarnings("unchecked")
-	@SuppressLint("InflateParams")
+	/*
+	 *	Child
+	 */
+
+	@Override
+	public Object getChild(int groupPosition, int childPosition) {
+		ArrayList<SuKien> listChild = listParent.get(groupPosition)
+				.getListChild();
+		return listChild.get(childPosition);
+	}
+
+	@Override
+	public long getChildId(int groupPosition, int childPosition) {
+		return childPosition;
+	}
+
+	@Override
+	public int getChildrenCount(int groupPosition) {
+		ArrayList<SuKien> listChild = listParent.get(groupPosition)
+				.getListChild();
+		return listChild.size();
+	}
+
 	@Override
 	public View getChildView(int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 
-		child = (ArrayList<SuKien>) childtems.get(groupPosition);
+		final SuKien sk = (SuKien) getChild(groupPosition, childPosition);
 
 		TextView tvName, tvTime;
 		ImageView ivBuoi = null;
@@ -62,37 +83,35 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		}
 
 		tvName = (TextView) convertView.findViewById(R.id.sukienTitle);
-		tvName.setText(child.get(childPosition).getTenSukien());
+		tvName.setText(sk.getTenSukien().trim());
 		tvTime = (TextView) convertView.findViewById(R.id.sukienTime);
-		tvTime.setText(child.get(childPosition).getThoigianbatdau());
+		tvTime.setText(sk.getThoigianbatdau().trim());
 		ivBuoi = (ImageView) convertView.findViewById(R.id.ivBuoi);
 
-		String thoigian = child.get(childPosition).getThoigianbatdau()
-				.toString().trim();
+		String thoigian = sk.getThoigianbatdau().toString().trim();
 		if (thoigian.compareToIgnoreCase("12:00") < 0) {
 			ivBuoi.setBackgroundResource(R.drawable.ic_morning);
 		} else {
 			ivBuoi.setBackgroundResource(R.drawable.ic_afternoon);
 		}
 
-//		convertView.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View view) {
-//				sukienDetailDialog(activity, child.get(childPosition));
-//			}
-//		});
+		convertView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				sukienDetailDialog(mContext, sk);
+			}
+		});
 
 		return convertView;
 	}
 
 	@SuppressLint("InflateParams")
-	public void sukienDetailDialog(final Context c, SuKien sk) {
-		LayoutInflater inflater = this.activity.getLayoutInflater();
+	public void sukienDetailDialog(final Context c, SuKien skd) {
 		View alertLayout = inflater.inflate(R.layout.dialog_chitiet_sukien,
 				null);
 
-		AlertDialog.Builder alert = new AlertDialog.Builder(this.activity);
+		AlertDialog.Builder alert = new AlertDialog.Builder(c);
 		alert.setView(alertLayout);
 		final AlertDialog dialog = alert.create();
 
@@ -106,13 +125,13 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		tvNoidung = (TextView) alertLayout.findViewById(R.id.tvNoidung);
 
 		// ten su kien
-		tvTensukien.setText(sk.getTenSukien());
+		tvTensukien.setText(skd.getTenSukien());
 		// thoi gian
-		tvThoigian.setText(sk.getThoigianbatdau() + " - " + sk.getNgay());
+		tvThoigian.setText(skd.getThoigianbatdau() + " - " + skd.getNgay());
 		// dia diem
-		String phong = sk.getPhong().trim();
-		String diadiem = sk.getDiadiem().trim();
-		if (phong.equals(activity.getString(R.string.compare_khong))) {
+		String phong = skd.getPhong().trim();
+		String diadiem = skd.getDiadiem().trim();
+		if (phong.equals(mContext.getString(R.string.compare_khong))) {
 			phong = "";
 		}
 		if (!phong.equalsIgnoreCase("")) {
@@ -121,7 +140,7 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 			tvDiadiem.setText(diadiem);
 		}
 		// thanh phan tham gia
-		String[] tpThamgia = sk.getTp_thamgia().split("##");
+		String[] tpThamgia = skd.getTp_thamgia().split("##");
 		String chinh = "";
 		String phu = "";
 		if (tpThamgia.length == 1) {
@@ -130,8 +149,10 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		if (tpThamgia.length == 2) {
 			phu = tpThamgia[1];
 		}
-		if (chinh.equals(activity.getString(R.string.compare_khong)) || chinh.length() == 0) {
-			if (phu.equals(activity.getString(R.string.compare_khong)) || phu.length() == 0) {
+		if (chinh.equals(mContext.getString(R.string.compare_khong))
+				|| chinh.length() == 0) {
+			if (phu.equals(mContext.getString(R.string.compare_khong))
+					|| phu.length() == 0) {
 				tvThanhphan.setText("");
 			} else {
 				tvThanhphan.setText(phu);
@@ -139,7 +160,8 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 			tvThanhphan_khac.setText("");
 		} else {
 			tvThanhphan.setText(chinh);
-			if (phu.equals(activity.getString(R.string.compare_khong)) || phu.length() == 0) {
+			if (phu.equals(mContext.getString(R.string.compare_khong))
+					|| phu.length() == 0) {
 				tvThanhphan_khac.setText("");
 			} else {
 				tvThanhphan_khac.setText(phu);
@@ -147,17 +169,17 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		}
 
 		// noi dung
-		tvNoidung.setText(sk.getNoidung());
+		tvNoidung.setText(skd.getNoidung());
 
 		final ImageView btnAddEvent = (ImageView) alertLayout
 				.findViewById(R.id.btnAddEvent);
-		final SuKien sukienTuan = sk;
+		final SuKien sukienTuan = skd;
 		btnAddEvent.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Event e = new Event();
-				e.setMaEvent(Global.getMaCanBo(activity) + "_E_"
+				e.setMaEvent(Global.getMaCanBo((Activity) mContext) + "_E_"
 						+ Global.getCurrentDateTime());
 				e.setTenEvent(sukienTuan.getTenSukien());
 				e.setDiadiem(sukienTuan.getDiadiem() + " - "
@@ -166,17 +188,19 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 				e.setMaLaplai("");
 				e.setMaLoinhac("0");
 				e.setNgay_event(sukienTuan.getNgay());
-				e.setMaCanbo(Global.getMaCanBo(activity));
+				e.setMaCanbo(Global.getMaCanBo((Activity) mContext));
 				e.setMota(sukienTuan.getNoidung());
 				e.setMaSukientuan(sukienTuan.getMaSukien());
 
 				if (exeQ.insert_tblEvent_from_lichtuan(e)) {
 					Toast.makeText(
-							activity.getBaseContext(),
-							activity.getString(R.string.dialog_lichtuan_insert_success),
+							((ContextWrapper) mContext).getBaseContext(),
+							mContext.getString(R.string.dialog_lichtuan_insert_success),
 							Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(activity.getBaseContext(), "Tavhj",
+					Toast.makeText(
+							((ContextWrapper) mContext).getBaseContext(),
+							mContext.getString(R.string.dialog_lichtuan_insert_false),
 							Toast.LENGTH_LONG).show();
 				}
 			}
@@ -195,49 +219,33 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 		dialog.show();
 	}
 
-	@SuppressLint("InflateParams")
-	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded,
-			View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.day_group_layout, null);
-		}
-
-		TextView tvName = (TextView) convertView.findViewById(R.id.dayName);
-		tvName.setText("" + parentItems.get(groupPosition).getDayname());
-
-		TextView tvNumber = (TextView) convertView
-				.findViewById(R.id.numberOfContents);
-		tvNumber.setText("(" + parentItems.get(groupPosition).getNumber() + ")");
-
-		return convertView;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object getChild(int groupPosition, int childPosition) {
-		return ((ArrayList<SuKien>)childtems.get(groupPosition)).get(childPosition);
-	}
-
-	@Override
-	public long getChildId(int groupPosition, int childPosition) {
-		return childPosition;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public int getChildrenCount(int groupPosition) {
-		return ((ArrayList<String>) childtems.get(groupPosition)).size();
-	}
+	/*
+	 * Parent
+	 */
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		return parentItems.get(groupPosition);
+		return listParent.get(groupPosition);
 	}
 
 	@Override
 	public int getGroupCount() {
-		return parentItems.size();
+		return listParent.size();
+	}
+
+	@Override
+	public long getGroupId(int groupPosition) {
+		return groupPosition;
+	}
+
+	@Override
+	public boolean hasStableIds() {
+		return true;
+	}
+
+	@Override
+	public boolean isChildSelectable(int groupPosition, int childPosition) {
+		return true;
 	}
 
 	@Override
@@ -251,18 +259,23 @@ public class LichNgayAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public long getGroupId(int groupPosition) {
-		return groupPosition;
-	}
+	public View getGroupView(int groupPosition, boolean isExpanded,
+			View convertView, ViewGroup parent) {
 
-	@Override
-	public boolean hasStableIds() {
-		return false;
-	}
+		DayNumberOfContents parentItem = (DayNumberOfContents) getGroup(groupPosition);
 
-	@Override
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return false;
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.day_group_layout, null);
+		}
+
+		TextView tvName = (TextView) convertView.findViewById(R.id.dayName);
+		tvName.setText(parentItem.getDayname());
+
+		TextView tvNumber = (TextView) convertView
+				.findViewById(R.id.numberOfContents);
+		tvNumber.setText("(" + parentItem.getNumber() + ")");
+
+		return convertView;
 	}
 
 }

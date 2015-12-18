@@ -78,7 +78,7 @@ public class FragmentManagerActivity extends MaterialNavigationDrawer<Object>
 		String anh = Global.getPreference(getApplicationContext(),
 				Const.USER_ANH);
 		File f = ImageUltiFunctions.getFileFromUri(Global.getURI(anh));
-		if (f != null) {
+		if (f != null && !anh.equals("")) {
 			Bitmap b = ImageUltiFunctions.decodeSampledBitmapFromFile(f, 500,
 					500);
 			account = new MaterialAccount(this.getResources(), tenCanbo,

@@ -1,8 +1,20 @@
 package com.hou.models;
 
+import java.util.ArrayList;
+
 public class DayNumberOfContents {
+	
 	private String Dayname;
 	private int number;
+	private ArrayList<SuKien> listChild = new ArrayList<SuKien>();
+
+	public ArrayList<SuKien> getListChild() {
+		return listChild;
+	}
+
+	public void setListChild(ArrayList<SuKien> listChild) {
+		this.listChild = listChild;
+	}
 
 	public String getDayname() {
 		return Dayname;
@@ -23,9 +35,10 @@ public class DayNumberOfContents {
 	public DayNumberOfContents() {
 	}
 
-	public DayNumberOfContents(String day, int num) {
+	public DayNumberOfContents(String day, ArrayList<SuKien> listChild) {
 		this.Dayname = day;
-		this.number = num;
+		this.number = listChild.size();
+		this.listChild = listChild;
 	}
 
 }

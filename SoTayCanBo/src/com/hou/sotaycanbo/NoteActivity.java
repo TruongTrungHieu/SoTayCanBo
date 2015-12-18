@@ -230,7 +230,7 @@ public class NoteActivity extends ActionBarActivity implements OnClickListener {
 			break;
 
 		case R.id.tvDialog_file:
-			showIntentGetContent("file", REQUESTCODE_PICK_FILE);
+			showIntentGetContent("*", REQUESTCODE_PICK_FILE);
 			mDialogAttachment.dismiss();
 			break;
 

@@ -124,7 +124,10 @@
     <string name="dialog_lichtuan_ghichu">Ghi chú:</string>
     <string name="dialog_lichtuan_noidung">Nội dung:</string>
     <string name="dialog_lichtuan_insert_success">Đã lưu sự kiện vào lịch cá nhân</string>
+    <string name="dialog_lichtuan_insert_false">Vui lòng thử lại sau</string>
+    <string name="menu_lichtuan_collapse">Thu gọn</string>
 
+    
     <!-- DIALOG SOTAY FRAGMENT - ADD NEW SOTAY -->
     <string name="dialog_sotay_addnew_title">Sổ tay mới</string>
     <string name="dialog_sotay_addnew_cancel">HỦY BỎ</string>

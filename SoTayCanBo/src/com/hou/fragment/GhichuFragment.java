@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class GhichuFragment extends Fragment {
 
@@ -100,8 +99,7 @@ public class GhichuFragment extends Fragment {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Toast.makeText(getActivity(), "Long Item click",
-						Toast.LENGTH_SHORT).show();
+				// TODO
 				return false;
 			}
 		});

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item
+        android:id="@+id/action_lichtuan_collapse"
+        android:icon="@drawable/ic_collapse"
+        android:title="@string/menu_lichtuan_collapse"
+        app:showAsAction="always"/>
+    
+</menu>

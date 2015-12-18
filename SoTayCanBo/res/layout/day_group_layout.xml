@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="70"
-            android:text="day"
             android:textSize="18dp" />
 
         <LinearLayout
@@ -41,8 +40,7 @@
                 android:id="@+id/numberOfContents"
                 android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="3"/>
+                android:layout_width="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>
